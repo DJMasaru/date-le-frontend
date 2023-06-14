@@ -1,8 +1,9 @@
 import { Button } from "@chakra-ui/react";
+import Link from "next/link";
 
-function Register() {
+const Register = () => {
     return (
-        <div>
+        <Link href="/register">
             <Button
                 background={"blue.300"}
                 color="white"
@@ -10,7 +11,7 @@ function Register() {
             >
                 新規登録
             </Button>
-        </div>
+        </Link>
     );
 }
 

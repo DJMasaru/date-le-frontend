@@ -1,6 +1,6 @@
 import { Button } from "@chakra-ui/react";
 import axios from "axios";
-import {router} from "next/client";
+import {useRouter} from "next/router";
 
 axios.defaults.baseURL = 'http://localhost:8000';
 
@@ -10,7 +10,7 @@ interface LoginButtonProps {
 }
 
 const LoginBtn = (props: LoginButtonProps) => {
-
+    const router = useRouter();
     const handleLogin =async()=>{
         try {
             const response = await axios.post('/api/login', {
