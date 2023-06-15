@@ -47,9 +47,7 @@ const ConfirmPage =()=>{
                 </Flex>
             </ChakraProvider>
         </div>
-
     )
-
 }
 
 export default ConfirmPage;

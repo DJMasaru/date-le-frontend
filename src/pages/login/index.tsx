@@ -5,7 +5,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { Input,Stack,Flex,Box } from '@chakra-ui/react';
 import {useState} from "react";
 import {ChangeEvent} from "react";
-
+import theme from '../../theme';
 const LoginPage =()=> {
     const [email, setEmail] = useState<string>(""); // ログインIDのstate
     const [password, setPassword] = useState<string>(""); // パスワードのstate
@@ -20,7 +20,7 @@ const LoginPage =()=> {
 
     return (
         <div>
-            <ChakraProvider>
+            <ChakraProvider theme={theme}>
                 <Flex
                     flexDirection="column"
                     alignItems="center"

@@ -19,7 +19,13 @@ const RegisterCompleteButton=( props: RegisterCompleteProps)=>{
                 email: props.email, // ログインIDをAPIに渡す
                 password: props.password, // パスワードをAPIに渡す
             }); // ログイン成功時の処理
-            await router.push('/register/complete');
+            await router.push({
+                pathname: '/register/complete',
+                query: {
+                    email: props.email,
+                    password: props.password,
+                },
+            });
             console.log(response.data);
         } catch (error) {
         // ログイン失敗時の処理
