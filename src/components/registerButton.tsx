@@ -1,16 +1,17 @@
-import { Box, Button } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
+import Link from "next/link";
 
-function Register() {
+const Register = () => {
     return (
-        <Box p={4}>
+        <Link href="/register">
             <Button
                 background={"blue.300"}
-                mt={4}
                 color="white"
+                m={2}
             >
                 新規登録
             </Button>
-        </Box>
+        </Link>
     );
 }
 
