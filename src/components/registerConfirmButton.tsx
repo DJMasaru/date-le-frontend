@@ -5,18 +5,21 @@ import {useRouter} from 'next/router';
 interface RegisterConfirmProps {
     name:string;
     password : string;
+    againPass : string;
     email : string;
 }
 
 const RegisterConfirm = (props : RegisterConfirmProps) => {
     const router = useRouter();
-    const { name, password, email } = props;
+    const { name, password,againPass, email } = props;
 
     const ChangeConfirm =()=>{
-        router.push({
-            pathname: '/register/confirm',
-            query: { name, password, email },
-        });
+        if (name && password && againPass && email) {
+            router.push({
+                pathname: '/register/confirm',
+                query: {name, password, email},
+            });
+        }
     }
 
     return (

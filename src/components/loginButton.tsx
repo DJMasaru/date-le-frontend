@@ -1,15 +1,18 @@
 import { Button } from "@chakra-ui/react";
 import axios from "axios";
 import {useRouter} from "next/router";
+import {useState} from "react";
 
 axios.defaults.baseURL = 'http://localhost:8000';
 
 interface LoginButtonProps {
     email: string;
     password: string;
+    onStateChange: (state: string) => void; // onStateChangeプロパティを追加
 }
 
 const LoginBtn = (props: LoginButtonProps) => {
+    const { onStateChange } = props;
     const router = useRouter();
     const handleLogin =async()=>{
         try {
@@ -20,14 +23,12 @@ const LoginBtn = (props: LoginButtonProps) => {
             const accessToken = response.data.access_token;
             localStorage.setItem('date-le-accessToken', accessToken);
             await router.push('/dashboard');
-
-            // ログイン成功時の処理
-            console.log(response.data);
-        } catch (error) {
-            // ログイン失敗時の処理
+            }catch(error) {
             console.error(error);
+            const errorMessage = 'エラーが発生しました';
+            onStateChange(errorMessage);
         }
-    };
+    }
 
     return (
         <div>
