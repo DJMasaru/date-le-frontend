@@ -4,10 +4,12 @@ import DashboardJobCard from "../../components/dashboardJobCard";
 import theme from "@/theme";
 import {ChakraProvider, Flex} from "@chakra-ui/react";
 
-axios.defaults.baseURL = 'http://localhost:8000';
+// axios.defaults.baseURL = 'http://localhost:8000';
+axios.defaults.baseURL = 'https://date-le-backend-production.up.railway.app';
+
 
 interface jobAndProfile {
-    girls_profiles: any;
+    girls_profile: any;
     name: string;
     age: number;
     occupation:string;
@@ -71,7 +73,7 @@ console.log(userData);
                     {jobAndProfile && jobAndProfile.map((item, index) => (
                         <DashboardJobCard
                             key={index}
-                            {...item.girls_profiles}
+                            {...item.girls_profile}
                             date_of_date={item.date_of_date}
                             date_of_time={item.date_of_time}
                             date_of_place={item.date_of_place}
