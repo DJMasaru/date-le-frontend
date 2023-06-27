@@ -2,10 +2,10 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import DashboardJobCard from "../../components/dashboardJobCard";
 import theme from "@/theme";
-import {ChakraProvider, Flex} from "@chakra-ui/react";
+import {ChakraProvider, Flex,useMediaQuery} from "@chakra-ui/react";
 
-// axios.defaults.baseURL = 'http://localhost:8000';
-axios.defaults.baseURL = 'https://date-le-backend-production.up.railway.app';
+axios.defaults.baseURL = 'http://localhost:8000';
+// axios.defaults.baseURL = 'https://date-le-backend-production.up.railway.app';
 
 
 interface jobAndProfile {
@@ -29,6 +29,7 @@ const Dashboard =()=> {
     const [userData, setUserData] = useState<user | null>(null);
     const [jobAndProfile, setJobAndProfile] = useState<jobAndProfile[] | null>(null);
     const [readingError, setReadingError] = useState<string>('');
+    const [isMobile] = useMediaQuery("(max-width: 768px)");
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -49,11 +50,11 @@ const Dashboard =()=> {
 
         fetchUserData();
     }, []);
-console.log(userData);
+// console.log(userData);
     return (
-
         <div>
             <ChakraProvider theme={theme}>
+                {isMobile ?
                 <Flex
                     flexDirection="column"
                     alignItems="center"
@@ -65,14 +66,15 @@ console.log(userData);
             {readingError ? (
                 <div>{readingError}</div>
             ) : (
-                <div>
+                <div style={{width:'95%',margin:'auto'}}>
                     {/* userData の値を表示 */}
-                    {userData && <p>{userData.name}</p>}
+                    {/*{userData && <p>{userData.name}</p>}*/}
 
                     {/* dateJob の値を表示 */}
                     {jobAndProfile && jobAndProfile.map((item, index) => (
                         <DashboardJobCard
                             key={index}
+                            index={index}
                             {...item.girls_profile}
                             date_of_date={item.date_of_date}
                             date_of_time={item.date_of_time}
@@ -85,6 +87,7 @@ console.log(userData);
             )}
             {/* <DashboardProfileCard /> */}
                 </Flex>
+                    : <p>Desktop View</p>}
             </ChakraProvider>
         </div>
     )
