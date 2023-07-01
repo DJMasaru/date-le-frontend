@@ -1,17 +1,25 @@
 import { useRouter } from 'next/router';
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
+import theme from "@/theme";
+import {ChakraProvider, Flex, useMediaQuery} from "@chakra-ui/react";
 
 axios.defaults.baseURL = 'http://localhost:8000';
 // axios.defaults.baseURL = 'https://date-le-backend-production.up.railway.app';
 
-interface dateDetail{
+interface dateJob{
+
+}
+
+interface dateComment{
 
 }
 const DateDetailPage = () => {
+    const [isMobile] = useMediaQuery("(max-width: 768px)");
     const router = useRouter();
     const { index } = router.query;
-    const [dateDetail,setDateDetail] = useState<dateDetail[] | null>(null);
+    const [dateJob,setDateJob] = useState<dateJob[] | null>(null);
+    const [dateComment,setDateComment] = useState<dateComment[] | null>(null);
     useEffect(() => {
         const fetchDateDetail = async () => {
             try {
@@ -24,8 +32,8 @@ const DateDetailPage = () => {
                         index: index,
                     },
                 });
-
-                setDateDetail(response.data.dateDetail);
+                setDateJob(response.data.jobs);
+                setDateComment(response.data.comments);
             } catch (error) {
                 console.error(error);
                 // setReadingError('デートが登録されていません。')
@@ -35,11 +43,23 @@ const DateDetailPage = () => {
         fetchDateDetail();
     }, [index]);
 
-    // keyを使用して詳細情報を取得・表示するなどの処理
-
     return (
         <div>
-            <p>あ</p>
+            <ChakraProvider theme={theme}>
+                {isMobile ?
+                    <Flex
+                        flexDirection="column"
+                        alignItems="center"
+                        justifyContent="center"
+                        height="100vh"
+                    >
+                <p>Hello, Dashboard</p>
+                        <div style={{width:'95%',margin:'auto'}}>
+                            <p>あ</p>
+                        </div>
+                    </Flex>
+                    : <p>Desktop View</p>}
+            </ChakraProvider>
         </div>
     );
 };

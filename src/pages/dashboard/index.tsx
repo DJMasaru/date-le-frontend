@@ -3,6 +3,7 @@ import axios from "axios";
 import DashboardJobCard from "../../components/dashboardJobCard";
 import theme from "@/theme";
 import {ChakraProvider, Flex,useMediaQuery} from "@chakra-ui/react";
+import Header from "../../components/header";
 
 axios.defaults.baseURL = 'http://localhost:8000';
 // axios.defaults.baseURL = 'https://date-le-backend-production.up.railway.app';
@@ -50,7 +51,7 @@ const Dashboard =()=> {
 
         fetchUserData();
     }, []);
-// console.log(userData);
+
     return (
         <div>
             <ChakraProvider theme={theme}>
@@ -61,14 +62,15 @@ const Dashboard =()=> {
                     justifyContent="center"
                     height="100vh"
                 >
-            <p>Hello, Dashboard</p>
-            {/* 条件付きレンダリング */}
+                    {userData &&
+                        <Header
+                            name={userData.name}
+                            image_url={"あああ"}
+                        />}
             {readingError ? (
                 <div>{readingError}</div>
             ) : (
                 <div style={{width:'95%',margin:'auto'}}>
-                    {/* userData の値を表示 */}
-                    {/*{userData && <p>{userData.name}</p>}*/}
 
                     {/* dateJob の値を表示 */}
                     {jobAndProfile && jobAndProfile.map((item, index) => (
@@ -85,7 +87,6 @@ const Dashboard =()=> {
                     ))}
                 </div>
             )}
-            {/* <DashboardProfileCard /> */}
                 </Flex>
                     : <p>Desktop View</p>}
             </ChakraProvider>

@@ -1,17 +1,15 @@
 import {
     Avatar,
     Badge, Box,
-    Button,
-    Center,
+    ChakraProvider,
     Flex,
-    Heading,
-    Image,
-    Link,
-    Stack,
-    Text,
     useColorModeValue,
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
+import theme from "@/theme";
+import React, {useState} from "react";
+import { FaHeart } from "react-icons/fa6";
+import { FaCommentDots } from "react-icons/fa6";
 
 interface DashboardJobCardProps{
     index:number;
@@ -39,43 +37,66 @@ const DashboardJobCard = ({ index,name,age,occupation, image_url,date_of_date,da
     const monthWithoutZero = parseInt(month, 10).toString();
     const day = dataParts[2];
     const dayWithoutZero = parseInt(day, 10).toString();
-console.log(index);
+
+    const feature1 = "たぬき顔";
+    const feature2 = "爆乳";
+    const feature3 = "黒髪";
+    const features = [feature1, feature2, feature3].filter(Boolean);
+
     const handleClick = () => {
         // ダイナミックルーティングによる詳細画面への遷移
         router.push(`/dateDetail/${index}`);
     };
 
-
     return (
-        <div>
-            <Box
-                bg={useColorModeValue('white', 'gray.900')}
-                boxShadow={'2xl'}
-                rounded={'lg'}
-                p={4}
-                textAlign={'center'}
-                onClick={handleClick} // カードをクリックしたときの処理を追加
-                style={{ cursor: 'pointer' }} // ポインターを指すカーソルを表示するスタイルを追加
-            >
-                <Flex alignItems="center" marginBottom='1rem'>
-                    <Avatar
-                        size={'lg'}
-                        src={image_url}
-                    />
-                        <Flex flexDirection="column" alignItems="center">
-                            <p>{name} ({age})</p>
-                            <p>{occupation}</p>
-                        </Flex>
-                </Flex>
-
-                <p>{`${year}年${monthWithoutZero}月${dayWithoutZero}日`}</p>
-                <p>{`${hour}時${minute}分`}</p>
-                <p>{date_of_place}</p>
-
-                        <p>{comment_count}</p>
-                        <p>{favorite_count}</p>
-            </Box>
-        </div>
+            <ChakraProvider theme={theme}>
+                <Box
+                    bg={useColorModeValue('white', 'gray.900')}
+                    _hover={{ bg: '#EEF2F6' }} // ホバー時の背景色を指定する
+                    boxShadow={'2xl'}
+                    rounded={'lg'}
+                    p={4}
+                    mt={1}
+                    mb={1}
+                    onClick={handleClick}
+                    style={{ cursor: 'pointer' }}
+                >
+                    <Flex alignItems="center">
+                        <Avatar
+                            size={'lg'}
+                            src={image_url}
+                        />
+                            <Flex flexDirection="column" alignItems="center" marginLeft="1rem">
+                                <p style={{fontWeight:"bold"}}>{name} ({age})</p>
+                                <p style={{color:"#555555"}}>{occupation}</p>
+                            </Flex>
+                    </Flex>
+                    <p style={{textAlign:"right",fontWeight:"bold",color:"red"}}>＞</p>
+                    <p>{`${year}年${monthWithoutZero}月${dayWithoutZero}日`}  {`${hour}時${minute}分`}　</p>
+                    <p>集合場所：{date_of_place}</p>
+                    <Flex alignItems="center" justifyContent="start">
+                        <div>
+                        { features.map((feature, index) =>{
+                            return(
+                                <Badge
+                                    mr={"1rem"}
+                                    key={index}
+                                    px={2}
+                                    py={1}
+                                    bg={"gray.200"}
+                                    color={"black"}
+                                    fontWeight={'400'}
+                                >
+                                    #{feature}
+                                </Badge>
+                            )
+                        })}
+                        </div>
+                        <FaHeart /> <p style={{marginRight:"1rem"}}>{favorite_count}</p>
+                        <FaCommentDots /> <p style={{marginRight:"1rem"}}>{comment_count}</p>
+                    </Flex>
+                </Box>
+            </ChakraProvider>
     );
 }
 

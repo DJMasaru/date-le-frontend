@@ -2,7 +2,6 @@ import { Button } from "@chakra-ui/react";
 import axios from "axios";
 import {useRouter} from "next/router";
 import {useState} from "react";
-
 axios.defaults.baseURL = 'http://localhost:8000';
 
 interface LoginButtonProps {
