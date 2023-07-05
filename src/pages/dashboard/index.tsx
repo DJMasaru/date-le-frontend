@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import DashboardJobCard from "../../components/dashboardJobCard";
+import DateSelector from "../../components/dateSelector";
 import theme from "@/theme";
-import {ChakraProvider, Flex,useMediaQuery} from "@chakra-ui/react";
+import {ChakraProvider, useMediaQuery} from "@chakra-ui/react";
 import Header from "../../components/header";
+import {ChangeEvent} from "react";
 
 axios.defaults.baseURL = 'http://localhost:8000';
 // axios.defaults.baseURL = 'https://date-le-backend-production.up.railway.app';
@@ -22,16 +24,23 @@ interface jobAndProfile {
     favorite_count :number;
 }
 
+interface friendsJobAndProfile{
+    date_jobs:any;
+    girls_profile:any;
+    name:string;
+}
+
 interface user{
     name:string;
 }
 
 const Dashboard =()=> {
     const [userData, setUserData] = useState<user | null>(null);
-    const [jobAndProfile, setJobAndProfile] = useState<jobAndProfile[] | null>(null);
+    const [jobAndProfile, setJobAndProfile] = useState<jobAndProfile[]>([]);
+    const [friendsJobAndProfile, setFriendsJobAndProfile] = useState<friendsJobAndProfile[]>([]);
     const [readingError, setReadingError] = useState<string>('');
     const [isMobile] = useMediaQuery("(max-width: 768px)");
-
+    const [selector,setSelector] = useState<string>('mine')
     useEffect(() => {
         const fetchUserData = async () => {
             try {
@@ -43,6 +52,7 @@ const Dashboard =()=> {
                 });
                 setUserData(response.data.user);
                 setJobAndProfile(response.data.jobAndProfile);
+                setFriendsJobAndProfile(response.data.friendsJobAndProfile)
             } catch (error) {
                 console.error(error);
                 setReadingError('デートが登録されていません。')
@@ -52,46 +62,75 @@ const Dashboard =()=> {
         fetchUserData();
     }, []);
 
-    return (
-        <div>
-            <ChakraProvider theme={theme}>
-                {isMobile ?
-                <Flex
-                    flexDirection="column"
-                    alignItems="center"
-                    justifyContent="center"
-                    height="100vh"
-                >
-                    {userData &&
-                        <Header
-                            name={userData.name}
-                            image_url={"あああ"}
-                        />}
-            {readingError ? (
-                <div>{readingError}</div>
-            ) : (
-                <div style={{width:'95%',margin:'auto'}}>
+    const handleDateSelector = (newMessage:any) => {
+        setSelector(newMessage);
+    };
 
-                    {/* dateJob の値を表示 */}
-                    {jobAndProfile && jobAndProfile.map((item, index) => (
-                        <DashboardJobCard
-                            key={index}
-                            index={index}
-                            {...item.girls_profile}
-                            date_of_date={item.date_of_date}
-                            date_of_time={item.date_of_time}
-                            date_of_place={item.date_of_place}
-                            comment_count={item.comment_count}
-                            favorite_count={item.favorite_count}
-                        />
-                    ))}
-                </div>
+    return (
+        <ChakraProvider theme={theme}>
+            {isMobile ? (
+                readingError ? (
+                    <div>{readingError}</div>
+                ) : (
+                    <div>
+                        <div>
+                            <div style={{position:"fixed",width:"100%",zIndex:2,top:"0"}}>
+                                {userData && (
+                                    <Header
+                                        name={userData.name}
+                                        image_url={"あああ"}
+                                    />
+                                )}
+                            </div>
+                            <DateSelector onStateChange={handleDateSelector}/>
+                        </div>
+                        <div style={{ marginTop: "120px" }}>
+                            <div style={{ width: '95%', margin: 'auto' }}>
+                                {/* dateJob の値を表示 */}
+                                {selector === 'mine'
+                                    ? jobAndProfile.map((item, index) => {
+                                        const girlsProfile = item.girls_profile;
+                                        return (
+                                            <DashboardJobCard
+                                                key={index}
+                                                index={index}
+                                                {...girlsProfile}
+                                                date_of_date={item.date_of_date}
+                                                date_of_time={item.date_of_time}
+                                                date_of_place={item.date_of_place}
+                                                comment_count={item.comment_count}
+                                                favorite_count={item.favorite_count}
+                                            />
+                                        );
+                                    })
+                                    : selector === 'friends'
+                                        ? friendsJobAndProfile.map((item2, index) => {
+                                            return (
+                                                    <DashboardJobCard
+                                                        key={index}
+                                                        index={index}
+                                                        {...item2.date_jobs[0].girls_profile}
+                                                        date_of_date={item2.date_jobs[0].date_of_date}
+                                                        date_of_time={item2.date_jobs[0].date_of_time}
+                                                        date_of_place={item2.date_jobs[0].date_of_place}
+                                                        comment_count={item2.date_jobs[0].comment_count}
+                                                        favorite_count={item2.date_jobs[0].favorite_count}
+                                                        friend_name={item2.name}
+                                                    />
+                                                );
+                                        })
+                                        : null
+                                }
+                            </div>
+                        </div>
+                    </div>
+                )
+            ) : (
+                <p>Desktop View</p>
             )}
-                </Flex>
-                    : <p>Desktop View</p>}
-            </ChakraProvider>
-        </div>
-    )
+        </ChakraProvider>
+    );
+
 }
 
 export default Dashboard;

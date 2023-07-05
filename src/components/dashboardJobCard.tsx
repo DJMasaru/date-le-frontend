@@ -1,13 +1,7 @@
-import {
-    Avatar,
-    Badge, Box,
-    ChakraProvider,
-    Flex,
-    useColorModeValue,
-} from '@chakra-ui/react';
+import {Avatar, Badge, Box, ChakraProvider, Flex, useColorModeValue,} from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import theme from "@/theme";
-import React, {useState} from "react";
+import React from "react";
 import { FaHeart } from "react-icons/fa6";
 import { FaCommentDots } from "react-icons/fa6";
 
@@ -22,10 +16,12 @@ interface DashboardJobCardProps{
     date_of_place: string
     comment_count: number;
     favorite_count :number;
+    friend_name?: string;
 }
 
 const DashboardJobCard = ({ index,name,age,occupation, image_url,date_of_date,date_of_time,
-                              date_of_place,comment_count,favorite_count, }:DashboardJobCardProps) => {
+                              date_of_place,comment_count,favorite_count,friend_name }:DashboardJobCardProps) => {
+
     const router = useRouter();
     const timeParts = date_of_time.split(':');
     const hour = timeParts[0];
@@ -66,10 +62,13 @@ const DashboardJobCard = ({ index,name,age,occupation, image_url,date_of_date,da
                             size={'lg'}
                             src={image_url}
                         />
-                            <Flex flexDirection="column" alignItems="center" marginLeft="1rem">
+                            <Flex flexDirection="column" alignItems="start" marginLeft="1rem" display="flex">
                                 <p style={{fontWeight:"bold"}}>{name} ({age})</p>
                                 <p style={{color:"#555555"}}>{occupation}</p>
                             </Flex>
+                        {friend_name &&
+                        <p style={{marginLeft:"10px",textDecoration:"underline"}}>☆{friend_name}のデート予定☆</p>
+                        }
                     </Flex>
                     <p style={{textAlign:"right",fontWeight:"bold",color:"red"}}>＞</p>
                     <p>{`${year}年${monthWithoutZero}月${dayWithoutZero}日`}  {`${hour}時${minute}分`}　</p>
