@@ -45,57 +45,55 @@ const DashboardJobCard = ({ index,name,age,occupation, image_url,date_of_date,da
     };
 
     return (
-            <ChakraProvider theme={theme}>
-                <Box
-                    bg={useColorModeValue('white', 'gray.900')}
-                    _hover={{ bg: '#EEF2F6' }} // ホバー時の背景色を指定する
-                    boxShadow={'2xl'}
-                    rounded={'lg'}
-                    p={4}
-                    mt={1}
-                    mb={1}
-                    onClick={handleClick}
-                    style={{ cursor: 'pointer' }}
-                >
-                    <Flex alignItems="center">
-                        <Avatar
-                            size={'lg'}
-                            src={image_url}
-                        />
-                            <Flex flexDirection="column" alignItems="start" marginLeft="1rem" display="flex">
-                                <p style={{fontWeight:"bold"}}>{name} ({age})</p>
-                                <p style={{color:"#555555"}}>{occupation}</p>
-                            </Flex>
-                        {friend_name &&
-                        <p style={{marginLeft:"10px",textDecoration:"underline"}}>☆{friend_name}のデート予定☆</p>
-                        }
+        <Box
+            bg={useColorModeValue('white', 'gray.900')}
+            _hover={{ bg: '#EEF2F6' }} // ホバー時の背景色を指定する
+            boxShadow={'2xl'}
+            rounded={'lg'}
+            p={4}
+            mt={1}
+            mb={1}
+            onClick={handleClick}
+            style={{ cursor: 'pointer' }}
+        >
+            <Flex alignItems="center">
+                <Avatar
+                    size={'lg'}
+                    src={image_url}
+                />
+                    <Flex flexDirection="column" alignItems="start" marginLeft="1rem" display="flex">
+                        <p style={{fontWeight:"bold"}}>{name} ({age})</p>
+                        <p style={{color:"#555555"}}>{occupation}</p>
                     </Flex>
-                    <p style={{textAlign:"right",fontWeight:"bold",color:"red"}}>＞</p>
-                    <p>{`${year}年${monthWithoutZero}月${dayWithoutZero}日`}  {`${hour}時${minute}分`}　</p>
-                    <p>集合場所：{date_of_place}</p>
-                    <Flex alignItems="center" justifyContent="start">
-                        <div>
-                        { features.map((feature, index) =>{
-                            return(
-                                <Badge
-                                    mr={"1rem"}
-                                    key={index}
-                                    px={2}
-                                    py={1}
-                                    bg={"gray.200"}
-                                    color={"black"}
-                                    fontWeight={'400'}
-                                >
-                                    #{feature}
-                                </Badge>
-                            )
-                        })}
-                        </div>
-                        <FaHeart /> <p style={{marginRight:"1rem"}}>{favorite_count}</p>
-                        <FaCommentDots /> <p style={{marginRight:"1rem"}}>{comment_count}</p>
-                    </Flex>
-                </Box>
-            </ChakraProvider>
+                {friend_name &&
+                <p style={{marginLeft:"10px",textDecoration:"underline"}}>☆{friend_name}のデート予定☆</p>
+                }
+            </Flex>
+            <p style={{textAlign:"right",fontWeight:"bold",color:"red"}}>＞</p>
+            <p>{`${year}年${monthWithoutZero}月${dayWithoutZero}日`}  {`${hour}時${minute}分`}　</p>
+            <p>集合場所：{date_of_place}</p>
+            <Flex alignItems="center" justifyContent="start">
+                <div>
+                { features.map((feature, index) =>{
+                    return(
+                        <Badge
+                            mr={"1rem"}
+                            key={index}
+                            px={2}
+                            py={1}
+                            bg={"gray.200"}
+                            color={"black"}
+                            fontWeight={'400'}
+                        >
+                            #{feature}
+                        </Badge>
+                    )
+                })}
+                </div>
+                <FaHeart /> <p style={{marginRight:"1rem"}}>{favorite_count}</p>
+                <FaCommentDots /> <p style={{marginRight:"1rem"}}>{comment_count}</p>
+            </Flex>
+        </Box>
     );
 }
 

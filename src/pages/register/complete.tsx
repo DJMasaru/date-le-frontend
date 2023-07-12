@@ -11,19 +11,17 @@ const CompletePage = () =>{
     };
 
     return(
-        <div>
-            <ChakraProvider>
-                <Flex
-                    flexDirection="column"
-                    alignItems="center"
-                    justifyContent="center"
-                    height="100vh"
-                >
-                    <p>登録が完了しました。</p>
-                    <RegisterAndStart password={password} email={email} />
-                </Flex>
-            </ChakraProvider>
-        </div>
+        <>
+            <Flex
+                flexDirection="column"
+                alignItems="center"
+                justifyContent="center"
+                height="100vh"
+            >
+                <p>登録が完了しました。</p>
+                <RegisterAndStart password={password} email={email} />
+            </Flex>
+        </>
     )
 }
 
