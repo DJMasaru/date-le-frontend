@@ -3,6 +3,7 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import theme from "@/theme";
 import {ChakraProvider, Flex, useMediaQuery} from "@chakra-ui/react";
+import Header from "@/components/header";
 
 axios.defaults.baseURL = 'http://localhost:8000';
 // axios.defaults.baseURL = 'https://date-le-backend-production.up.railway.app';
@@ -14,12 +15,18 @@ interface dateJob{
 interface dateComment{
 
 }
+
+interface user{
+    name:string;
+}
 const DateDetailPage = () => {
     const [isMobile] = useMediaQuery("(max-width: 768px)");
     const router = useRouter();
     const { index } = router.query;
     const [dateJob,setDateJob] = useState<dateJob[] | null>(null);
     const [dateComment,setDateComment] = useState<dateComment[] | null>(null);
+    const [userData, setUserData] = useState<user | null>(null);
+
     useEffect(() => {
         const fetchDateDetail = async () => {
             try {
@@ -32,6 +39,7 @@ const DateDetailPage = () => {
                         index: index,
                     },
                 });
+                setUserData(response.data.user);
                 setDateJob(response.data.jobs);
                 setDateComment(response.data.comments);
             } catch (error) {
@@ -44,23 +52,24 @@ const DateDetailPage = () => {
     }, [index]);
 
     return (
-        <div>
-            <ChakraProvider theme={theme}>
-                {isMobile ?
-                    <Flex
-                        flexDirection="column"
-                        alignItems="center"
-                        justifyContent="center"
-                        height="100vh"
-                    >
-                <p>Hello, Dashboard</p>
-                        <div style={{width:'95%',margin:'auto'}}>
-                            <p>あ</p>
+        <>
+            {isMobile ? (
+                    <div>
+                        <div>
+                            <div style={{position:"fixed",width:"100%",zIndex:2,top:"0"}}>
+                                {userData && (
+                                    <Header
+                                        name={userData.name}
+                                        image_url={"あああ"}
+                                    />
+                                )}
+                            </div>
                         </div>
-                    </Flex>
-                    : <p>Desktop View</p>}
-            </ChakraProvider>
-        </div>
+                    </div>
+            ) : (
+                <p>Desktop View</p>
+            )}
+        </>
     );
 };
 

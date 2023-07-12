@@ -2,14 +2,11 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import DashboardJobCard from "../../components/dashboardJobCard";
 import DateSelector from "../../components/dateSelector";
-import theme from "@/theme";
-import {ChakraProvider, useMediaQuery} from "@chakra-ui/react";
+import {useMediaQuery} from "@chakra-ui/react";
 import Header from "../../components/header";
-import {ChangeEvent} from "react";
 
 axios.defaults.baseURL = 'http://localhost:8000';
 // axios.defaults.baseURL = 'https://date-le-backend-production.up.railway.app';
-
 
 interface jobAndProfile {
     girls_profile: any;
@@ -67,7 +64,7 @@ const Dashboard =()=> {
     };
 
     return (
-        <ChakraProvider theme={theme}>
+        <>
             {isMobile ? (
                 readingError ? (
                     <div>{readingError}</div>
@@ -126,11 +123,10 @@ const Dashboard =()=> {
                     </div>
                 )
             ) : (
-                <p>Desktop View</p>
+                <p>Waiting...</p>
             )}
-        </ChakraProvider>
+       </>
     );
-
 }
 
 export default Dashboard;
