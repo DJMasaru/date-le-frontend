@@ -5,9 +5,6 @@ import DateSelector from "../../components/dateSelector";
 import {useMediaQuery} from "@chakra-ui/react";
 import Header from "../../components/header";
 
-axios.defaults.baseURL = 'http://localhost:8000';
-// axios.defaults.baseURL = 'https://date-le-backend-production.up.railway.app';
-
 interface jobAndProfile {
     girls_profile: any;
     name: string;
@@ -15,7 +12,7 @@ interface jobAndProfile {
     occupation:string;
     image_url:string;
     date_of_date: string;
-    date_of_time: string;
+    time_of_date: string;
     date_of_place: string
     comment_count: number;
     favorite_count :number;
@@ -93,7 +90,7 @@ const Dashboard =()=> {
                                                 index={index}
                                                 {...girlsProfile}
                                                 date_of_date={item.date_of_date}
-                                                date_of_time={item.date_of_time}
+                                                time_of_date={item.time_of_date}
                                                 date_of_place={item.date_of_place}
                                                 comment_count={item.comment_count}
                                                 favorite_count={item.favorite_count}
@@ -108,7 +105,7 @@ const Dashboard =()=> {
                                                         index={index}
                                                         {...item2.date_jobs[0].girls_profile}
                                                         date_of_date={item2.date_jobs[0].date_of_date}
-                                                        date_of_time={item2.date_jobs[0].date_of_time}
+                                                        time_of_date={item2.date_jobs[0].time_of_date}
                                                         date_of_place={item2.date_jobs[0].date_of_place}
                                                         comment_count={item2.date_jobs[0].comment_count}
                                                         favorite_count={item2.date_jobs[0].favorite_count}

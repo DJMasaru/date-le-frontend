@@ -13,6 +13,10 @@ class MyDocument extends Document {
                                 font-family: Kaisei Decol;
                                 font-size: 50px;
                             }
+                          
+                            .headerValue {
+                                font-family: Kaisei Decol;
+                            }
                             
                         `}
                     </style>

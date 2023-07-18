@@ -1,6 +1,5 @@
 import React from "react";
-import theme from "@/theme";
-import {Avatar, Box, ChakraProvider, Flex, IconButton, useMediaQuery} from "@chakra-ui/react";
+import {Avatar, Box, Flex, IconButton, useMediaQuery} from "@chakra-ui/react";
 import {
     Menu,
     MenuButton,
@@ -8,6 +7,7 @@ import {
     MenuItem,
 } from '@chakra-ui/react'
 import { HamburgerIcon } from '@chakra-ui/icons';
+import  Link  from 'next/link';
 interface userProfile{
     name:string;
     image_url:string;
@@ -17,7 +17,7 @@ const header =({name,image_url}:userProfile)=>{
     const [isMobile] = useMediaQuery("(max-width: 768px)");
 
     return (
-        <ChakraProvider theme={theme}>
+        <>
             {isMobile ? (
                 <Box
                     background="black"
@@ -47,7 +47,7 @@ const header =({name,image_url}:userProfile)=>{
                                         padding: "1rem", // モーダルの内側の余白を調整する
                                     }}>
                                     <MenuItem color='black'>
-                                        デートする
+                                        <Link href="/make_date_job">デートする</Link>
                                     </MenuItem>
                                     <MenuItem color='black'>
                                         女の子情報を確認する
@@ -69,7 +69,7 @@ const header =({name,image_url}:userProfile)=>{
             ) : (
                 <p>Desktop View</p>
             )}
-        </ChakraProvider>
+        </>
     );
 
 }

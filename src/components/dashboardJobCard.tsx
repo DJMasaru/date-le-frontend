@@ -11,19 +11,23 @@ interface DashboardJobCardProps{
     age: number;
     occupation:string;
     image_url:string;
+    feature_first:string;
+    feature_second:string;
+    feature_third:string;
     date_of_date: string;
-    date_of_time: string;
+    time_of_date: string;
     date_of_place: string
     comment_count: number;
     favorite_count :number;
     friend_name?: string;
 }
 
-const DashboardJobCard = ({ index,name,age,occupation, image_url,date_of_date,date_of_time,
-                              date_of_place,comment_count,favorite_count,friend_name }:DashboardJobCardProps) => {
+const DashboardJobCard = ({ index, name, age, occupation, image_url, feature_first, feature_second, feature_third,
+                              date_of_date,time_of_date, date_of_place,comment_count,favorite_count,friend_name }
+                              :DashboardJobCardProps) => {
 
     const router = useRouter();
-    const timeParts = date_of_time.split(':');
+    const timeParts = time_of_date.split(':');
     const hour = timeParts[0];
     const minute = timeParts[1];
 
@@ -34,10 +38,8 @@ const DashboardJobCard = ({ index,name,age,occupation, image_url,date_of_date,da
     const day = dataParts[2];
     const dayWithoutZero = parseInt(day, 10).toString();
 
-    const feature1 = "たぬき顔";
-    const feature2 = "爆乳";
-    const feature3 = "黒髪";
-    const features = [feature1, feature2, feature3].filter(Boolean);
+    //値の存在を判定して値を格納
+    const features = [feature_first, feature_second, feature_third].filter(Boolean);
 
     const handleClick = () => {
         // ダイナミックルーティングによる詳細画面への遷移
@@ -66,7 +68,7 @@ const DashboardJobCard = ({ index,name,age,occupation, image_url,date_of_date,da
                         <p style={{color:"#555555"}}>{occupation}</p>
                     </Flex>
                 {friend_name &&
-                <p style={{marginLeft:"10px",textDecoration:"underline"}}>☆{friend_name}のデート予定☆</p>
+                <p style={{marginLeft:"10px",textDecoration:"underline"}}>☆{friend_name}のデート☆</p>
                 }
             </Flex>
             <p style={{textAlign:"right",fontWeight:"bold",color:"red"}}>＞</p>
