@@ -16,14 +16,14 @@ interface DashboardJobCardProps{
     feature_third:string;
     date_of_date: string;
     time_of_date: string;
-    date_of_place: string
+    place_of_date: string
     comment_count: number;
     favorite_count :number;
     friend_name?: string;
 }
 
 const DashboardJobCard = ({ index, name, age, occupation, image_url, feature_first, feature_second, feature_third,
-                              date_of_date,time_of_date, date_of_place,comment_count,favorite_count,friend_name }
+                              date_of_date,time_of_date, place_of_date,comment_count,favorite_count,friend_name }
                               :DashboardJobCardProps) => {
 
     const router = useRouter();
@@ -73,7 +73,7 @@ const DashboardJobCard = ({ index, name, age, occupation, image_url, feature_fir
             </Flex>
             <p style={{textAlign:"right",fontWeight:"bold",color:"red"}}>＞</p>
             <p>{`${year}年${monthWithoutZero}月${dayWithoutZero}日`}  {`${hour}時${minute}分`}　</p>
-            <p>集合場所：{date_of_place}</p>
+            <p>集合場所：{place_of_date}</p>
             <Flex alignItems="center" justifyContent="start">
                 <div>
                 { features.map((feature, index) =>{

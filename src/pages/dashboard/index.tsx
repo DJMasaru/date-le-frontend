@@ -13,7 +13,7 @@ interface jobAndProfile {
     image_url:string;
     date_of_date: string;
     time_of_date: string;
-    date_of_place: string
+    place_of_date: string
     comment_count: number;
     favorite_count :number;
 }
@@ -91,7 +91,7 @@ const Dashboard =()=> {
                                                 {...girlsProfile}
                                                 date_of_date={item.date_of_date}
                                                 time_of_date={item.time_of_date}
-                                                date_of_place={item.date_of_place}
+                                                place_of_date={item.place_of_date}
                                                 comment_count={item.comment_count}
                                                 favorite_count={item.favorite_count}
                                             />
@@ -106,7 +106,7 @@ const Dashboard =()=> {
                                                         {...item2.date_jobs[0].girls_profile}
                                                         date_of_date={item2.date_jobs[0].date_of_date}
                                                         time_of_date={item2.date_jobs[0].time_of_date}
-                                                        date_of_place={item2.date_jobs[0].date_of_place}
+                                                        place_of_date={item2.date_jobs[0].place_of_date}
                                                         comment_count={item2.date_jobs[0].comment_count}
                                                         favorite_count={item2.date_jobs[0].favorite_count}
                                                         friend_name={item2.name}

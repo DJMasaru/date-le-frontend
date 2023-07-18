@@ -9,7 +9,7 @@ import Comment from "@/components/comment";
 interface dateJob{
     comment_count:number;
     date_of_date:string;
-    date_of_place:string;
+    place_of_date:string;
     time_of_date:string;
     favorite_count:number;
     passion:string;
@@ -109,7 +109,7 @@ console.log(dateComments)
                             </div>
                             <div style={{ width: '95%', margin: '20px auto 0' }}>
                                 <p style={{textAlign:"center"}}>{`${year}年${monthWithoutZero}月${dayWithoutZero}日`}  {`${hour}時${minute}分`}　</p>
-                                <p style={{textAlign:"center"}}>{dateJob?.date_of_place}</p>
+                                <p style={{textAlign:"center"}}>{dateJob?.place_of_date}</p>
                                 <br/>
                                 <p style={{textAlign:"center"}}>これまでのデート回数：{dateJob?.girls_profile.count_of_dates}回</p>
                             </div>
