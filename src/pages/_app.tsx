@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { ChakraProvider } from '@chakra-ui/react';
+import axios from "axios";
 
 interface Pages {
     Component: any;
@@ -18,6 +19,9 @@ const MyApp = ({ Component, pageProps }: Pages) => {
             router.push('/login');
         }
     }, [router, router.pathname]);
+
+    axios.defaults.baseURL = 'http://localhost:8000';
+    // axios.defaults.baseURL = 'https://date-le-backend-production.up.railway.app';
 
     return (
         <ChakraProvider>
