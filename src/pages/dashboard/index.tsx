@@ -70,10 +70,7 @@ const Dashboard =()=> {
                         <div>
                             <div style={{position:"fixed",width:"100%",zIndex:2,top:"0"}}>
                                 {userData && (
-                                    <Header
-                                        name={userData.name}
-                                        image_url={"あああ"}
-                                    />
+                                    <Header />
                                 )}
                             </div>
                             <DateSelector onStateChange={handleDateSelector}/>

@@ -11,13 +11,18 @@ import {
 } from '@chakra-ui/react'
 import axios from "axios";
 import MakeDateJobConfirm from "../../components/makeDateJobComfirmButton";
-
+import { useRouter } from 'next/router';
 interface Girl{
     id: string;
     name: string;
 }
 
 const MakeDateJobPage=()=>{
+    //女の子の詳細情報から飛んでくる
+    const router = useRouter();
+    const {name} = router.query as {
+        name: string;
+    };
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [girlsList, setGirlsList] =useState<Girl[]>([]);
     const [placeOfDate, setPlaceOfDate] = useState('');
@@ -44,7 +49,6 @@ const MakeDateJobPage=()=>{
         }
     }
 
-console.log(girlsList)
     useEffect(() => {
         const fetchGirlsList = async () => {
             try {
@@ -63,6 +67,14 @@ console.log(girlsList)
 
         fetchGirlsList();
     }, [])
+
+    useEffect(() => {
+        if (name) {
+            // nameFromGirlsInfoが空文字でない場合に、girlsNameConfirmに値をセットする
+            setGirlsNameConfirm(name);
+        }
+    }, [name]);
+
 
     const contents = {
         width: '90%',

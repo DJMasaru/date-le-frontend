@@ -42,8 +42,7 @@ const DateDetailPage = () => {
     const [dateJob,setDateJob] = useState<dateJob>();
     const [dateComments,setDateComments] = useState<Comment[]>([]);
     const [userData, setUserData] = useState<userData | null>(null);
-console.log(dateJob)
-console.log(dateComments)
+
     //dateJobの初期値がカラのため、もしundefinedである場合に備える
     const timeParts: string[] | undefined = dateJob?.time_of_date.split(':') || [];
     const hour = timeParts[0] || '';
@@ -88,12 +87,7 @@ console.log(dateComments)
                     <div>
                         <div>
                             <div style={{position:"fixed",width:"100%",zIndex:2,top:"0"}}>
-                                {userData && (
-                                    <Header
-                                        name={userData.name}
-                                        image_url={"あああ"}
-                                    />
-                                )}
+                                    <Header />
                             </div>
                             <div　style={{ width: "95%",display:"flex",margin:"auto",paddingTop: "67px",justifyContent:"center" }}>
                                 <Flex alignItems="center">

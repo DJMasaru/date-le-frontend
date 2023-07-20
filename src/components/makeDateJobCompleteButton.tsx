@@ -36,7 +36,7 @@ const MakeDateJobCompleteButton=( props: MakeDateJobCompleteProps)=>{
                 },
             });
             await router.push({
-                pathname: '/make_date_job/complete',
+                pathname: '/makeDateJob/complete',
             });
             console.log(response.data);
         } catch (error) {
