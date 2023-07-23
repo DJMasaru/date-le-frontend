@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import Header from "@/components/header";
-import DateSelector from "@/components/dateSelector";
 import GirlsInfoCard from "@/components/girlsInfoCard";
 import {useMediaQuery} from "@chakra-ui/react";
 
@@ -15,7 +14,6 @@ const CheckGirlsInfo=()=>{
     const [girlsInfo, setGirlsInfo] =useState<Girl[]>([]);
     const [isMobile] = useMediaQuery("(max-width: 768px)");
 
-    console.log(girlsInfo)
     useEffect(() => {
         const fetchGirlsInfo = async () => {
             try {

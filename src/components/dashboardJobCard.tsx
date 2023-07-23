@@ -20,10 +20,11 @@ interface DashboardJobCardProps{
     comment_count: number;
     favorite_count :number;
     friend_name?: string;
+    friend?: string;
 }
 
 const DashboardJobCard = ({ index, name, age, occupation, image_url, feature_first, feature_second, feature_third,
-                              date_of_date,time_of_date, place_of_date,comment_count,favorite_count,friend_name }
+                              date_of_date,time_of_date, place_of_date,comment_count,favorite_count,friend_name,friend }
                               :DashboardJobCardProps) => {
 
     const router = useRouter();
@@ -42,8 +43,11 @@ const DashboardJobCard = ({ index, name, age, occupation, image_url, feature_fir
     const features = [feature_first, feature_second, feature_third].filter(Boolean);
 
     const handleClick = () => {
-        // ダイナミックルーティングによる詳細画面への遷移
-        router.push(`/dateDetail/${index}`);
+        if (friend) {
+            router.push(`/dateDetail/${index}?type=friend`);
+        } else {
+            router.push(`/dateDetail/${index}`);
+        }
     };
 
     return (

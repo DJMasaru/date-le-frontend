@@ -3,19 +3,14 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import theme from "@/theme";
 import {
-    Avatar,
-    Badge,
-    Button,
-    ChakraProvider,
-    Flex, Input,
+    Avatar, Button, Flex,
     Modal, ModalBody, ModalCloseButton,
     ModalContent, ModalFooter, ModalHeader,
-    ModalOverlay, Select,
-    useMediaQuery
+    ModalOverlay, useDisclosure, useMediaQuery
 } from "@chakra-ui/react";
 import Header from "@/components/header";
 import MakeDateJobButton from "@/components/makeDateJobButton";
-
+import EditGirlsInfoButton from "@/components/editGirlsInfoButton";
 
 interface Girl{
     id: string;
@@ -38,12 +33,10 @@ interface Girl{
 const GirlsInfoPage = () =>{
     const [isMobile] = useMediaQuery("(max-width: 768px)");
     const router = useRouter();
-    const { index } = router.query;
-
+    const index: string | undefined = typeof router.query.index === 'string' ? router.query.index : undefined;
     const [girlsInfo, setGirlsInfo] =useState<Girl | null>(null);
+    const { isOpen, onOpen, onClose } = useDisclosure()
 
-console.log(index);
-    console.log(girlsInfo)
     useEffect(() => {
         const fetchGirlsInfo = async () => {
             try {
@@ -67,6 +60,33 @@ console.log(index);
         fetchGirlsInfo();
     }, [index])
 
+    const handleDeleteGirlsInfo　=async()=>{
+        try {
+            const accessToken = localStorage.getItem("date-le-accessToken");
+
+            const response = await axios.delete('/api/delete_girls_info', {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+                params: {
+                    girlsInfo: girlsInfo,
+                },
+
+            }); // ログイン成功時の処理
+            console.log(response.data.message);
+            await router.push({
+                pathname: '/checkGirlsInfo',
+
+            });
+            console.log(response.data);
+
+        } catch (error) {
+            // ログイン失敗時の処理
+
+            console.error(error);
+        }
+    };
+
     const contents = {
         width: '90%',
         display: 'flex',
@@ -86,7 +106,7 @@ console.log(index);
         <>
             {isMobile ? (
                 <div>
-                    <div>
+                    <div style={{marginBottom:"20px"}}>
                         <div style={{position:"fixed",width:"100%",zIndex:2,top:"0"}}>
                                 <Header />
                         </div>
@@ -101,6 +121,55 @@ console.log(index);
                                     <p style={{color:"#555555"}}>{girlsInfo?.occupation}</p>
                                 </Flex>
                             </Flex>
+                        </div>
+                        <div style={{display:"flex", justifyContent:"center",width:"95%",margin:"10px auto"}}>
+                            <div style={{width:"50%",textAlign:"left",display:"flex",justifyContent:"left"}}>
+                                    <Button
+                                        background={"blue.300"}
+                                        color="white"
+                                        m={2}
+                                        style={{margin:"0",width:"90%"}}
+                                        onClick={onOpen}>
+                                            <p>削除する</p>
+                                    </Button>
+                                    <Modal isOpen={isOpen} onClose={onClose}>
+                                        <ModalOverlay />
+                                        <ModalContent>
+                                            <ModalHeader>本当に削除しますか？</ModalHeader>
+                                            <ModalCloseButton />
+                                            <ModalBody>
+                                             </ModalBody>
+                                            <ModalFooter>
+                                                <Button colorScheme='blue' mr={3} onClick={onClose}>
+                                                    閉じる
+                                                </Button>
+                                                <Button variant="ghost" onClick={handleDeleteGirlsInfo}>削除する</Button>
+                                            </ModalFooter>
+                                        </ModalContent>
+                                    </Modal>
+                            </div>
+                            <div style={{width:"50%",textAlign:"right"}}>
+                                <EditGirlsInfoButton
+                                    index={index}
+                                    name={girlsInfo?.name}
+                                    age={girlsInfo?.age}
+                                    image_url={girlsInfo?.image_url}
+                                    occupation={girlsInfo?.occupation}
+                                    address={girlsInfo?.address}
+                                    birthday={girlsInfo?.birthday}
+                                    character={girlsInfo?.character}
+                                    hobby={girlsInfo?.hobby}
+                                    favorite_foods={girlsInfo?.favorite_foods}
+                                    dislike_foods={girlsInfo?.dislike_foods}
+                                    favorite_type_of_man={girlsInfo?.favorite_type_of_man}
+                                    opportunity_to_meet={girlsInfo?.opportunity_to_meet}
+                                    has_boyfriend={girlsInfo?.has_boyfriend}
+                                    count_of_dates={girlsInfo?.count_of_dates}
+                                    notice={girlsInfo?.notice}
+                                />
+
+                            </div>
+
                         </div>
                         <div style={{display:"flex", justifyContent:"center"}}>
                             <MakeDateJobButton

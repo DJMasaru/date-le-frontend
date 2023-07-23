@@ -1,5 +1,4 @@
 import { Button } from "@chakra-ui/react";
-import axios from "axios";
 import {useRouter} from "next/router";
 
 interface makeDateJobComfirmButtonProps{
@@ -22,12 +21,13 @@ const MakeDateJobButton=({name}:makeDateJobComfirmButtonProps)=>{
     };
 
     return(
-        <div>
+        <div style={{width:"100%",display:"flex",justifyContent:"center"}}>
             <Button
                 background={"blue.300"}
                 color="white"
                 m={2}
                 onClick={handleMakeDateJobButton}
+                style={{width:"95%"}}
             >
                 デートの予定を作る
             </Button>

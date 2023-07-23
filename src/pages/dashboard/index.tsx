@@ -35,6 +35,7 @@ const Dashboard =()=> {
     const [readingError, setReadingError] = useState<string>('');
     const [isMobile] = useMediaQuery("(max-width: 768px)");
     const [selector,setSelector] = useState<string>('mine')
+
     useEffect(() => {
         const fetchUserData = async () => {
             try {
@@ -99,6 +100,7 @@ const Dashboard =()=> {
                                             return (
                                                     <DashboardJobCard
                                                         key={index}
+                                                        friend='friend'
                                                         index={index}
                                                         {...item2.date_jobs[0].girls_profile}
                                                         date_of_date={item2.date_jobs[0].date_of_date}

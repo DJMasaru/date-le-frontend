@@ -12,6 +12,7 @@ class MyDocument extends Document {
                             h1 {
                                 font-family: Kaisei Decol;
                                 font-size: 50px;
+                                text-align: center;
                             }
                           
                             .headerValue {

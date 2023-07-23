@@ -4,6 +4,7 @@ import {Menu, MenuButton, MenuList, MenuItem,} from '@chakra-ui/react'
 import { HamburgerIcon } from '@chakra-ui/icons';
 import  Link  from 'next/link';
 import axios from "axios";
+
 interface User{
     name:string;
     image_url:string;
@@ -61,6 +62,9 @@ const Header =()=>{
                                         minWidth: "300px", // モーダルの幅を調整する
                                         padding: "1rem", // モーダルの内側の余白を調整する
                                     }}>
+                                    <MenuItem color='black'>
+                                        <Link href="/dashboard">ダッシュボードに戻る</Link>
+                                    </MenuItem>
                                     <MenuItem color='black'>
                                         <Link href="/makeDateJob">デートする</Link>
                                     </MenuItem>

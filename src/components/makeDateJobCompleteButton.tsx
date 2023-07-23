@@ -21,7 +21,6 @@ const MakeDateJobCompleteButton=( props: MakeDateJobCompleteProps)=>{
                     Authorization: `Bearer ${accessToken}`,
                 },
             });
-            console.log(userData);
             const response = await axios.post('/api/make_date_job', {
                 user: userData.data.user,
                 girlsNameConfirm: props.girlsNameConfirm,

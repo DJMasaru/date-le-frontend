@@ -5,7 +5,7 @@ import React from "react";
 import {FaCommentDots, FaHeart} from "react-icons/fa6";
 
 interface GirlsInfoCardProps {
-    index?: number;
+    index?: string;
     image_url?: string;
     name?: string;
     age?: number;
@@ -23,7 +23,7 @@ const GirlsInfoCard=({ index,image_url,name,age,occupation,
         // ダイナミックルーティングによる詳細画面への遷移
         router.push(`/checkGirlsInfo/${index}`);
     };
-console.log(name)
+
     return(
         <Box
             bg={useColorModeValue('white', 'gray.900')}
