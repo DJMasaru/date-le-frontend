@@ -18,7 +18,7 @@ const MakeDateJobConfirm = (props : MakeDateJobConfirmProps) => {
     const ChangeConfirm =()=>{
         if (girlsNameConfirm && dateOfDate && timeOfDate) {
             router.push({
-                pathname: '/make_date_job/confirm',
+                pathname: '/makeDateJob/confirm',
                 query: {girlsNameConfirm, dateOfDate, timeOfDate, placeOfDate, passion, target},
             });
         }

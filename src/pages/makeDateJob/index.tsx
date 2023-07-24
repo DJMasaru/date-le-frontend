@@ -1,16 +1,12 @@
 import React, {useEffect, useState} from "react";
 import {Button, Flex, useDisclosure,Input,Select} from "@chakra-ui/react";
-import {
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalFooter,
-    ModalBody,
-    ModalCloseButton,
+import {Modal, ModalOverlay, ModalContent, ModalHeader,
+    ModalFooter, ModalBody, ModalCloseButton,
 } from '@chakra-ui/react'
 import axios from "axios";
 import MakeDateJobConfirm from "../../components/makeDateJobComfirmButton";
+import { useRouter } from 'next/router';
+import Header from "../../components/header";
 
 interface Girl{
     id: string;
@@ -18,6 +14,12 @@ interface Girl{
 }
 
 const MakeDateJobPage=()=>{
+
+    //女の子の詳細情報から飛んでくる
+    const router = useRouter();
+    const {name} = router.query as {
+        name: string;
+    };
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [girlsList, setGirlsList] =useState<Girl[]>([]);
     const [placeOfDate, setPlaceOfDate] = useState('');
@@ -35,6 +37,7 @@ const MakeDateJobPage=()=>{
         if (girlsNameInput.length > 0 && girlsNameSelect.length > 0) {
             setError('エラーメッセージ：girlsNameInputとgirlsNameSelectの両方に値が入っています');
         } else if (girlsNameInput.length > 0) {
+
             // girlsNameInputの値を使用してAPI通信を行う
             setGirlsNameConfirm(girlsNameInput)
             onClose();
@@ -44,7 +47,6 @@ const MakeDateJobPage=()=>{
         }
     }
 
-console.log(girlsList)
     useEffect(() => {
         const fetchGirlsList = async () => {
             try {
@@ -63,6 +65,13 @@ console.log(girlsList)
 
         fetchGirlsList();
     }, [])
+
+    useEffect(() => {
+        if (name) {
+            // nameFromGirlsInfoが空文字でない場合に、girlsNameConfirmに値をセットする
+            setGirlsNameConfirm(name);
+        }
+    }, [name]);
 
     const contents = {
         width: '90%',
@@ -87,6 +96,9 @@ console.log(girlsList)
                 justifyContent="center"
                 height="100vh"
             >
+                <div style={{position:"fixed",width:"100%",zIndex:2,top:"0"}}>
+                    <Header />
+                </div>
                 <h1>デート情報登録</h1>
                 <div style={contents}>
                     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',width: '50%' }}>
@@ -99,7 +111,6 @@ console.log(girlsList)
                                 :
                             <p>入力する</p>
                             }
-
                         </Button>
                         <Modal isOpen={isOpen} onClose={onClose}>
                             <ModalOverlay />

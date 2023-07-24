@@ -5,7 +5,7 @@ const MakeDateJobConfirmAgainButton=()=>{
 
     return(
         <div>
-            <Link href="/make_date_job">
+            <Link href="/makeDateJob">
                 <Button
                     background={"blue.300"}
                     color="white"

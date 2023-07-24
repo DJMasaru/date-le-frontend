@@ -1,8 +1,9 @@
 import React from "react";
 import { useRouter } from 'next/router';
-import {Flex, Table, Tbody, Tr, Td, Input} from "@chakra-ui/react";
+import {Flex} from "@chakra-ui/react";
 import ConfirmAgain from "../../components/makeDateJobConfirmAgain";
 import MakeDateJobCompleteButton from "../../components/makeDateJobCompleteButton";
+import Header from "@/components/header";
 
 const ConfirmPage =()=>{
     const router = useRouter();
@@ -38,6 +39,9 @@ const ConfirmPage =()=>{
                 justifyContent="center"
                 height="100vh"
             >
+                <div style={{position:"fixed",width:"100%",zIndex:2,top:"0"}}>
+                    <Header />
+                </div>
                 <h1>登録内容確認</h1>
                 <p>この内容で登録してもいいですか？</p>
                 <div style={contents}>
@@ -74,7 +78,6 @@ const ConfirmPage =()=>{
                         </div>
                     </div>
                 )}
-
                 {passion && (
                     <div style={contents}>
                         <div style={contentsName}>
@@ -85,7 +88,6 @@ const ConfirmPage =()=>{
                         </div>
                     </div>
                 )}
-
                 {target && (
                     <div style={contents}>
                         <div style={contentsName}>
