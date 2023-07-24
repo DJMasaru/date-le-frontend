@@ -3,6 +3,7 @@ import axios from "axios";
 import {useRouter} from "next/router";
 
 interface editGirlsInfoCompleteProps{
+    girlsID?:number,
     index?:number;
     name?: string;
     age?:number;
@@ -11,6 +12,9 @@ interface editGirlsInfoCompleteProps{
     address?:string;
     birthday?:string;
     character?:string;
+    feature_first?:string;
+    feature_second?:string;
+    feature_third?:string;
     hobby?:string;
     favorite_foods?:string;
     dislike_foods?:string;
@@ -21,8 +25,9 @@ interface editGirlsInfoCompleteProps{
     notice?:string;
 }
 
-const EditGirlsInfoCompleteButton=({index, name, age, image_url, occupation, address, birthday, character, hobby, favorite_foods, dislike_foods,
-                                       favorite_type_of_man, opportunity_to_meet, has_boyfriend, count_of_dates, notice}: editGirlsInfoCompleteProps)=>{
+const EditGirlsInfoCompleteButton=({girlsID, index, name, age, image_url, occupation, address, birthday, character,feature_first,feature_second,feature_third,
+                                       hobby, favorite_foods, dislike_foods, favorite_type_of_man, opportunity_to_meet,
+                                       has_boyfriend, count_of_dates, notice}: editGirlsInfoCompleteProps)=>{
 
     const router = useRouter();
     const index_number = index !== undefined ? parseInt(String(index)) : 0;
@@ -30,6 +35,7 @@ const EditGirlsInfoCompleteButton=({index, name, age, image_url, occupation, add
         try {
             const accessToken = localStorage.getItem("date-le-accessToken");
             const response = await axios.put('/api/edit_girls_info', {
+                girlsID:girlsID,
                 name:name,
                 age:age,
                 // image_url,
@@ -37,6 +43,9 @@ const EditGirlsInfoCompleteButton=({index, name, age, image_url, occupation, add
                 address:address,
                 birthday:birthday,
                 character:character,
+                feature_first:feature_first,
+                feature_second:feature_second,
+                feature_third:feature_third,
                 hobby:hobby,
                 favorite_foods:favorite_foods,
                 dislike_foods:dislike_foods,

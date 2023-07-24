@@ -6,6 +6,7 @@ import BackButton from "@/components/backButton";
 import EditGirlsInfoConfirmButton from "@/components/editGirlsInfoConfirmButton";
 
 interface RouterQuery {
+    girlsID?:number,
     index?:number;
     name?: string;
     age?: number;
@@ -14,6 +15,9 @@ interface RouterQuery {
     address?: string;
     birthday?: string;
     character?: string;
+    feature_first?:string;
+    feature_second?:string;
+    feature_third?:string;
     hobby?: string;
     favorite_foods?: string;
     dislike_foods?: string;
@@ -27,10 +31,10 @@ interface RouterQuery {
 const EditGirlsInfoPage =()=>{
     const [isMobile] = useMediaQuery("(max-width: 768px)");
     const router = useRouter();
-    const {index, name, age, image_url, occupation, address,
-        birthday, character, hobby, favorite_foods, dislike_foods,
-        favorite_type_of_man, opportunity_to_meet, has_boyfriend,
-        count_of_dates, notice,
+    const {girlsID,index, name, age, image_url, occupation, address,
+        birthday, character,feature_first,feature_second,feature_third,
+        hobby, favorite_foods, dislike_foods, favorite_type_of_man,
+        opportunity_to_meet, has_boyfriend, count_of_dates, notice,
     }: RouterQuery = router.query;
 
     const [inputName, setInputName] = useState(name || "")
@@ -40,6 +44,11 @@ const EditGirlsInfoPage =()=>{
     const [inputAddress, setInputAddress] = useState(address || "");
     const [inputBirthday, setInputBirthday] = useState(birthday || "");
     const [inputCharacter, setInputCharacter] = useState(character || "");
+
+    const [inputFeatureFirst, setInputFeatureFirst] = useState(feature_first || "");
+    const [inputFeatureSecond, setInputFeatureSecond] = useState( feature_second|| "");
+    const [inputFeatureThird, setInputFeatureThird] = useState( feature_third|| "");
+
     const [inputHobby, setInputHobby] = useState(hobby || "");
     const [inputFavoriteFoods, setInputFavoriteFoods] = useState(favorite_foods || "");
     const [inputDislikeFoods, setInputDislikeFoods] = useState(dislike_foods || "");
@@ -180,6 +189,48 @@ const EditGirlsInfoPage =()=>{
                     />
                 </div>
             </div>
+
+            <div style={contents}>
+                <div style={contentsName}>
+                    <p style={{textAlign:"center"}}>特徴その①</p>
+                </div>
+                <div style={contentsName}>
+                    <Input
+                        type="text"
+                        value={inputFeatureFirst}
+                        onChange={(e) => setInputFeatureFirst(e.target.value)}
+                        style={inputStyle}
+                    />
+                </div>
+            </div>
+            <div style={contents}>
+                <div style={contentsName}>
+                    <p style={{textAlign:"center"}}>特徴その②</p>
+                </div>
+                <div style={contentsName}>
+                    <Input
+                        type="text"
+                        value={inputFeatureSecond}
+                        onChange={(e) => setInputFeatureSecond(e.target.value)}
+                        style={inputStyle}
+                    />
+                </div>
+            </div>
+
+            <div style={contents}>
+                <div style={contentsName}>
+                    <p style={{textAlign:"center"}}>特徴その③</p>
+                </div>
+                <div style={contentsName}>
+                    <Input
+                        type="text"
+                        value={inputFeatureThird}
+                        onChange={(e) => setInputFeatureThird(e.target.value)}
+                        style={inputStyle}
+                    />
+                </div>
+            </div>
+
             <div style={contents}>
                 <div style={contentsName}>
                     <p style={{textAlign:"center"}}>趣味</p>
@@ -276,6 +327,7 @@ const EditGirlsInfoPage =()=>{
             <div style={{display:"flex",width:"95%",margin:"10px auto",justifyContent:"space-between"}}>
                 <BackButton />
                 <EditGirlsInfoConfirmButton
+                    girlsID={girlsID}
                     index={index}
                     name={inputName}
                     age={inputAge}
@@ -284,6 +336,9 @@ const EditGirlsInfoPage =()=>{
                     address={inputAddress}
                     birthday={inputBirthday}
                     character={inputCharacter}
+                    feature_first={inputFeatureFirst}
+                    feature_second={inputFeatureSecond}
+                    feature_third={inputFeatureThird}
                     hobby={inputHobby}
                     favorite_foods={inputFavoriteFoods}
                     dislike_foods={inputDislikeFoods}

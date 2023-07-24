@@ -13,7 +13,7 @@ import MakeDateJobButton from "@/components/makeDateJobButton";
 import EditGirlsInfoButton from "@/components/editGirlsInfoButton";
 
 interface Girl{
-    id: string;
+    id: number;
     name: string;
     age:number;
     image_url:string;
@@ -21,6 +21,9 @@ interface Girl{
     address:string;
     birthday:string;
     character:string;
+    feature_first:string;
+    feature_second:string;
+    feature_third:string;
     hobby:string;
     favorite_foods:string;
     dislike_foods:string;
@@ -36,7 +39,7 @@ const GirlsInfoPage = () =>{
     const index: string | undefined = typeof router.query.index === 'string' ? router.query.index : undefined;
     const [girlsInfo, setGirlsInfo] =useState<Girl | null>(null);
     const { isOpen, onOpen, onClose } = useDisclosure()
-
+console.log(girlsInfo);
     useEffect(() => {
         const fetchGirlsInfo = async () => {
             try {
@@ -150,6 +153,8 @@ const GirlsInfoPage = () =>{
                             </div>
                             <div style={{width:"50%",textAlign:"right"}}>
                                 <EditGirlsInfoButton
+                                    //このgirlsIDは編集するときにどの女の子かを識別するときに必要
+                                    girlsID={girlsInfo?.id}
                                     index={index}
                                     name={girlsInfo?.name}
                                     age={girlsInfo?.age}
@@ -158,6 +163,9 @@ const GirlsInfoPage = () =>{
                                     address={girlsInfo?.address}
                                     birthday={girlsInfo?.birthday}
                                     character={girlsInfo?.character}
+                                    feature_first={girlsInfo?.feature_first}
+                                    feature_second={girlsInfo?.feature_second}
+                                    feature_third={girlsInfo?.feature_third}
                                     hobby={girlsInfo?.hobby}
                                     favorite_foods={girlsInfo?.favorite_foods}
                                     dislike_foods={girlsInfo?.dislike_foods}
@@ -216,6 +224,36 @@ const GirlsInfoPage = () =>{
                             </div>
                         </div>
                             )}
+                        {girlsInfo?.feature_first &&(
+                            <div style={contents}>
+                                <div style={contentsName}>
+                                    <p style={{textAlign:"center"}}>特徴その①</p>
+                                </div>
+                                <div style={contentsName}>
+                                    <p style={{textAlign:"center"}}>{girlsInfo?.feature_first}</p>
+                                </div>
+                            </div>
+                        )}
+                        {girlsInfo?.feature_second &&(
+                            <div style={contents}>
+                                <div style={contentsName}>
+                                    <p style={{textAlign:"center"}}>特徴その②</p>
+                                </div>
+                                <div style={contentsName}>
+                                    <p style={{textAlign:"center"}}>{girlsInfo?.feature_second}</p>
+                                </div>
+                            </div>
+                        )}
+                        {girlsInfo?.feature_third &&(
+                            <div style={contents}>
+                                <div style={contentsName}>
+                                    <p style={{textAlign:"center"}}>特徴その③</p>
+                                </div>
+                                <div style={contentsName}>
+                                    <p style={{textAlign:"center"}}>{girlsInfo?.feature_third}</p>
+                                </div>
+                            </div>
+                        )}
                         {girlsInfo?.hobby &&(
                         <div style={contents}>
                             <div style={contentsName}>

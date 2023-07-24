@@ -7,10 +7,13 @@ import EditGirlsInfoCompleteButton from "@/components/editGirlsInfoCompleteButto
 
 const CheckGirlsInfoConfirmPage =()=>{
     const router = useRouter();
-    const {index, name, age,
+    const {girlsID,index, name, age,
         // image_url,
-        occupation, address, birthday, character, hobby, favorite_foods, dislike_foods,
-        favorite_type_of_man, opportunity_to_meet, has_boyfriend, count_of_dates, notice} = router.query as {
+        occupation, address, birthday, character,
+        feature_first,feature_second,feature_third, hobby, favorite_foods, dislike_foods,
+        favorite_type_of_man, opportunity_to_meet, has_boyfriend,
+        count_of_dates, notice} = router.query as {
+        girlsID?:number,
         index?:number;
         name?:string,
         age?:number,
@@ -19,6 +22,9 @@ const CheckGirlsInfoConfirmPage =()=>{
         address?:string,
         birthday?:string,
         character?:string,
+        feature_first?:string,
+        feature_second?:string,
+        feature_third?:string,
         hobby?:string,
         favorite_foods?:string,
         dislike_foods?:string,
@@ -122,6 +128,33 @@ const CheckGirlsInfoConfirmPage =()=>{
                             <p>{character}</p>
                         </div>
                     </div>
+
+
+                    <div style={contents}>
+                        <div style={contentsName}>
+                            <p style={{textAlign:"center"}}>特徴その①</p>
+                        </div>
+                        <div style={contentsName}>
+                            <p>{feature_first}</p>
+                        </div>
+                    </div>
+                    <div style={contents}>
+                        <div style={contentsName}>
+                            <p style={{textAlign:"center"}}>特徴その②</p>
+                        </div>
+                        <div style={contentsName}>
+                            <p>{feature_second}</p>
+                        </div>
+                    </div>
+                    <div style={contents}>
+                        <div style={contentsName}>
+                            <p style={{textAlign:"center"}}>特徴その③</p>
+                        </div>
+                        <div style={contentsName}>
+                            <p>{feature_third}</p>
+                        </div>
+                    </div>
+
                     <div style={contents}>
                         <div style={contentsName}>
                             <p style={{textAlign:"center"}}>趣味</p>
@@ -187,6 +220,7 @@ const CheckGirlsInfoConfirmPage =()=>{
                     <div style={{display:"flex",width:"95%",margin:"10px auto",justifyContent:"space-between"}}>
                         <BackButton />
                         <EditGirlsInfoCompleteButton
+                            girlsID={girlsID}
                             index={index}
                             name={name}
                             age={age}
@@ -195,6 +229,9 @@ const CheckGirlsInfoConfirmPage =()=>{
                             address={address}
                             birthday={birthday}
                             character={character}
+                            feature_first={feature_first}
+                            feature_second={feature_second}
+                            feature_third={feature_third}
                             hobby={hobby}
                             favorite_foods={favorite_foods}
                             dislike_foods={dislike_foods}

@@ -5,7 +5,7 @@ import React from "react";
 import {FaCommentDots, FaHeart} from "react-icons/fa6";
 
 interface GirlsInfoCardProps {
-    index?: string;
+    index?: number;
     image_url?: string;
     name?: string;
     age?: number;

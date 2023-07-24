@@ -2,6 +2,7 @@ import { Button } from "@chakra-ui/react";
 import {useRouter} from "next/router";
 
 interface editGirlsInfoProps{
+    girlsID?:number;
     index?:string;
     name?: string;
     age?:number;
@@ -10,6 +11,9 @@ interface editGirlsInfoProps{
     address?:string;
     birthday?:string;
     character?:string;
+    feature_first?:string;
+    feature_second?:string;
+    feature_third?:string;
     hobby?:string;
     favorite_foods?:string;
     dislike_foods?:string;
@@ -20,7 +24,7 @@ interface editGirlsInfoProps{
     notice?:string;
 }
 
-const EditGirlsInfoButton = ({index, name, age, image_url, occupation, address, birthday, character, hobby, favorite_foods, dislike_foods,
+const EditGirlsInfoButton = ({girlsID,index, name, age, image_url, occupation, address, birthday, character,feature_first,feature_second,feature_third, hobby, favorite_foods, dislike_foods,
                                  favorite_type_of_man, opportunity_to_meet, has_boyfriend, count_of_dates, notice}: editGirlsInfoProps) => {
 
     const router = useRouter();
@@ -29,7 +33,7 @@ const EditGirlsInfoButton = ({index, name, age, image_url, occupation, address, 
             await router.push({
                 pathname: '/checkGirlsInfo/edit',
                 query: {
-                    index, name, age, image_url, occupation, address, birthday, character, hobby,
+                    girlsID, index, name, age, image_url, occupation, address, birthday, character,feature_first,feature_second,feature_third, hobby,
                     favorite_foods, dislike_foods, favorite_type_of_man, opportunity_to_meet, has_boyfriend, count_of_dates, notice
                 },
             });
