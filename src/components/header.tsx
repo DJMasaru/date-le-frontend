@@ -32,6 +32,10 @@ const Header =()=>{
         fetchUserData();
     }, []);
 
+    const handleLogOut=()=>{
+
+    }
+
     return (
         <>
             {isMobile ? (
@@ -62,24 +66,37 @@ const Header =()=>{
                                         minWidth: "300px", // モーダルの幅を調整する
                                         padding: "1rem", // モーダルの内側の余白を調整する
                                     }}>
-                                    <MenuItem color='black'>
-                                        <Link href="/dashboard">ダッシュボードに戻る</Link>
-                                    </MenuItem>
-                                    <MenuItem color='black'>
-                                        <Link href="/makeDateJob">デートする</Link>
-                                    </MenuItem>
-                                    <MenuItem color='black'>
-                                        <Link href="/checkGirlsInfo">女の子情報を確認する</Link>
-                                    </MenuItem>
-                                    <MenuItem color='black'>
-                                        デートの履歴を確認する
-                                    </MenuItem>
+                                    <Link href="/dashboard">
+                                        <MenuItem color='black'>
+                                            ダッシュボードに戻る
+                                        </MenuItem>
+                                    </Link>
+                                    <Link href="/makeDateJob">
+                                        <MenuItem color='black'>
+                                            デートする
+                                        </MenuItem>
+                                    </Link>
+                                    <Link href="/checkGirlsInfo">
+                                        <MenuItem color='black'>
+                                            女の子情報を確認する
+                                        </MenuItem>
+                                    </Link>
+                                    <Link href="/dateLog">
+                                        <MenuItem color='black'>
+                                            デートの履歴を確認する
+                                        </MenuItem>
+                                    </Link>
                                     <MenuItem color='black'>
                                         友達一覧を見る
                                     </MenuItem>
-                                    <MenuItem color='black'>
-                                        プロフィールを編集する
-                                    </MenuItem>
+                                        <MenuItem color='black'>
+                                            プロフィールを編集する
+                                        </MenuItem>
+                                    <Link href="/login">
+                                        <MenuItem color='black'　onClick={handleLogOut}>
+                                            ログアウト
+                                        </MenuItem>
+                                    </Link>
                                 </MenuList>
                             </Menu>
                         </div>
