@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import Header from "@/components/header";
 import {useMediaQuery} from "@chakra-ui/react";
-import LogDateCard from "@/components/LogDateCard";
+import LogDateCard from "@/components/cards/LogDateCard";
 
 interface DateLog{
     id: number;

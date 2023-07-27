@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
-import DashboardJobCard from "../../components/dashboardJobCard";
+import DashboardJobCard from "../../components/cards/dashboardJobCard";
 import DateSelector from "../../components/dateSelector";
 import {useMediaQuery} from "@chakra-ui/react";
 import Header from "../../components/header";
@@ -35,7 +35,7 @@ const Dashboard =()=> {
     const [readingError, setReadingError] = useState<string>('');
     const [isMobile] = useMediaQuery("(max-width: 768px)");
     const [selector,setSelector] = useState<string>('mine')
-
+console.log(friendsJobAndProfile);
     useEffect(() => {
         const fetchUserData = async () => {
             try {
