@@ -8,10 +8,11 @@ interface FriendshipCardProps {
     name:string;
     status:string;
     commonIds: number[];
-    onClick: () => void;
+    requestCommonIds: number[];
+    onClick: (action: string) => void;
 }
 
-const FriendshipCard=({id,name,image_url,status,commonIds,onClick}:FriendshipCardProps)=>{
+const FriendshipCard=({id,name,image_url,status,commonIds,onClick,requestCommonIds}:FriendshipCardProps)=>{
     const router = useRouter();
     const handleClick = () => {
         // ダイナミックルーティングによる詳細画面への遷移
@@ -23,38 +24,81 @@ const FriendshipCard=({id,name,image_url,status,commonIds,onClick}:FriendshipCar
         event.stopPropagation();
         if (status === 'following') {
             alert('Followingアラート');
-            onClick();
 
+            //このコールバック関数は「削除」をする。
+            onClick(action);
+        }
+        if (status === 'requesting') {
+            alert('requestingアラート');
 
-        } else if (status === 'followed') {
+            //このコールバック関数は「削除」をする。
+            onClick(action);
+        }
+
+        if (status === 'followed') {
             if (action === '相互') {
                 alert('相互アラート');
 
+                //このコールバック関数は「削除」をする。
+                onClick(action);
+                setAction('追加')
             } else if (action === '追加') {
                 // アラートを表示
                 alert('追加アラート');
-                setAction('申請中')
-            }
 
+                //このコールバック関数は「statusを2に更新」する
+                onClick(action);
+                setAction('申請中')
+            }else if (action === '申請中') {
+                // アラートを表示
+                alert('申請キャンセルアラート');
+
+                //このコールバック関数は「statusを2に更新」する
+                onClick(action);
+                setAction('追加')
             }
         }
+        if (status === 'requested') {
+            if (action === '許可') {
+                // アラートを表示
+                alert('許可');
+
+                //このコールバック関数は「statusを2に更新」する
+                onClick(action);
+            }
+        }
+    }
 
 
     const[action,setAction]=useState('');
-
+console.log(action)
     useEffect(() => {
         if (status === 'following') {
             setAction('削除');
-        } else {
-            // commonIdsにidが含まれるかをチェック
+        }
+
+        if (status === 'requesting') {
+            // idが該当しない場合、別の処理を実行
+            // 例えば、setAction('追加')など
+            setAction('削除');
+        }
+
+        if(status === 'followed') {
             if (commonIds.includes(id)) {
                 // idが該当する場合、状態関数を実行
                 setAction('相互');
-            } else {
-                // idが該当しない場合、別の処理を実行
-                // 例えば、setAction('追加')など
+            }else if(requestCommonIds.includes(id)){
+                setAction('申請中');
+            }
+            else{
                 setAction('追加');
             }
+        }
+
+        if (status === 'requested') {
+                // idが該当しない場合、別の処理を実行
+                // 例えば、setAction('追加')など
+                setAction('許可');
         }
     }, [status, commonIds, id]); // status, commonIds, idの値が変更されたときにのみ実行される
 

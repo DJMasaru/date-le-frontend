@@ -29,10 +29,8 @@ interface user{
 }
 
 const Dashboard =()=> {
-    const [userData, setUserData] = useState<user | null>(null);
     const [jobAndProfile, setJobAndProfile] = useState<jobAndProfile[]>([]);
     const [friendsJobAndProfile, setFriendsJobAndProfile] = useState<friendsJobAndProfile[]>([]);
-    const [readingError, setReadingError] = useState<string>('');
     const [isMobile] = useMediaQuery("(max-width: 768px)");
     const [selector,setSelector] = useState<string>('mine')
 console.log(friendsJobAndProfile);
@@ -45,12 +43,10 @@ console.log(friendsJobAndProfile);
                         Authorization: `Bearer ${accessToken}`,
                     },
                 });
-                setUserData(response.data.user);
                 setJobAndProfile(response.data.jobAndProfile);
                 setFriendsJobAndProfile(response.data.friendsJobAndProfile)
             } catch (error) {
                 console.error(error);
-                setReadingError('デートが登録されていません。')
             }
         };
 
@@ -64,60 +60,61 @@ console.log(friendsJobAndProfile);
     return (
         <>
             {isMobile ? (
-                readingError ? (
-                    <div>{readingError}</div>
-                ) : (
                     <div>
                         <div>
                             <div style={{position:"fixed",width:"100%",zIndex:2,top:"0"}}>
-                                {userData && (
                                     <Header />
-                                )}
                             </div>
                             <DateSelector onStateChange={handleDateSelector}/>
                         </div>
                         <div style={{ marginTop: "120px" }}>
                             <div style={{ width: '95%', margin: 'auto' }}>
-                                {/* dateJob の値を表示 */}
-                                {selector === 'mine'
-                                    ? jobAndProfile.map((item, index) => {
-                                        const girlsProfile = item.girls_profile;
-                                        return (
-                                            <DashboardJobCard
-                                                key={index}
-                                                index={index}
-                                                {...girlsProfile}
-                                                date_of_date={item.date_of_date}
-                                                time_of_date={item.time_of_date}
-                                                place_of_date={item.place_of_date}
-                                                comment_count={item.comment_count}
-                                                favorite_count={item.favorite_count}
-                                            />
-                                        );
-                                    })
-                                    : selector === 'friends'
-                                        ? friendsJobAndProfile.map((item2, index) => {
+                                {selector === 'mine' ? (
+                                    jobAndProfile.length !== 0 ? (
+                                        jobAndProfile.map((item, index) => {
+                                            const girlsProfile = item.girls_profile;
                                             return (
-                                                    <DashboardJobCard
-                                                        key={index}
-                                                        friend='friend'
-                                                        index={index}
-                                                        {...item2.date_jobs[0].girls_profile}
-                                                        date_of_date={item2.date_jobs[0].date_of_date}
-                                                        time_of_date={item2.date_jobs[0].time_of_date}
-                                                        place_of_date={item2.date_jobs[0].place_of_date}
-                                                        comment_count={item2.date_jobs[0].comment_count}
-                                                        favorite_count={item2.date_jobs[0].favorite_count}
-                                                        friend_name={item2.name}
-                                                    />
-                                                );
+                                                <DashboardJobCard
+                                                    key={index}
+                                                    index={index}
+                                                    {...girlsProfile}
+                                                    date_of_date={item.date_of_date}
+                                                    time_of_date={item.time_of_date}
+                                                    place_of_date={item.place_of_date}
+                                                    comment_count={item.comment_count}
+                                                    favorite_count={item.favorite_count}
+                                                />
+                                            );
                                         })
-                                        : null
-                                }
+                                    ) : (
+                                        <p>ジョブが登録されていません。</p>
+                                    )
+                                ) : selector === 'friends' ? (
+                                    friendsJobAndProfile.length !== 0 ? (
+                                        friendsJobAndProfile.map((item2, index) => {
+                                            return (
+                                                <DashboardJobCard
+                                                    key={index}
+                                                    friend='friend'
+                                                    index={index}
+                                                    {...item2.date_jobs[0].girls_profile}
+                                                    date_of_date={item2.date_jobs[0].date_of_date}
+                                                    time_of_date={item2.date_jobs[0].time_of_date}
+                                                    place_of_date={item2.date_jobs[0].place_of_date}
+                                                    comment_count={item2.date_jobs[0].comment_count}
+                                                    favorite_count={item2.date_jobs[0].favorite_count}
+                                                    friend_name={item2.name}
+                                                />
+                                            );
+                                        })
+                                    ) : (
+                                        <p>ジョブが登録されていません。</p>
+                                    )
+                                ) : null}
                             </div>
+
                         </div>
                     </div>
-                )
             ) : (
                 <p>Waiting...</p>
             )}
