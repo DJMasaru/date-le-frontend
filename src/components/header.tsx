@@ -86,9 +86,11 @@ const Header =()=>{
                                             デートの履歴を確認する
                                         </MenuItem>
                                     </Link>
-                                    <MenuItem color='black'>
-                                        友達一覧を見る
-                                    </MenuItem>
+                                    <Link href="/friendship">
+                                        <MenuItem color='black'>
+                                            友達一覧を見る
+                                        </MenuItem>
+                                    </Link>
                                         <MenuItem color='black'>
                                             プロフィールを編集する
                                         </MenuItem>

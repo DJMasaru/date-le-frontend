@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import Header from "@/components/header";
-import GirlsInfoCard from "@/components/girlsInfoCard";
+import GirlsInfoCard from "@/components/cards/girlsInfoCard";
 import {useMediaQuery} from "@chakra-ui/react";
 
 interface Girl{
@@ -27,10 +27,8 @@ const CheckGirlsInfo=()=>{
 
             } catch (error) {
                 console.error(error);
-
             }
         }
-
         fetchGirlsInfo();
     }, [])
 
