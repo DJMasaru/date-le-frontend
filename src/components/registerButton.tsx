@@ -5,8 +5,7 @@ const Register = () => {
     return (
         <Link href="/register">
             <Button
-                background={"blue.300"}
-                color="white"
+                colorScheme='blue'
                 m={2}
             >
                 新規登録

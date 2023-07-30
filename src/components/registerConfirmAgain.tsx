@@ -4,13 +4,12 @@ import Link from "next/link";
 const RegisterConfirmAgainButton=()=>{
 
     return(
-        <div>
+        <div style={{width:"45%"}}>
             <Link href="/register">
                 <Button
-                    background={"blue.300"}
-                    color="white"
+                    style={{width:"100%"}}
+                    colorScheme='blue'
                     m={2}
-
                 >
                     やり直す
                 </Button>

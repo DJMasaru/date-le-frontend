@@ -14,8 +14,8 @@ const RegisterCompleteButton=( props: RegisterCompleteProps)=>{
         try {
             const response = await axios.post('/api/register', {
                 name: props.name,
-                email: props.email, // ログインIDをAPIに渡す
-                password: props.password, // パスワードをAPIに渡す
+                email: props.email,
+                password: props.password,
             }); // ログイン成功時の処理
             await router.push({
                 pathname: '/register/complete',
@@ -25,23 +25,21 @@ const RegisterCompleteButton=( props: RegisterCompleteProps)=>{
                 },
             });
             console.log(response.data);
-        } catch (error) {
-        // ログイン失敗時の処理
-        console.error(error);
-    }
-};
+            } catch (error) {
+            // ログイン失敗時の処理
+            console.error(error);
+        }
+    };
 
     return(
-        <div>
             <Button
-                background={"blue.300"}
-                color="white"
+                style={{width:"45%"}}
+                colorScheme='blue'
                 m={2}
                 onClick={handleRegisterComplete}
             >
                 登録する
             </Button>
-        </div>
     )
 }
 

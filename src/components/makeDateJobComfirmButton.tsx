@@ -26,8 +26,7 @@ const MakeDateJobConfirm = (props : MakeDateJobConfirmProps) => {
 
     return (
         <Button
-            background={"blue.300"}
-            color="white"
+            colorScheme='blue'
             m={2}
             onClick={ChangeConfirm}
         >

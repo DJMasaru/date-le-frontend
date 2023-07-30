@@ -5,7 +5,7 @@ import {useRouter} from "next/router";
 interface LoginButtonProps {
     email: string;
     password: string;
-    onStateChange: (state: string) => void; // onStateChangeプロパティを追加
+    onStateChange: (state: string) => void;
 }
 
 const LoginBtn = (props: LoginButtonProps) => {
@@ -14,8 +14,8 @@ const LoginBtn = (props: LoginButtonProps) => {
     const handleLogin =async()=>{
         try {
             const response = await axios.post('/api/login', {
-                email: props.email, // ログインIDをAPIに渡す
-                password: props.password, // パスワードをAPIに渡す
+                email: props.email,
+                password: props.password,
             });
             const accessToken = response.data.access_token;
             localStorage.setItem('date-le-accessToken', accessToken);
@@ -30,8 +30,7 @@ const LoginBtn = (props: LoginButtonProps) => {
     return (
         <div>
             <Button
-                background={"blue.300"}
-                color="white"
+                colorScheme='blue'
                 m={2}
                 onClick={handleLogin}
             >

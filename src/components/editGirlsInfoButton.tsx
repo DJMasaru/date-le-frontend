@@ -46,8 +46,7 @@ const EditGirlsInfoButton = ({girlsID,index, name, age, image_url, occupation, a
     return(
         <div style={{width:"100%",display:"flex",justifyContent:"right"}}>
             <Button
-                background={"blue.300"}
-                color="white"
+                colorScheme='blue'
                 m={2}
                 onClick={handleEditGirlsInfo}
                 style={{width:"95%",margin:"0"}}

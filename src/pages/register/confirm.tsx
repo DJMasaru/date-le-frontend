@@ -1,8 +1,9 @@
 import React from "react";
 import { useRouter } from 'next/router';
-import {Flex, Table, Tbody, Tr, Td} from "@chakra-ui/react";
+import {Flex, Table, Tbody, Tr, Td, Stack, FormControl, Input, FormErrorMessage, Text} from "@chakra-ui/react";
 import RegisterComplete from "../../components/registerCompleteButton";
 import ConfirmAgain from "../../components/registerConfirmAgain";
+import BackButton from "@/components/backButton";
 
 const ConfirmPage =()=>{
     const router = useRouter();
@@ -14,6 +15,21 @@ const ConfirmPage =()=>{
 
     const cellStyle = {width: '50%'}
 
+    const contents = {
+        width: '90%',
+        display: 'flex',
+        height: '80px',
+        borderBottom: '1px dashed black',
+        margin: '10px auto 0px',
+        alignItems: 'center',
+    }
+
+    const contentsName = {
+        width: '50%',
+    }
+
+
+
     return(
         <>
             <Flex
@@ -23,24 +39,33 @@ const ConfirmPage =()=>{
                 height="100vh"
             >
                 <h1>登録内容確認</h1>
-                <Table overflowX="auto" maxWidth="50%">
-                    <Tbody>
-                    <Tr>
-                        <Td style={cellStyle}>ユーザー名</Td>
-                        <Td style={cellStyle}>{name}</Td>
-                    </Tr>
-                    <Tr>
-                        <Td style={cellStyle}>パスワード</Td>
-                        <Td style={cellStyle}>{password}</Td>
-                    </Tr>
-                    <Tr>
-                        <Td style={cellStyle}>メールアドレス</Td>
-                        <Td style={cellStyle}>{email}</Td>
-                    </Tr>
-                    </Tbody>
-                </Table>
-                <Flex justifyContent="space-between">
-                    <ConfirmAgain/>
+                <div style={contents}>
+                    <div style={contentsName}>
+                        <Text textAlign="center">ユーザー名</Text>
+                    </div>
+                    <div style={contentsName}>
+                        <Text textAlign="center">{name}</Text>
+                    </div>
+                </div>
+
+                <div style={contents}>
+                    <div style={contentsName}>
+                        <Text textAlign="center">パスワード</Text>
+                    </div>
+                    <div style={contentsName}>
+                        <Text textAlign="center">{password}</Text>
+                    </div>
+                </div>
+                <div style={contents}>
+                    <div style={contentsName}>
+                        <Text textAlign="center">メールアドレス</Text>
+                    </div>
+                    <div style={contentsName}>
+                        <Text textAlign="center">{email}</Text>
+                    </div>
+                </div>
+                <Flex justifyContent="space-between" width="95%" alignItems="center">
+                    <BackButton/>
                     <RegisterComplete name={name} password={password} email={email} />
                 </Flex>
             </Flex>

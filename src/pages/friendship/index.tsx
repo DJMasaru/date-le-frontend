@@ -127,9 +127,8 @@ const Dashboard =()=> {
 
     const handleDeleteFollowedUserCard = async ({id, action}:deleteProps) => {
         try {
-
             const accessToken = localStorage.getItem("date-le-accessToken");
-            console.log(accessToken);
+
             if(action == '相互') {
                 const response = await axios.delete("/api/delete_friendship_status", {
                     headers: {
@@ -141,6 +140,7 @@ const Dashboard =()=> {
                         action: action,
                     },
                 });
+                fetchFriendshipData();
             }else if(action == '追加'){
                 const response = await axios.post("/api/post_friendship_status", {
                         id: id,
@@ -164,7 +164,6 @@ const Dashboard =()=> {
                     },
                 });
                 fetchFriendshipData();
-
             }
 
         } catch (error) {
@@ -174,13 +173,13 @@ const Dashboard =()=> {
     };
 
     //相手からフォローリクエストがきているとき「許可」のボタンを押したら実行される
-    const handleRequestedUserCard = async ({id,action, index}:deleteProps) => {
+    const handleRequestedUserCard = async (props:deleteProps) => {
         try {
             const accessToken = localStorage.getItem("date-le-accessToken");
             const response = await axios.put("/api/put_friendship_status", {
-                id: id,
+                id: props.id,
                 status: 'requested',
-                action: action,
+                action: props.action,
             }, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
@@ -191,7 +190,7 @@ const Dashboard =()=> {
             if (requestedUser) {
                 const updatedRequestedUser = [...requestedUser];
                 console.log(updatedRequestedUser);
-                updatedRequestedUser.splice(index, 1);
+                updatedRequestedUser.splice(props.index, 1);
                 setRequestedUser(updatedRequestedUser);
             }
         } catch (error) {
