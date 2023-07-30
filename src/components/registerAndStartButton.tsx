@@ -14,8 +14,8 @@ const RegisterAndStartButton=(props: RegisterAndStartButtonProps)=>{
     const handleRegisterAndStart = async ()=>{
         try {
             const response = await axios.post('/api/login', {
-                email: props.email, // ログインIDをAPIに渡す
-                password: props.password, // パスワードをAPIに渡す
+                email: props.email,
+                password: props.password,
             });
             const accessToken = response.data.access_token;
             localStorage.setItem('date-le-accessToken', accessToken);
@@ -32,8 +32,7 @@ const RegisterAndStartButton=(props: RegisterAndStartButtonProps)=>{
     return(
         <div>
             <Button
-                background={"blue.300"}
-                color="white"
+                colorScheme='blue'
                 m={2}
                 onClick={handleRegisterAndStart}
             >

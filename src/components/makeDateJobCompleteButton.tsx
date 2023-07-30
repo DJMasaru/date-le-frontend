@@ -47,8 +47,7 @@ const MakeDateJobCompleteButton=( props: MakeDateJobCompleteProps)=>{
     return(
         <div>
             <Button
-                background={"blue.300"}
-                color="white"
+                colorScheme='blue'
                 m={2}
                 onClick={handleMakeDateJobComplete}
             >

@@ -8,8 +8,7 @@ const ReturnLoginButton=()=>{
         <div>
             <Link href="/login">
                 <Button
-                    background={"blue.300"}
-                    color="white"
+                    colorScheme='blue'
                     m={2}
                 >
                     ログイン画面<br/>に戻る

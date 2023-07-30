@@ -4,6 +4,7 @@ import {Menu, MenuButton, MenuList, MenuItem,} from '@chakra-ui/react'
 import { HamburgerIcon } from '@chakra-ui/icons';
 import  Link  from 'next/link';
 import axios from "axios";
+import {useRouter} from "next/router";
 
 interface User{
     name:string;
@@ -11,6 +12,7 @@ interface User{
 }
 
 const Header =()=>{
+    const router = useRouter();
     const [isMobile] = useMediaQuery("(max-width: 768px)");
     const [userData, setUserData] = useState<User | null>(null);
 
@@ -32,7 +34,11 @@ const Header =()=>{
         fetchUserData();
     }, []);
 
-    const handleLogOut=()=>{
+    const handleLogOut　=async()=>{
+        localStorage.removeItem('webToken');
+        await router.push({
+            pathname: '/login',
+        });
 
     }
 
@@ -45,7 +51,7 @@ const Header =()=>{
                     height="60px"
                     color="white"
                 >
-                    <Flex height="100%" alignItems="center" marginLeft="0.5rem" justifyContent="space-between">
+                    <Flex height="100%" alignItems="center" marginLeft="2.5rem" justifyContent="space-between">
                         <Box height="100%" display="flex" alignItems="center">
                             {userData && <Avatar size="md" src={userData.image_url} />}
                         </Box>
@@ -91,14 +97,14 @@ const Header =()=>{
                                             友達一覧を見る
                                         </MenuItem>
                                     </Link>
+                                    <Link href="/profile">
                                         <MenuItem color='black'>
                                             プロフィールを編集する
                                         </MenuItem>
-                                    <Link href="/login">
-                                        <MenuItem color='black'　onClick={handleLogOut}>
-                                            ログアウト
-                                        </MenuItem>
                                     </Link>
+                                    <MenuItem color='black'　onClick={handleLogOut}>
+                                        ログアウト
+                                    </MenuItem>
                                 </MenuList>
                             </Menu>
                         </div>

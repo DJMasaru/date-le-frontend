@@ -1,4 +1,4 @@
-import {Avatar, Badge, Box, ChakraProvider, Flex, useColorModeValue,} from '@chakra-ui/react';
+import {Avatar, Badge, Box, ChakraProvider, Flex, Spacer, useColorModeValue,} from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import theme from "@/theme";
 import React from "react";
@@ -21,10 +21,11 @@ interface DashboardJobCardProps{
     favorite_count :number;
     friend_name?: string;
     friend?: string;
+    friend_image_url?:string;
 }
 
 const DashboardJobCard = ({ index, name, age, occupation, image_url, feature_first, feature_second, feature_third,
-                              date_of_date,time_of_date, place_of_date,comment_count,favorite_count,friend_name,friend }
+                              date_of_date,time_of_date, place_of_date,comment_count,favorite_count,friend_name,friend,friend_image_url }
                               :DashboardJobCardProps) => {
 
     const router = useRouter();
@@ -67,18 +68,15 @@ const DashboardJobCard = ({ index, name, age, occupation, image_url, feature_fir
                     size={'lg'}
                     src={image_url}
                 />
-                    <Flex flexDirection="column" alignItems="start" marginLeft="1rem" display="flex">
-                        <p style={{fontWeight:"bold"}}>{name} ({age})</p>
-                        <p style={{color:"#555555"}}>{occupation}</p>
-                    </Flex>
-                {friend_name &&
-                <p style={{marginLeft:"10px",textDecoration:"underline"}}>☆{friend_name}のデート☆</p>
-                }
+                <Flex flexDirection="column" alignItems="start" marginLeft="1rem" display="flex">
+                    <p style={{fontWeight:"bold"}}>{name} {age && `(${age})`}</p>
+                    <p style={{color:"#555555"}}>{occupation}</p>
+                </Flex>
             </Flex>
             <p style={{textAlign:"right",fontWeight:"bold",color:"red"}}>＞</p>
             <p>{`${year}年${monthWithoutZero}月${dayWithoutZero}日`}  {`${hour}時${minute}分`}　</p>
             <p>集合場所：{place_of_date}</p>
-            <Flex alignItems="center" justifyContent="start">
+            <Flex alignItems="center" justifyContent="space-between">
                 <div>
                 { features.map((feature, index) =>{
                     return(
@@ -96,9 +94,25 @@ const DashboardJobCard = ({ index, name, age, occupation, image_url, feature_fir
                     )
                 })}
                 </div>
+                <Spacer/>
                 <FaHeart /> <p style={{marginRight:"1rem"}}>{favorite_count}</p>
                 <FaCommentDots /> <p style={{marginRight:"1rem"}}>{comment_count}</p>
             </Flex>
+            {friend_name &&
+            <Flex alignItems="center" justifyContent="end">
+                <div>
+
+                    <p style={{textAlign:"right",fontWeight:"bold"}}>{friend_name}のデート</p>
+
+                </div>
+                <div>
+                    <Avatar
+                        size={'sm'}
+                        src={friend_image_url}
+                    />
+                </div>
+            </Flex>
+            }
         </Box>
     );
 }

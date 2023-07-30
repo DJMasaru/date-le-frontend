@@ -23,8 +23,7 @@ const MakeDateJobButton=({name}:makeDateJobComfirmButtonProps)=>{
     return(
         <div style={{width:"100%",display:"flex",justifyContent:"center"}}>
             <Button
-                background={"blue.300"}
-                color="white"
+                colorScheme='blue'
                 m={2}
                 onClick={handleMakeDateJobButton}
                 style={{width:"95%"}}

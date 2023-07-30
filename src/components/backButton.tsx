@@ -11,8 +11,7 @@ const BackButton = () => {
     return (
         <Button
             style={{width:"45%"}}
-            background={"blue.300"}
-            color="white"
+            colorScheme='gray'
             onClick={handleBack}>
             戻る
         </Button>

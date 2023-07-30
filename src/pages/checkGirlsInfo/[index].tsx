@@ -39,7 +39,7 @@ const GirlsInfoPage = () =>{
     const index: string | undefined = typeof router.query.index === 'string' ? router.query.index : undefined;
     const [girlsInfo, setGirlsInfo] =useState<Girl | null>(null);
     const { isOpen, onOpen, onClose } = useDisclosure()
-console.log(girlsInfo);
+
     useEffect(() => {
         const fetchGirlsInfo = async () => {
             try {
@@ -120,7 +120,7 @@ console.log(girlsInfo);
                                     src={girlsInfo?.image_url}
                                 />
                                 <Flex flexDirection="column" alignItems="start" marginLeft="1rem" display="flex">
-                                    <p style={{fontWeight:"bold"}}>{girlsInfo?.name} ({girlsInfo?.age})</p>
+                                    <p style={{fontWeight:"bold"}}>{girlsInfo?.name} {girlsInfo?.age && `(${girlsInfo?.age})`}</p>
                                     <p style={{color:"#555555"}}>{girlsInfo?.occupation}</p>
                                 </Flex>
                             </Flex>
@@ -128,8 +128,7 @@ console.log(girlsInfo);
                         <div style={{display:"flex", justifyContent:"center",width:"95%",margin:"10px auto"}}>
                             <div style={{width:"50%",textAlign:"left",display:"flex",justifyContent:"left"}}>
                                     <Button
-                                        background={"blue.300"}
-                                        color="white"
+                                        colorScheme='red'
                                         m={2}
                                         style={{margin:"0",width:"90%"}}
                                         onClick={onOpen}>
@@ -143,10 +142,10 @@ console.log(girlsInfo);
                                             <ModalBody>
                                              </ModalBody>
                                             <ModalFooter>
-                                                <Button colorScheme='blue' mr={3} onClick={onClose}>
+                                                <Button colorScheme='gray' mr={3} onClick={onClose}>
                                                     閉じる
                                                 </Button>
-                                                <Button variant="ghost" onClick={handleDeleteGirlsInfo}>削除する</Button>
+                                                <Button colorScheme='red' onClick={handleDeleteGirlsInfo}>削除する</Button>
                                             </ModalFooter>
                                         </ModalContent>
                                     </Modal>

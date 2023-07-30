@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Button, Flex, useDisclosure,Input,Select} from "@chakra-ui/react";
+import {Button, Flex, useDisclosure, Input, Select, Spacer} from "@chakra-ui/react";
 import {Modal, ModalOverlay, ModalContent, ModalHeader,
     ModalFooter, ModalBody, ModalCloseButton,
 } from '@chakra-ui/react'
@@ -31,6 +31,7 @@ const MakeDateJobPage=()=>{
     const [girlsNameSelect, setGirlsNameSelect] = useState('')
     const [girlsNameConfirm, setGirlsNameConfirm] = useState('')
     const [error, setError] = useState('');
+    console.log(girlsList);
     const handleChangeGirlsName=(e: React.MouseEvent<HTMLButtonElement>)=>{
             e.preventDefault()
         setError('');
@@ -123,15 +124,16 @@ const MakeDateJobPage=()=>{
                                                 </option>
                                             ))}
                                         </Select>
+                                        <Spacer margin='12px'/>
                                         <p>新規でデートする子の名前を入力する</p>
                                         <Input value={girlsNameInput} onChange={(e) => setGirlsNameInput(e.target.value)} />
                                     </ModalBody>
 
                                     <ModalFooter>
-                                        <Button colorScheme='blue' mr={3} onClick={onClose}>
+                                        <Button colorScheme='gray' mr={3} onClick={onClose}>
                                             閉じる
                                         </Button>
-                                        <Button variant="ghost" onClick={(e) => handleChangeGirlsName(e)}>決定する</Button>
+                                        <Button colorScheme='blue' onClick={(e) => handleChangeGirlsName(e)}>決定する</Button>
                                     </ModalFooter>
                                 </ModalContent>
                             </Modal>

@@ -7,10 +7,8 @@ const MakeDateJobConfirmAgainButton=()=>{
         <div>
             <Link href="/dashboard">
                 <Button
-                    background={"blue.300"}
-                    color="white"
+                    colorScheme='blue'
                     m={2}
-
                 >
                     ダッシュボードに戻る
                 </Button>

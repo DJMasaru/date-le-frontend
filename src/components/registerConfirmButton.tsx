@@ -24,8 +24,8 @@ const RegisterConfirm = (props : RegisterConfirmProps) => {
 
     return (
         <Button
-            background={"blue.300"}
-            color="white"
+            style={{margin:"unset",width:"45%"}}
+            colorScheme='blue'
             m={2}
             onClick={ChangeConfirm}
         >

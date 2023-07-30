@@ -22,6 +22,7 @@ interface friendsJobAndProfile{
     date_jobs:any;
     girls_profile:any;
     name:string;
+    image_url:string;
 }
 
 interface user{
@@ -33,7 +34,7 @@ const Dashboard =()=> {
     const [friendsJobAndProfile, setFriendsJobAndProfile] = useState<friendsJobAndProfile[]>([]);
     const [isMobile] = useMediaQuery("(max-width: 768px)");
     const [selector,setSelector] = useState<string>('mine')
-console.log(friendsJobAndProfile);
+
     useEffect(() => {
         const fetchUserData = async () => {
             try {
@@ -87,7 +88,7 @@ console.log(friendsJobAndProfile);
                                             );
                                         })
                                     ) : (
-                                        <p>ジョブが登録されていません。</p>
+                                        <p style={{textAlign:"center",fontWeight:"bold"}}>デート予定が登録されていません。</p>
                                     )
                                 ) : selector === 'friends' ? (
                                     friendsJobAndProfile.length !== 0 ? (
@@ -104,11 +105,12 @@ console.log(friendsJobAndProfile);
                                                     comment_count={item2.date_jobs[0].comment_count}
                                                     favorite_count={item2.date_jobs[0].favorite_count}
                                                     friend_name={item2.name}
+                                                    friend_image_url={item2.image_url}
                                                 />
                                             );
                                         })
                                     ) : (
-                                        <p>ジョブが登録されていません。</p>
+                                        <p style={{textAlign:"center",fontWeight:"bold"}}>表示できる友達のデート予定がありません。</p>
                                     )
                                 ) : null}
                             </div>

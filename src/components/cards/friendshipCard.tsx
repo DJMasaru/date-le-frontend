@@ -49,6 +49,7 @@ const FriendshipCard=({id,name,image_url,status,commonIds,onClick,requestCommonI
                 //このコールバック関数は「statusを2に更新」する
                 onClick(action);
                 setAction('申請中')
+                setColor('yellow')
             }else if (action === '申請中') {
                 // アラートを表示
                 alert('申請キャンセルアラート');
@@ -56,6 +57,7 @@ const FriendshipCard=({id,name,image_url,status,commonIds,onClick,requestCommonI
                 //このコールバック関数は「statusを2に更新」する
                 onClick(action);
                 setAction('追加')
+                setColor('blue')
             }
         }
         if (status === 'requested') {
@@ -69,29 +71,33 @@ const FriendshipCard=({id,name,image_url,status,commonIds,onClick,requestCommonI
         }
     }
 
-
+    const[color, setColor]=useState('blue')
     const[action,setAction]=useState('');
-console.log(action)
+
     useEffect(() => {
         if (status === 'following') {
             setAction('削除');
+            setColor('red')
         }
 
         if (status === 'requesting') {
-            // idが該当しない場合、別の処理を実行
-            // 例えば、setAction('追加')など
             setAction('削除');
+            setColor('red')
         }
 
         if(status === 'followed') {
             if (commonIds.includes(id)) {
                 // idが該当する場合、状態関数を実行
                 setAction('相互');
+                setColor('blue')
+
             }else if(requestCommonIds.includes(id)){
                 setAction('申請中');
+                setColor('yellow')
             }
             else{
                 setAction('追加');
+                setColor('blue')
             }
         }
 
@@ -127,8 +133,7 @@ console.log(action)
                 <div style={{position:"absolute",left:"80%"}}>
                     <Button
                         style={{width:"100%"}}
-                        background={"blue.300"}
-                        color="white"
+                        colorScheme={color}
                         onClick={handleChangeFriendship}>
                         {action}
                     </Button>

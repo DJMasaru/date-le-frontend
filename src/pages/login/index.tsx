@@ -4,9 +4,9 @@ import React, {useState,ChangeEvent} from "react";
 import { Input, Stack, Flex, Box, FormControl, FormErrorMessage } from '@chakra-ui/react';
 
 const LoginPage =()=> {
-    const [email, setEmail] = useState<string>(""); // ログインIDのstate
+    const [email, setEmail] = useState<string>("");
     const [emailError, setEmailError] = useState<string>("");
-    const [password, setPassword] = useState<string>(""); // パスワードのstate
+    const [password, setPassword] = useState<string>("");
     const [passwordError, setPasswordError] = useState<string>("");
     const [message, setMessage] = useState('');
 
