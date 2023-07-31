@@ -2,7 +2,7 @@ import LoginBtn from "../../components/loginButton";
 import RegisterBtn from "../../components/registerButton";
 import React, {useState,ChangeEvent} from "react";
 import { Input, Stack, Flex, Box, FormControl, FormErrorMessage } from '@chakra-ui/react';
-
+import GuestLogin from "@/components/guestLogin";
 const LoginPage =()=> {
     const [email, setEmail] = useState<string>("");
     const [emailError, setEmailError] = useState<string>("");
@@ -69,8 +69,8 @@ const LoginPage =()=> {
                         {message ? <p>{message}</p> : <p>&nbsp;</p>}
                     </div>
                 </Box>
-                <Box borderBottom="1px solid black">
-                    <a>パスワードを忘れた方はこちら</a>
+                <Box>
+                    <GuestLogin />
                 </Box>
             </Flex>
         </>

@@ -212,7 +212,7 @@ const Dashboard =()=> {
                             </div>
                             <FriendshipSelector onStateChange={handleFriendshipSelector}/>
                         </div>
-                        <div style={{ marginTop: "120px" }}>
+                        <div style={{ margin: "120px auto 20px",maxWidth:"800px" }}>
 
                             {/*ここに検索フォーム入れる。*/}
 

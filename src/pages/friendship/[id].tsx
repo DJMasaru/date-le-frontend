@@ -79,71 +79,67 @@ const GirlsInfoPage = () =>{
 
     return(
         <>
-            {isMobile ? (
-                <div>
-                    <div style={{marginBottom:"20px"}}>
-                        <div style={{position:"fixed",width:"100%",zIndex:2,top:"0"}}>
-                            <Header />
-                        </div>
-                        <div　style={{ width: "95%",display:"flex",margin:"auto",paddingTop: "67px",justifyContent:"center" }}>
-                            <Flex alignItems="center">
-                                <Avatar
-                                    size={'lg'}
-                                    src={friendInfo?.image_url}
-                                />
-                                <Flex flexDirection="column" alignItems="start" marginLeft="1rem" display="flex">
-                                    <p style={{fontWeight:"bold"}}>{friendInfo?.name}
-                                        {/*({girlsInfo?.age})*/}
-                                    </p>
-                                    {/*<p style={{color:"#555555"}}>{girlsInfo?.occupation}</p>*/}
-                                </Flex>
-                            </Flex>
-                        </div>
-                        {/*{girlsInfo?.opportunity_to_meet &&(*/}
-                        {/*    <div style={contents}>*/}
-                        {/*        <div style={contentsName}>*/}
-                        {/*            <p style={{textAlign:"center"}}>出会いのキッカケ</p>*/}
-                        {/*        </div>*/}
-                        {/*        <div style={contentsName}>*/}
-                        {/*            <p style={{textAlign:"center"}}>{girlsInfo?.opportunity_to_meet}</p>*/}
-                        {/*        </div>*/}
-                        {/*    </div>*/}
-                        {/*)}*/}
-                        {/*{girlsInfo?.address &&(*/}
-                        {/*    <div style={contents}>*/}
-                        {/*        <div style={contentsName}>*/}
-                        {/*            <p style={{textAlign:"center"}}>住所</p>*/}
-                        {/*        </div>*/}
-                        {/*        <div style={contentsName}>*/}
-                        {/*            <p style={{textAlign:"center"}}>{girlsInfo?.address}</p>*/}
-                        {/*        </div>*/}
-                        {/*    </div>*/}
-                        {/*)}*/}
-                        {/*{girlsInfo?.birthday &&(*/}
-                        {/*    <div style={contents}>*/}
-                        {/*        <div style={contentsName}>*/}
-                        {/*            <p style={{textAlign:"center"}}>誕生日</p>*/}
-                        {/*        </div>*/}
-                        {/*        <div style={contentsName}>*/}
-                        {/*            <p style={{textAlign:"center"}}>{girlsInfo?.birthday}</p>*/}
-                        {/*        </div>*/}
-                        {/*    </div>*/}
-                        {/*)}*/}
-                        {/*{girlsInfo?.character &&(*/}
-                        {/*    <div style={contents}>*/}
-                        {/*        <div style={contentsName}>*/}
-                        {/*            <p style={{textAlign:"center"}}>性格</p>*/}
-                        {/*        </div>*/}
-                        {/*        <div style={contentsName}>*/}
-                        {/*            <p style={{textAlign:"center"}}>{girlsInfo?.character}</p>*/}
-                        {/*        </div>*/}
-                        {/*    </div>*/}
-                        {/*)}*/}
+            <div>
+                <div style={{marginBottom:"20px"}}>
+                    <div style={{position:"fixed",width:"100%",zIndex:2,top:"0"}}>
+                        <Header />
                     </div>
+                    <div　style={{ width: "95%",display:"flex",margin:"auto",paddingTop: "67px",justifyContent:"center" }}>
+                        <Flex alignItems="center">
+                            <Avatar
+                                size={'lg'}
+                                src={friendInfo?.image_url}
+                            />
+                            <Flex flexDirection="column" alignItems="start" marginLeft="1rem" display="flex">
+                                <p style={{fontWeight:"bold"}}>{friendInfo?.name}
+                                    {/*({girlsInfo?.age})*/}
+                                </p>
+                                {/*<p style={{color:"#555555"}}>{girlsInfo?.occupation}</p>*/}
+                            </Flex>
+                        </Flex>
+                    </div>
+                    {/*{girlsInfo?.opportunity_to_meet &&(*/}
+                    {/*    <div style={contents}>*/}
+                    {/*        <div style={contentsName}>*/}
+                    {/*            <p style={{textAlign:"center"}}>出会いのキッカケ</p>*/}
+                    {/*        </div>*/}
+                    {/*        <div style={contentsName}>*/}
+                    {/*            <p style={{textAlign:"center"}}>{girlsInfo?.opportunity_to_meet}</p>*/}
+                    {/*        </div>*/}
+                    {/*    </div>*/}
+                    {/*)}*/}
+                    {/*{girlsInfo?.address &&(*/}
+                    {/*    <div style={contents}>*/}
+                    {/*        <div style={contentsName}>*/}
+                    {/*            <p style={{textAlign:"center"}}>住所</p>*/}
+                    {/*        </div>*/}
+                    {/*        <div style={contentsName}>*/}
+                    {/*            <p style={{textAlign:"center"}}>{girlsInfo?.address}</p>*/}
+                    {/*        </div>*/}
+                    {/*    </div>*/}
+                    {/*)}*/}
+                    {/*{girlsInfo?.birthday &&(*/}
+                    {/*    <div style={contents}>*/}
+                    {/*        <div style={contentsName}>*/}
+                    {/*            <p style={{textAlign:"center"}}>誕生日</p>*/}
+                    {/*        </div>*/}
+                    {/*        <div style={contentsName}>*/}
+                    {/*            <p style={{textAlign:"center"}}>{girlsInfo?.birthday}</p>*/}
+                    {/*        </div>*/}
+                    {/*    </div>*/}
+                    {/*)}*/}
+                    {/*{girlsInfo?.character &&(*/}
+                    {/*    <div style={contents}>*/}
+                    {/*        <div style={contentsName}>*/}
+                    {/*            <p style={{textAlign:"center"}}>性格</p>*/}
+                    {/*        </div>*/}
+                    {/*        <div style={contentsName}>*/}
+                    {/*            <p style={{textAlign:"center"}}>{girlsInfo?.character}</p>*/}
+                    {/*        </div>*/}
+                    {/*    </div>*/}
+                    {/*)}*/}
                 </div>
-            ) : (
-                <p>Desktop View</p>
-            )}
+            </div>
         </>
     )
 }

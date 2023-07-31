@@ -50,43 +50,35 @@ const DateLog=()=>{
     }, [])
 
     return(
-        <>
-            {isMobile ? (
-                (
-                    <div>
-                        <div>
-                            <div style={{position:"fixed",width:"100%",zIndex:2,top:"0"}}>
-                                    <Header />
-                            </div>
-                        </div>
-                        <div style={{ marginTop: "70px" }}>
-                            <div style={{ width: '95%', margin: 'auto' }}>
-                                <h1>デート履歴一覧</h1>
-                                {dateLog.length > 0 ? (
-                                    dateLog.map((item, index) => (
-                                        <LogDateCard
-                                            key={index}
-                                            index={item.id}
-                                            date_of_date={item.date_of_date}
-                                            time_of_date={item.time_of_date}
-                                            place_of_date={item.place_of_date}
-                                            name={item.girls_profile.name}
-                                            age={item.girls_profile.age}
-                                            image_url={item.girls_profile.image_url}
-                                            occupation={item.girls_profile.occupation}
-                                        />
-                                    ))
-                                ) : (
-                                    <p>デートのログが登録されていません。</p>
-                                )}
-                            </div>
-                        </div>
-                    </div>
-                )
-            ) : (
-                <p>Waiting...</p>
-            )}
-        </>
+        <div>
+            <div>
+                <div style={{position:"fixed",width:"100%",zIndex:2,top:"0"}}>
+                        <Header />
+                </div>
+            </div>
+            <div style={{ margin: "70px auto 20px",maxWidth:"800px"}}>
+                <div style={{ width: '95%', margin: 'auto' }}>
+                    <h1>デート履歴一覧</h1>
+                    {dateLog.length > 0 ? (
+                        dateLog.map((item, index) => (
+                            <LogDateCard
+                                key={index}
+                                index={item.id}
+                                date_of_date={item.date_of_date}
+                                time_of_date={item.time_of_date}
+                                place_of_date={item.place_of_date}
+                                name={item.girls_profile.name}
+                                age={item.girls_profile.age}
+                                image_url={item.girls_profile.image_url}
+                                occupation={item.girls_profile.occupation}
+                            />
+                        ))
+                    ) : (
+                        <p style={{textAlign:"center",fontWeight:"bold",color:"red"}}>デートのログが登録されていません。</p>
+                    )}
+                </div>
+            </div>
+        </div>
     )
 }
 

@@ -79,7 +79,7 @@ const MakeDateJobPage=()=>{
         display: 'flex',
         height: '50px',
         borderBottom: '1px dashed black',
-        marginBottom: '10px'
+        margin: '0 auto 10px'
     }
 
     const contentsName = {
@@ -94,7 +94,7 @@ const MakeDateJobPage=()=>{
             <div style={{position:"fixed",width:"100%",zIndex:2,top:"0"}}>
                 <Header />
             </div>
-            <div style={{ marginTop: "70px" }}>
+            <div style={{ margin: "70px auto 20px",maxWidth:"800px"}}>
                 <div style={{ width: '95%', margin: 'auto' }}>
                     <h1>デート情報登録</h1>
                     <div style={contents}>

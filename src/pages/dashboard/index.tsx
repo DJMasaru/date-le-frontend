@@ -59,68 +59,61 @@ const Dashboard =()=> {
     };
 
     return (
-        <>
-            {isMobile ? (
-                    <div>
-                        <div>
-                            <div style={{position:"fixed",width:"100%",zIndex:2,top:"0"}}>
-                                    <Header />
-                            </div>
-                            <DateSelector onStateChange={handleDateSelector}/>
-                        </div>
-                        <div style={{ marginTop: "120px" }}>
-                            <div style={{ width: '95%', margin: 'auto' }}>
-                                {selector === 'mine' ? (
-                                    jobAndProfile.length !== 0 ? (
-                                        jobAndProfile.map((item, index) => {
-                                            const girlsProfile = item.girls_profile;
-                                            return (
-                                                <DashboardJobCard
-                                                    key={index}
-                                                    index={index}
-                                                    {...girlsProfile}
-                                                    date_of_date={item.date_of_date}
-                                                    time_of_date={item.time_of_date}
-                                                    place_of_date={item.place_of_date}
-                                                    comment_count={item.comment_count}
-                                                    favorite_count={item.favorite_count}
-                                                />
-                                            );
-                                        })
-                                    ) : (
-                                        <p style={{textAlign:"center",fontWeight:"bold"}}>デート予定が登録されていません。</p>
-                                    )
-                                ) : selector === 'friends' ? (
-                                    friendsJobAndProfile.length !== 0 ? (
-                                        friendsJobAndProfile.map((item2, index) => {
-                                            return (
-                                                <DashboardJobCard
-                                                    key={index}
-                                                    friend='friend'
-                                                    index={index}
-                                                    {...item2.date_jobs[0].girls_profile}
-                                                    date_of_date={item2.date_jobs[0].date_of_date}
-                                                    time_of_date={item2.date_jobs[0].time_of_date}
-                                                    place_of_date={item2.date_jobs[0].place_of_date}
-                                                    comment_count={item2.date_jobs[0].comment_count}
-                                                    favorite_count={item2.date_jobs[0].favorite_count}
-                                                    friend_name={item2.name}
-                                                    friend_image_url={item2.image_url}
-                                                />
-                                            );
-                                        })
-                                    ) : (
-                                        <p style={{textAlign:"center",fontWeight:"bold"}}>表示できる友達のデート予定がありません。</p>
-                                    )
-                                ) : null}
-                            </div>
-
-                        </div>
-                    </div>
-            ) : (
-                <p>Waiting...</p>
-            )}
-       </>
+        <div>
+            <div>
+                <div style={{position:"fixed",width:"100%",zIndex:2,top:"0"}}>
+                        <Header />
+                </div>
+                <DateSelector onStateChange={handleDateSelector}/>
+            </div>
+            <div style={{ margin: "120px auto 20px",maxWidth:"800px" }}>
+                <div style={{ width: '95%', margin: 'auto' }}>
+                    {selector === 'mine' ? (
+                        jobAndProfile.length !== 0 ? (
+                            jobAndProfile.map((item, index) => {
+                                const girlsProfile = item.girls_profile;
+                                return (
+                                    <DashboardJobCard
+                                        key={index}
+                                        index={index}
+                                        {...girlsProfile}
+                                        date_of_date={item.date_of_date}
+                                        time_of_date={item.time_of_date}
+                                        place_of_date={item.place_of_date}
+                                        comment_count={item.comment_count}
+                                        favorite_count={item.favorite_count}
+                                    />
+                                );
+                            })
+                        ) : (
+                            <p style={{textAlign:"center",fontWeight:"bold",color:"red"}}>デート予定が登録されていません。</p>
+                        )
+                    ) : selector === 'friends' ? (
+                        friendsJobAndProfile.length !== 0 ? (
+                            friendsJobAndProfile.map((item2, index) => {
+                                return (
+                                    <DashboardJobCard
+                                        key={index}
+                                        friend='friend'
+                                        index={index}
+                                        {...item2.date_jobs[0].girls_profile}
+                                        date_of_date={item2.date_jobs[0].date_of_date}
+                                        time_of_date={item2.date_jobs[0].time_of_date}
+                                        place_of_date={item2.date_jobs[0].place_of_date}
+                                        comment_count={item2.date_jobs[0].comment_count}
+                                        favorite_count={item2.date_jobs[0].favorite_count}
+                                        friend_name={item2.name}
+                                        friend_image_url={item2.image_url}
+                                    />
+                                );
+                            })
+                        ) : (
+                            <p style={{textAlign:"center",fontWeight:"bold"}}>表示できる友達のデート予定がありません。</p>
+                        )
+                    ) : null}
+                </div>
+            </div>
+        </div>
     );
 }
 

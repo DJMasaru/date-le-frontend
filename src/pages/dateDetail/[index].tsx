@@ -116,102 +116,98 @@ const DateDetailPage = () => {
 
     return (
         <>
-            {isMobile ? (
+            <div>
                 <div>
-                    <div>
-                        <div style={{position:"fixed",width:"100%",zIndex:2,top:"0"}}>
-                                <Header />
-                        </div>
-                        <div　style={{ width: "95%",display:"flex",margin:"auto",paddingTop: "67px",justifyContent:"center" }}>
-                            <Flex alignItems="center">
-                                <Avatar
-                                    size={'lg'}
-                                    src={selectedProfile?.image_url}
-                                />
+                    <div style={{position:"fixed",width:"100%",zIndex:2,top:"0"}}>
+                            <Header />
+                    </div>
+                    <div　style={{ width: "95%",display:"flex",margin:"auto",paddingTop: "67px",justifyContent:"center" }}>
+                        <Flex alignItems="center">
+                            <Avatar
+                                size={'lg'}
+                                src={selectedProfile?.image_url}
+                            />
 
-                                <Flex flexDirection="column" alignItems="start" marginLeft="1rem" display="flex">
-                                    <p style={{fontWeight:"bold"}}>{selectedProfile?.name} ({selectedProfile?.age})</p>
-                                    <p style={{color:"#555555"}}>{selectedProfile?.occupation}</p>
-                                </Flex>
+                            <Flex flexDirection="column" alignItems="start" marginLeft="1rem" display="flex">
+                                <p style={{fontWeight:"bold"}}>{selectedProfile?.name} ({selectedProfile?.age})</p>
+                                <p style={{color:"#555555"}}>{selectedProfile?.occupation}</p>
                             </Flex>
-                        </div>
-                        <div style={{ width: '95%', margin: '20px auto 0' }}>
-                            <p style={{textAlign:"center"}}>{`${year}年${monthWithoutZero}月${dayWithoutZero}日`}  {`${hour}時${minute}分`}　</p>
-                            <p style={{textAlign:"center"}}>{dateJob?.place_of_date}</p>
-                            <br/>
-                            <p style={{textAlign:"center"}}>これまでのデート回数：{selectedProfile?.count_of_dates}回</p>
-                        </div>
-                        <div style={{ width: '95%', margin: '20px auto 0',textAlign:"center" }}>
-                            {features?.map((feature, index) => (
-                                <Badge
-                                    mr={"1rem"}
-                                    key={index}
-                                    px={2}
-                                    py={1}
-                                    bg={"gray.200"}
-                                    color={"black"}
-                                    fontWeight={'400'}
-                                >
-                                    #{feature}
-                                </Badge>
-                            ))}
-                        </div>
+                        </Flex>
+                    </div>
+                    <div style={{ width: '95%', margin: '20px auto 0' }}>
+                        <p style={{textAlign:"center"}}>{`${year}年${monthWithoutZero}月${dayWithoutZero}日`}  {`${hour}時${minute}分`}　</p>
+                        <p style={{textAlign:"center"}}>{dateJob?.place_of_date}</p>
                         <br/>
-                        <div>
-                            <p style={{ textAlign: "center",fontSize:"30px" }} className="headerValue">意気込み</p>
-                            <p style={{ textAlign:"center" }}>{selectedDateJob?.passion}</p>
-                        </div>
-                        <br/>
-                        <div>
-                            <p style={{ textAlign: "center",fontSize:"25px" }} className="headerValue">デートの目標・目的</p>
-                            <p style={{ textAlign:"center" }}>{selectedDateJob?.target}</p>
-                        </div>
-                        <div>
-                        </div>
-                        <br/>
-                        <div style={{width:"95%",margin:"auto",borderBottom:"1px solid black"}}>
-                            <p>コメント：{selectedDateJob?.comment_count}件</p>
-                        </div>
-                        <div style={{ width: "95%", margin: "auto" }}>
-                            {dateJob?.girls_profile.count_of_dates !== 0 ? (
-                                type === "friend" ? (
-                                    friendDateComments ? (
-                                        friendDateComments.map((comment, index) => (
-                                            <Comment
-                                                key={index}
-                                                image_url={comment.comment_by_user[0].image_url}
-                                                name={comment.comment_by_user[0].name}
-                                                updated={comment.updated_at}
-                                                content={comment.value}
-                                            />
-                                        ))
-                                    ) : (
-                                        <p style={{ color: "#555555" }}>コメントがありません</p>
-                                    )
+                        <p style={{textAlign:"center"}}>これまでのデート回数：{selectedProfile?.count_of_dates}回</p>
+                    </div>
+                    <div style={{ width: '95%', margin: '20px auto 0',textAlign:"center" }}>
+                        {features?.map((feature, index) => (
+                            <Badge
+                                mr={"1rem"}
+                                key={index}
+                                px={2}
+                                py={1}
+                                bg={"gray.200"}
+                                color={"black"}
+                                fontWeight={'400'}
+                            >
+                                #{feature}
+                            </Badge>
+                        ))}
+                    </div>
+                    <br/>
+                    <div>
+                        <p style={{ textAlign: "center",fontSize:"30px" }} className="headerValue">意気込み</p>
+                        <p style={{ textAlign:"center" }}>{selectedDateJob?.passion}</p>
+                    </div>
+                    <br/>
+                    <div>
+                        <p style={{ textAlign: "center",fontSize:"25px" }} className="headerValue">デートの目標・目的</p>
+                        <p style={{ textAlign:"center" }}>{selectedDateJob?.target}</p>
+                    </div>
+                    <div>
+                    </div>
+                    <br/>
+                    <div style={{width:"95%",margin:"auto",borderBottom:"1px solid black"}}>
+                        <p>コメント：{selectedDateJob?.comment_count}件</p>
+                    </div>
+                    <div style={{ width: "95%", margin: "auto" }}>
+                        {dateJob?.girls_profile.count_of_dates !== 0 ? (
+                            type === "friend" ? (
+                                friendDateComments ? (
+                                    friendDateComments.map((comment, index) => (
+                                        <Comment
+                                            key={index}
+                                            image_url={comment.comment_by_user[0].image_url}
+                                            name={comment.comment_by_user[0].name}
+                                            updated={comment.updated_at}
+                                            content={comment.value}
+                                        />
+                                    ))
                                 ) : (
-                                    dateComments ? (
-                                        dateComments.map((comment, index) => (
-                                            <Comment
-                                                key={index}
-                                                image_url={comment.comment_by_user[0].image_url}
-                                                name={comment.comment_by_user[0].name}
-                                                updated={comment.updated_at}
-                                                content={comment.value}
-                                            />
-                                        ))
-                                    ) : (
-                                        <p style={{ color: "#555555" }}>コメントがありません</p>
-                                    )
+                                    <p style={{ color: "#555555" }}>コメントがありません</p>
                                 )
                             ) : (
-                                <p style={{ color: "#555555" }}>コメントがありません</p>
-                            )}
-                        </div>
+                                dateComments ? (
+                                    dateComments.map((comment, index) => (
+                                        <Comment
+                                            key={index}
+                                            image_url={comment.comment_by_user[0].image_url}
+                                            name={comment.comment_by_user[0].name}
+                                            updated={comment.updated_at}
+                                            content={comment.value}
+                                        />
+                                    ))
+                                ) : (
+                                    <p style={{ color: "#555555" }}>コメントがありません</p>
+                                )
+                            )
+                        ) : (
+                            <p style={{ color: "#555555" }}>コメントがありません</p>
+                        )}
                     </div>
                 </div>
-            ) : (
-                <p>Desktop View</p>
-            )}
+            </div>
         </>
     );
 };

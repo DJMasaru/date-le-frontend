@@ -33,37 +33,29 @@ const CheckGirlsInfo=()=>{
     }, [])
 
     return(
-        <>
-            {isMobile ? (
-                (
-                    <div>
-                        <div>
-                            <div style={{position:"fixed",width:"100%",zIndex:2,top:"0"}}>
-                                    <Header />
-                            </div>
-                        </div>
-                        <div style={{ marginTop: "70px" }}>
-                            <div style={{ width: '95%', margin: 'auto' }}>
-                                <h1>女の子情報一覧</h1>
-                                {girlsInfo.length > 0 ? (
-                                    girlsInfo.map((item, index) => (
-                                        <GirlsInfoCard
-                                            key={index}
-                                            index={index}
-                                            {...item}
-                                        />
-                                    ))
-                                ) : (
-                                    <p>女の子が登録されていません</p>
-                                )}
-                            </div>
-                        </div>
-                    </div>
-                )
-            ) : (
-                <p>Waiting...</p>
-            )}
-        </>
+        <div>
+            <div>
+                <div style={{position:"fixed",width:"100%",zIndex:2,top:"0"}}>
+                        <Header />
+                </div>
+            </div>
+            <div style={{ margin: "70px auto 20px",maxWidth:"800px"}}>
+                <div style={{ width: '95%', margin: 'auto' }}>
+                    <h1>女の子情報一覧</h1>
+                    {girlsInfo.length > 0 ? (
+                        girlsInfo.map((item, index) => (
+                            <GirlsInfoCard
+                                key={index}
+                                index={index}
+                                {...item}
+                            />
+                        ))
+                    ) : (
+                        <p style={{textAlign:"center",fontWeight:"bold",color:"red"}}>女の子が登録されていません</p>
+                    )}
+                </div>
+            </div>
+        </div>
     )
 }
 
