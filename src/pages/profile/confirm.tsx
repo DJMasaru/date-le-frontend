@@ -35,7 +35,7 @@ const CheckUserProfileConfirmPage =()=>{
         display: 'flex',
         height: '50px',
         borderBottom: '1px dashed black',
-        marginBottom: '10px'
+        margin: '0 auto 10px'
     }
 
     const contentsName = {
