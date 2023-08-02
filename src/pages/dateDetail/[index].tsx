@@ -46,7 +46,7 @@ interface friendDateJob {
             feature_third: string;
             count_of_dates: number;
         };
-    };
+    }[];
 }
 
 interface Comment {
@@ -60,21 +60,17 @@ interface userData {
 }
 
 const DateDetailPage = () => {
-    const [isMobile] = useMediaQuery("(max-width: 768px)");
     const router = useRouter();
     const { index, type } = router.query;
     const [dateJob,setDateJob] = useState<dateJob>();
-    const [friendDateJob,setFriendDateJob] = useState<friendDateJob>();
+    const [friendDateJob, setFriendDateJob] = useState<friendDateJob | null>(null);
     const [friendDateComments,setFriendDateComments] = useState<Comment[]>([]);
     const [dateComments,setDateComments] = useState<Comment[]>([]);
-    const [userData, setUserData] = useState<userData | null>(null);
 
     // typeによって選択されるオブジェクトを定数に代入
-    const selectedProfile:any = type === 'friend' ? friendDateJob?.date_jobs.girls_profile : dateJob?.girls_profile;
-    const selectedDateJob:any = type === 'friend' ? friendDateJob?.date_jobs : dateJob ;
-
+    const selectedProfile:any = type === 'friend' ? friendDateJob?.date_jobs[0].girls_profile : dateJob?.girls_profile;
+    const selectedDateJob: any = type === 'friend' ? friendDateJob?.date_jobs[0] : dateJob;
     const features:any[] = [selectedProfile?.feature_first, selectedProfile?.feature_second, selectedProfile?.feature_third].filter(Boolean);
-
     //dateJobの初期値がカラのため、もしundefinedである場合に備える
     const timeParts: string[] | undefined = selectedDateJob?.time_of_date.split(':') || [];
     const hour = timeParts ? timeParts[0] : '';
@@ -100,7 +96,6 @@ const DateDetailPage = () => {
                         type: type
                     },
                 });
-                setUserData(response.data.user);
                 setDateJob(response.data.jobs);
                 setDateComments(response.data.comments);
                 setFriendDateJob(response.data.friendDatejobs);

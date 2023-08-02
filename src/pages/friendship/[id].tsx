@@ -14,31 +14,26 @@ import Header from "@/components/header";
 interface Friend{
     id: number;
     name: string;
-    age:number;
     image_url:string;
     occupation:string;
-    address:string;
     birthday:string;
-    character:string;
-    feature_first:string;
-    feature_second:string;
-    feature_third:string;
+    address:string;
     hobby:string;
-    favorite_foods:string;
-    dislike_foods:string;
-    favorite_type_of_man:string;
-    opportunity_to_meet:string;
-    has_boyfriend:number;
-    count_of_dates:number;
+    girl_experiences:number;
+    age:number;
+    favorite_date_place:string;
+    favorite_date_time:string;
+    favorite_clothes:string;
+    favorite_character:string;
+    favorite_feature:string;
+    favorite_age_range:string;
     notice:string;
 }
-const GirlsInfoPage = () =>{
-    const [isMobile] = useMediaQuery("(max-width: 768px)");
+const FriendInfoPage = () =>{
     const router = useRouter();
     const id: string | undefined = typeof router.query.id === 'string' ? router.query.id : undefined;
     const [friendInfo, setFriendInfo] =useState<Friend | null>(null);
-    const { isOpen, onOpen, onClose } = useDisclosure()
-    console.log(id);
+
     useEffect(() => {
         const fetchFriendshipData = async () => {
             try {
@@ -91,53 +86,140 @@ const GirlsInfoPage = () =>{
                                 src={friendInfo?.image_url}
                             />
                             <Flex flexDirection="column" alignItems="start" marginLeft="1rem" display="flex">
-                                <p style={{fontWeight:"bold"}}>{friendInfo?.name}
-                                    {/*({girlsInfo?.age})*/}
-                                </p>
-                                {/*<p style={{color:"#555555"}}>{girlsInfo?.occupation}</p>*/}
+                                <p style={{fontWeight:"bold"}}>{friendInfo?.name} {friendInfo?.age && `(${friendInfo?.age})`}</p>
                             </Flex>
                         </Flex>
                     </div>
-                    {/*{girlsInfo?.opportunity_to_meet &&(*/}
-                    {/*    <div style={contents}>*/}
-                    {/*        <div style={contentsName}>*/}
-                    {/*            <p style={{textAlign:"center"}}>出会いのキッカケ</p>*/}
-                    {/*        </div>*/}
-                    {/*        <div style={contentsName}>*/}
-                    {/*            <p style={{textAlign:"center"}}>{girlsInfo?.opportunity_to_meet}</p>*/}
-                    {/*        </div>*/}
-                    {/*    </div>*/}
-                    {/*)}*/}
-                    {/*{girlsInfo?.address &&(*/}
-                    {/*    <div style={contents}>*/}
-                    {/*        <div style={contentsName}>*/}
-                    {/*            <p style={{textAlign:"center"}}>住所</p>*/}
-                    {/*        </div>*/}
-                    {/*        <div style={contentsName}>*/}
-                    {/*            <p style={{textAlign:"center"}}>{girlsInfo?.address}</p>*/}
-                    {/*        </div>*/}
-                    {/*    </div>*/}
-                    {/*)}*/}
-                    {/*{girlsInfo?.birthday &&(*/}
-                    {/*    <div style={contents}>*/}
-                    {/*        <div style={contentsName}>*/}
-                    {/*            <p style={{textAlign:"center"}}>誕生日</p>*/}
-                    {/*        </div>*/}
-                    {/*        <div style={contentsName}>*/}
-                    {/*            <p style={{textAlign:"center"}}>{girlsInfo?.birthday}</p>*/}
-                    {/*        </div>*/}
-                    {/*    </div>*/}
-                    {/*)}*/}
-                    {/*{girlsInfo?.character &&(*/}
-                    {/*    <div style={contents}>*/}
-                    {/*        <div style={contentsName}>*/}
-                    {/*            <p style={{textAlign:"center"}}>性格</p>*/}
-                    {/*        </div>*/}
-                    {/*        <div style={contentsName}>*/}
-                    {/*            <p style={{textAlign:"center"}}>{girlsInfo?.character}</p>*/}
-                    {/*        </div>*/}
-                    {/*    </div>*/}
-                    {/*)}*/}
+                    {friendInfo?.occupation &&(
+                        <div style={contents}>
+                            <div style={contentsName}>
+                                <p style={{textAlign:"center"}}>職業</p>
+                            </div>
+                            <div style={contentsName}>
+                                <p style={{textAlign:"center"}}>{friendInfo?.occupation}</p>
+                            </div>
+                        </div>
+                    )}
+                    {friendInfo?.address &&(
+                    <div style={contents}>
+                        <div style={contentsName}>
+                            <p style={{textAlign:"center"}}>住所</p>
+                        </div>
+                        <div style={contentsName}>
+                            <p>{friendInfo?.address}</p>
+                        </div>
+                    </div>
+                    )}
+                    {friendInfo?.birthday &&(
+                    <div style={contents}>
+                        <div style={contentsName}>
+                            <p style={{textAlign:"center"}}>誕生日</p>
+                        </div>
+                        <div style={contentsName}>
+                            <p>{friendInfo?.birthday}</p>
+                        </div>
+                    </div>
+                    )}
+                    {friendInfo?.hobby &&(
+                    <div style={contents}>
+                        <div style={contentsName}>
+                            <p style={{textAlign:"center"}}>趣味</p>
+                        </div>
+                        <div style={contentsName}>
+                            <p>{friendInfo?.hobby}</p>
+                        </div>
+                    </div>
+                    )}
+                    {friendInfo?.occupation &&(
+                    <div style={contents}>
+                        <div style={contentsName}>
+                            <p style={{textAlign:"center"}}>職業</p>
+                        </div>
+                        <div style={contentsName}>
+                            <p>{friendInfo?.occupation}</p>
+                        </div>
+                    </div>
+                    )}
+                    {friendInfo?.girl_experiences &&(
+                    <div style={contents}>
+                        <div style={contentsName}>
+                            <p style={{textAlign:"center"}}>経験人数</p>
+                        </div>
+                        <div style={contentsName}>
+                            <p>{friendInfo?.girl_experiences}人</p>
+                        </div>
+                    </div>
+                    )}
+                    {friendInfo?.favorite_date_place &&(
+                    <div style={contents}>
+                        <div style={contentsName}>
+                            <p style={{textAlign:"center"}}>好きなデート場所</p>
+                        </div>
+                        <div style={contentsName}>
+                            <p>{friendInfo?.favorite_date_place}</p>
+                        </div>
+                    </div>
+                    )}
+                    {friendInfo?.favorite_date_time &&(
+                    <div style={contents}>
+                        <div style={contentsName}>
+                            <p style={{textAlign:"center"}}>好きなデートの時間帯</p>
+                        </div>
+                        <div style={contentsName}>
+                            <p>{friendInfo?.favorite_date_time}</p>
+                        </div>
+                    </div>
+                    )}
+                    {friendInfo?.favorite_clothes &&(
+                    <div style={contents}>
+                        <div style={contentsName}>
+                            <p style={{textAlign:"center"}}>相手の理想の服装</p>
+                        </div>
+                        <div style={contentsName}>
+                            <p>{friendInfo?.favorite_clothes}</p>
+                        </div>
+                    </div>
+                    )}
+                    {friendInfo?.favorite_character &&(
+                    <div style={contents}>
+                        <div style={contentsName}>
+                            <p style={{textAlign:"center"}}>理想の相手の性格</p>
+                        </div>
+                        <div style={contentsName}>
+                            <p>{friendInfo?.favorite_character}</p>
+                        </div>
+                    </div>
+                    )}
+                    {friendInfo?.favorite_feature &&(
+                    <div style={contents}>
+                        <div style={contentsName}>
+                            <p style={{textAlign:"center"}}>相手の理想の特徴</p>
+                        </div>
+                        <div style={contentsName}>
+                            <p>{friendInfo?.favorite_feature}</p>
+                        </div>
+                    </div>
+                    )}
+                    {friendInfo?.favorite_age_range &&(
+                    <div style={contents}>
+                        <div style={contentsName}>
+                            <p style={{textAlign:"center"}}>相手の理想の年齢</p>
+                        </div>
+                        <div style={contentsName}>
+                            <p>{friendInfo?.favorite_age_range}</p>
+                        </div>
+                    </div>
+                    )}
+                    {friendInfo?.notice &&(
+                    <div style={contents}>
+                        <div style={contentsName}>
+                            <p style={{textAlign:"center"}}>備考</p>
+                        </div>
+                        <div style={contentsName}>
+                            <p>{friendInfo?.notice}</p>
+                        </div>
+                    </div>
+                    )}
                 </div>
             </div>
         </>
@@ -146,4 +228,4 @@ const GirlsInfoPage = () =>{
 
 
 
-export default GirlsInfoPage;
+export default FriendInfoPage;

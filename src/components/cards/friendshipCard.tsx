@@ -10,10 +10,14 @@ interface FriendshipCardProps {
     commonIds: number[];
     requestCommonIds: number[];
     onClick: (action: string) => void;
+    age:number;
+    notice:string;
 }
 
-const FriendshipCard=({id,name,image_url,status,commonIds,onClick,requestCommonIds}:FriendshipCardProps)=>{
+const FriendshipCard=({id,name,image_url,status,commonIds,onClick,age,notice,requestCommonIds}:FriendshipCardProps)=>{
     const router = useRouter();
+    const[color, setColor]=useState('blue')
+    const[action,setAction]=useState('');
     const handleClick = () => {
         // ダイナミックルーティングによる詳細画面への遷移
         router.push(`/friendship/${id}`);
@@ -71,9 +75,6 @@ const FriendshipCard=({id,name,image_url,status,commonIds,onClick,requestCommonI
         }
     }
 
-    const[color, setColor]=useState('blue')
-    const[action,setAction]=useState('');
-
     useEffect(() => {
         if (status === 'following') {
             setAction('削除');
@@ -126,9 +127,8 @@ const FriendshipCard=({id,name,image_url,status,commonIds,onClick,requestCommonI
                     src={image_url}
                 />
                 <Flex flexDirection="column" alignItems="start" marginLeft="1rem" display="flex">
-                    <p>{name}</p>
-                    {/*<p style={{fontWeight:"bold"}}>{name} ({age}) <span style={{color:"#555555",marginLeft:"10px",fontWeight:"normal"}}>{occupation}</span></p>*/}
-                    {/*<p>デート場所：{place_of_date}</p>*/}
+                    <p style={{fontWeight:"bold"}}>{name}  {age && `(${age})`}   </p>
+                    {notice && <p>{notice}</p>}
                 </Flex>
                 <div style={{position:"absolute",left:"80%"}}>
                     <Button

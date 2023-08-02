@@ -29,11 +29,9 @@ interface Profile{
 }
 
 const EditGirlsInfoPage =()=>{
-    const [isMobile] = useMediaQuery("(max-width: 768px)");
     const router = useRouter();
     const {userID}: RouterQuery = router.query;
     const [profile, setProfile] = useState<Profile|null>(null)
-console.log(profile);
     useEffect(() => {
         const fetchUserProfile = async () => {
             try {

@@ -31,7 +31,7 @@ const MakeDateJobPage=()=>{
     const [girlsNameSelect, setGirlsNameSelect] = useState('')
     const [girlsNameConfirm, setGirlsNameConfirm] = useState('')
     const [error, setError] = useState('');
-    console.log(girlsList);
+
     const handleChangeGirlsName=(e: React.MouseEvent<HTMLButtonElement>)=>{
             e.preventDefault()
         setError('');

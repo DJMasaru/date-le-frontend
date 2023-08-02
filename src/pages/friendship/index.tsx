@@ -9,6 +9,8 @@ interface Friendship {
     id:number;
     image_url:string;
     name:string;
+    age:number;
+    notice:string;
 }
 
 interface deleteProps{
@@ -22,10 +24,7 @@ const Dashboard =()=> {
     const [requestingUser, setRequestingUser] = useState<Friendship[]|null>(null);
     const [followedUser, setFollowedUser] = useState<Friendship[]|null>(null);
     const [requestedUser, setRequestedUser] = useState<Friendship[]|null>(null);
-    const [readingError, setReadingError] = useState<string>('');
-    const [isMobile] = useMediaQuery("(max-width: 768px)");
     const [selector,setSelector] = useState<string>('following')
-
     // フォロー中のユーザーIDを取得
     const followingUserIds:number[] = followingUser?.map(user => user.id) || [];
 
@@ -63,7 +62,6 @@ const Dashboard =()=> {
                 setRequestedUser(response.data.requestedUser)
             } catch (error) {
                 console.error(error);
-                setReadingError('デートが登録されていません。')
             }
         };
 
@@ -88,7 +86,6 @@ const Dashboard =()=> {
             // フロントエンド側でカードを削除
             if (followingUser) {
                 const updatedFollowingUser = [...followingUser];
-                console.log(updatedFollowingUser);
                 updatedFollowingUser.splice(index, 1);
                 setFollowingUser(updatedFollowingUser);
             }
@@ -114,7 +111,6 @@ const Dashboard =()=> {
             // フロントエンド側でカードを削除
             if (requestingUser) {
                 const updatedRequestingUser = [...requestingUser];
-                console.log(updatedRequestingUser);
                 updatedRequestingUser.splice(index, 1);
                 setRequestingUser(updatedRequestingUser);
             }
@@ -201,86 +197,86 @@ const Dashboard =()=> {
 
     return (
         <>
-            {isMobile ? (
-                readingError ? (
-                    <div>{readingError}</div>
-                ) : (
-                    <div>
-                        <div>
-                            <div style={{position:"fixed",width:"100%",zIndex:2,top:"0"}}>
-                                    <Header />
-                            </div>
-                            <FriendshipSelector onStateChange={handleFriendshipSelector}/>
-                        </div>
-                        <div style={{ margin: "120px auto 20px",maxWidth:"800px" }}>
-
-                            {/*ここに検索フォーム入れる。*/}
-
-                            <div style={{ width: '95%', margin: 'auto' }}>
-                                {selector === 'following' ? (
-                                    <>
-                                        {followingUser?.map((item, index) => (
-                                            <FriendshipCard
-                                                key={item.id}
-                                                id={item.id}
-                                                image_url={item.image_url}
-                                                name={item.name}
-                                                status='following'
-                                                commonIds={commonIds}
-                                                requestCommonIds={requestCommonIds}
-                                                onClick={(action) => handleDeleteFollowingUserCard({ id: item.id, index })} // 削除処理を渡す
-                                            />
-                                        ))}
-                                        <div>申請中のフォローリクエスト</div>
-                                        {requestingUser?.map((item, index) => (
-                                            <FriendshipCard
-                                                key={item.id}
-                                                id={item.id}
-                                                image_url={item.image_url}
-                                                name={item.name}
-                                                status='requesting'
-                                                commonIds={commonIds}
-                                                requestCommonIds={requestCommonIds}
-                                                onClick={(action) => handleDeleteRequestingUserCard({ id: item.id, index,action })} // 削除処理を渡す
-                                            />
-                                        ))}
-                                    </>
-                                ) : selector === 'followed' ? (
-                                    <>
-                                        {followedUser?.map((item, index) => (
-                                            <FriendshipCard
-                                                key={item.id}
-                                                id={item.id}
-                                                image_url={item.image_url}
-                                                name={item.name}
-                                                status='followed'
-                                                commonIds={commonIds}
-                                                requestCommonIds={requestCommonIds}
-                                                onClick={(action) => handleDeleteFollowedUserCard({ id: item.id,action,index })} // 削除処理を渡す
-                                            />
-                                        ))}
-                                        <div>相手からのフォローリクエスト</div>
-                                        {requestedUser?.map((item, index) => (
-                                            <FriendshipCard
-                                                key={item.id}
-                                                id={item.id}
-                                                image_url={item.image_url}
-                                                name={item.name}
-                                                status='requested'
-                                                commonIds={commonIds}
-                                                requestCommonIds={requestCommonIds}
-                                                onClick={(action) => handleRequestedUserCard({ id: item.id, action, index })} // 削除処理を渡す
-                                            />
-                                        ))}
-                                    </>
-                                ) : null}
-                            </div>
-                        </div>
+            <div>
+                <div>
+                    <div style={{position:"fixed",width:"100%",zIndex:2,top:"0"}}>
+                            <Header />
                     </div>
-                )
-            ) : (
-                <p>Waiting...</p>
-            )}
+                    <FriendshipSelector onStateChange={handleFriendshipSelector}/>
+                </div>
+                <div style={{ margin: "120px auto 20px",maxWidth:"800px" }}>
+
+                    {/*ここに検索フォーム入れる。*/}
+
+                    <div style={{ width: '95%', margin: 'auto' }}>
+                        {selector === 'following' ? (
+                            <>
+                                {followingUser?.map((item, index) => (
+                                    <FriendshipCard
+                                        key={item.id}
+                                        id={item.id}
+                                        image_url={item.image_url}
+                                        name={item.name}
+                                        age={item.age}
+                                        notice={item.notice}
+                                        status='following'
+                                        commonIds={commonIds}
+                                        requestCommonIds={requestCommonIds}
+                                        onClick={(action) => handleDeleteFollowingUserCard({ id: item.id, index })} // 削除処理を渡す
+                                    />
+                                ))}
+                                <div>申請中のフォローリクエスト</div>
+                                {requestingUser?.map((item, index) => (
+                                    <FriendshipCard
+                                        key={item.id}
+                                        id={item.id}
+                                        image_url={item.image_url}
+                                        name={item.name}
+                                        age={item.age}
+                                        notice={item.notice}
+                                        status='requesting'
+                                        commonIds={commonIds}
+                                        requestCommonIds={requestCommonIds}
+                                        onClick={(action) => handleDeleteRequestingUserCard({ id: item.id, index,action })} // 削除処理を渡す
+                                    />
+                                ))}
+                            </>
+                        ) : selector === 'followed' ? (
+                            <>
+                                {followedUser?.map((item, index) => (
+                                    <FriendshipCard
+                                        key={item.id}
+                                        id={item.id}
+                                        image_url={item.image_url}
+                                        name={item.name}
+                                        age={item.age}
+                                        notice={item.notice}
+                                        status='followed'
+                                        commonIds={commonIds}
+                                        requestCommonIds={requestCommonIds}
+                                        onClick={(action) => handleDeleteFollowedUserCard({ id: item.id,action,index })} // 削除処理を渡す
+                                    />
+                                ))}
+                                <div>相手からのフォローリクエスト</div>
+                                {requestedUser?.map((item, index) => (
+                                    <FriendshipCard
+                                        key={item.id}
+                                        id={item.id}
+                                        image_url={item.image_url}
+                                        name={item.name}
+                                        age={item.age}
+                                        notice={item.notice}
+                                        status='requested'
+                                        commonIds={commonIds}
+                                        requestCommonIds={requestCommonIds}
+                                        onClick={(action) => handleRequestedUserCard({ id: item.id, action, index })}
+                                    />
+                                ))}
+                            </>
+                        ) : null}
+                    </div>
+                </div>
+            </div>
        </>
     );
 }
