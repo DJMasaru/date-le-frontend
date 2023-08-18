@@ -26,7 +26,7 @@ interface EditUserProfileCompleteProps{
 const EditUserProfileCompleteButton=({id,userID, name, age, occupation, address, hobby, girl_experiences,
     favorite_feature, favorite_date_time,birthday,
     favorite_date_place, favorite_clothes, favorite_character, favorite_age_range, notice,
-    // image_url,
+    image_url,
     }: EditUserProfileCompleteProps)=>{
 
     const router = useRouter();
@@ -40,7 +40,7 @@ const EditUserProfileCompleteButton=({id,userID, name, age, occupation, address,
                 name:name,
                 occupation:occupation,
                 notice:notice,
-                // image_url:image_url,
+                image_url:image_url,
                 hobby:hobby,
                 birthday:birthday,
                 girl_experiences:girl_experiences,

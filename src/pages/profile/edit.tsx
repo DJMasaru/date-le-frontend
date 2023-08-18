@@ -69,6 +69,9 @@ const EditGirlsInfoPage =()=>{
         }
     }, [profile]);
 
+    const [inputImageUrl, setInputImageUrl] = useState(profile ? profile.image_url : "")
+    const [selectedImageFile, setSelectedImageFile] = useState<File | null>(null);
+
     const [inputName, setInputName] = useState(profile ? profile.name : "")
     const [inputAge, setInputAge] = useState(profile?.age !== undefined ? profile?.age : 0)
     const [inputOccupation, setInputOccupation] = useState(profile ? profile.occupation : "")
@@ -105,6 +108,16 @@ const EditGirlsInfoPage =()=>{
         textAlign: "center",
     }
 
+    const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files.length > 0) {
+            const imageFile = e.target.files[0];
+            const imageUrl = URL.createObjectURL(imageFile); // ローカルURLを生成
+            setInputImageUrl(imageUrl); // プレビュー用のURLを状態にセット
+            setSelectedImageFile(imageFile);
+        }
+    };
+
+
 
     return(
     <>
@@ -113,14 +126,17 @@ const EditGirlsInfoPage =()=>{
                 <Header />
             </div>
 
-            <div　style={{ width: "95%",display:"flex",margin:"auto",paddingTop: "67px",justifyContent:"space-evenly",alignItems:"center" }}>
+            <div　style={{ width: "95%",display:"flex",margin:"auto",paddingTop: "67px",justifyContent:"center",alignItems:"center" }}>
                 <Avatar
                     size={'lg'}
-                    src={profile?.image_url}
+                    src={inputImageUrl}
                 />
-                <Button>
-                        <p>画像を変更する</p>
-                </Button>
+                <Input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageChange}
+                    style={{border: "unset", width: "unset",lineHeight: 2}}
+                />
             </div>
             <div style={contents}>
                 <div style={contentsName}>
@@ -310,7 +326,7 @@ const EditGirlsInfoPage =()=>{
                     userID={userID}
                     name={inputName}
                     age={inputAge}
-                    // image_url={}
+                    image_url={inputImageUrl}
                     occupation={inputOccupation}
                     address={inputAddress}
                     hobby={inputHobby}

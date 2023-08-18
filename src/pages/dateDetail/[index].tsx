@@ -1,8 +1,18 @@
 import { useRouter } from 'next/router';
-import React, {useEffect, useState} from "react";
+import React, {ChangeEvent, useEffect, useState} from "react";
 import axios from "axios";
 import theme from "@/theme";
-import {Avatar, Badge, Flex, useMediaQuery} from "@chakra-ui/react";
+import {
+    Avatar,
+    Badge,
+    Button,
+    Flex,
+    Modal, ModalBody, ModalCloseButton,
+    ModalContent, ModalFooter, ModalHeader,
+    ModalOverlay, Textarea,
+    useDisclosure,
+    useMediaQuery
+} from "@chakra-ui/react";
 import Header from "@/components/header";
 import Comment from "@/components/comment";
 
@@ -11,7 +21,6 @@ interface dateJob{
     date_of_date:string;
     place_of_date:string;
     time_of_date:string;
-    favorite_count:number;
     passion:string;
     target:string;
     girls_profile: {
@@ -22,7 +31,6 @@ interface dateJob{
         feature_first:string;
         feature_second:string;
         feature_third:string;
-        count_of_dates:number;
     };
 }
 
@@ -33,7 +41,6 @@ interface friendDateJob {
         date_of_date: string;
         place_of_date: string;
         time_of_date: string;
-        favorite_count: number;
         passion: string;
         target: string;
         girls_profile: {
@@ -44,7 +51,6 @@ interface friendDateJob {
             feature_first: string;
             feature_second: string;
             feature_third: string;
-            count_of_dates: number;
         };
     }[];
 }
@@ -66,7 +72,13 @@ const DateDetailPage = () => {
     const [friendDateJob, setFriendDateJob] = useState<friendDateJob | null>(null);
     const [friendDateComments,setFriendDateComments] = useState<Comment[]>([]);
     const [dateComments,setDateComments] = useState<Comment[]>([]);
+    const { isOpen, onOpen, onClose } = useDisclosure()
+    const [commentValue, setCommentValue] = useState(''); // 初期値を空の文字列として設定
 
+    const handleChangeComment = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        const newValue = e.target.value;
+        setCommentValue(newValue);
+    };
     // typeによって選択されるオブジェクトを定数に代入
     const selectedProfile:any = type === 'friend' ? friendDateJob?.date_jobs[0].girls_profile : dateJob?.girls_profile;
     const selectedDateJob: any = type === 'friend' ? friendDateJob?.date_jobs[0] : dateJob;
@@ -84,6 +96,30 @@ const DateDetailPage = () => {
     const dayWithoutZero = parseInt(day, 10).toString();
 
     useEffect(() => {
+        fetchDateDetail();
+    }, [index]);
+    const handlePostComment=async ()=>{
+        try {
+            const accessToken = localStorage.getItem("date-le-accessToken");
+            const response = await axios.post('/api/post_comment', {
+                    comment:commentValue,
+                    index: index,
+                    type: type
+            }, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+            onClose();
+            fetchDateDetail();
+            // ログイン成功時の処理
+            console.log(response.data);
+        } catch (error) {
+            // ログイン失敗時の処理
+            console.error(error);
+        }
+    }
+
         const fetchDateDetail = async () => {
             try {
                 const accessToken = localStorage.getItem("date-le-accessToken");
@@ -106,8 +142,6 @@ const DateDetailPage = () => {
             }
         };
 
-        fetchDateDetail();
-    }, [index]);
 
     return (
         <>
@@ -132,8 +166,6 @@ const DateDetailPage = () => {
                     <div style={{ width: '95%', margin: '20px auto 0' }}>
                         <p style={{textAlign:"center"}}>{`${year}年${monthWithoutZero}月${dayWithoutZero}日`}  {`${hour}時${minute}分`}　</p>
                         <p style={{textAlign:"center"}}>{dateJob?.place_of_date}</p>
-                        <br/>
-                        <p style={{textAlign:"center"}}>これまでのデート回数：{selectedProfile?.count_of_dates}回</p>
                     </div>
                     <div style={{ width: '95%', margin: '20px auto 0',textAlign:"center" }}>
                         {features?.map((feature, index) => (
@@ -163,42 +195,65 @@ const DateDetailPage = () => {
                     <div>
                     </div>
                     <br/>
-                    <div style={{width:"95%",margin:"auto",borderBottom:"1px solid black"}}>
+                    <div style={{width:"95%",margin:"auto",borderBottom:"1px solid black",display:"flex",alignItems:"center",justifyContent:"space-between",paddingBottom:"10px"}}>
                         <p>コメント：{selectedDateJob?.comment_count}件</p>
+                        <Button
+                            colorScheme='blue'
+                            m={2}
+                            style={{margin:"0"}}
+                            onClick={onOpen}>
+                            <p>＋</p>
+                        </Button>
+                        <Modal isOpen={isOpen} onClose={onClose}>
+                            <ModalOverlay />
+                            <ModalContent>
+                                <ModalHeader>コメントを残す</ModalHeader>
+                                <ModalCloseButton />
+                                <ModalBody>
+                                    <Textarea
+                                        style={{ maxHeight: "100px" }}
+                                        value={commentValue} // 状態から値を取得して表示
+                                        onChange={handleChangeComment} // テキストが変更されたときに呼び出される関数を指定
+                                    />
+                                </ModalBody>
+                                <ModalFooter>
+                                    <Button colorScheme='gray' mr={3} onClick={onClose}>
+                                        閉じる
+                                    </Button>
+                                    <Button colorScheme='blue' onClick={handlePostComment}>投稿する</Button>
+                                </ModalFooter>
+                            </ModalContent>
+                        </Modal>
                     </div>
                     <div style={{ width: "95%", margin: "auto" }}>
-                        {dateJob?.girls_profile.count_of_dates !== 0 ? (
-                            type === "friend" ? (
-                                friendDateComments ? (
-                                    friendDateComments.map((comment, index) => (
-                                        <Comment
-                                            key={index}
-                                            image_url={comment.comment_by_user[0].image_url}
-                                            name={comment.comment_by_user[0].name}
-                                            updated={comment.updated_at}
-                                            content={comment.value}
-                                        />
-                                    ))
-                                ) : (
-                                    <p style={{ color: "#555555" }}>コメントがありません</p>
-                                )
+                        {type === "friend" ? (
+                            friendDateComments && friendDateComments.length > 0 ? (
+                                friendDateComments.map((comment, index) => (
+                                    <Comment
+                                        key={index}
+                                        image_url={comment.comment_by_user[0].image_url}
+                                        name={comment.comment_by_user[0].name}
+                                        updated={comment.updated_at}
+                                        content={comment.value}
+                                    />
+                                ))
                             ) : (
-                                dateComments ? (
-                                    dateComments.map((comment, index) => (
-                                        <Comment
-                                            key={index}
-                                            image_url={comment.comment_by_user[0].image_url}
-                                            name={comment.comment_by_user[0].name}
-                                            updated={comment.updated_at}
-                                            content={comment.value}
-                                        />
-                                    ))
-                                ) : (
-                                    <p style={{ color: "#555555" }}>コメントがありません</p>
-                                )
+                                <p style={{ color: "#555555" }}>コメントがありません</p>
                             )
                         ) : (
-                            <p style={{ color: "#555555" }}>コメントがありません</p>
+                            dateComments && dateComments.length > 0 ? (
+                                dateComments.map((comment, index) => (
+                                    <Comment
+                                        key={index}
+                                        image_url={comment.comment_by_user[0].image_url}
+                                        name={comment.comment_by_user[0].name}
+                                        updated={comment.updated_at}
+                                        content={comment.value}
+                                    />
+                                ))
+                            ) : (
+                                <p style={{ color: "#555555" }}>コメントがありません</p>
+                            )
                         )}
                     </div>
                 </div>

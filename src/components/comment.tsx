@@ -10,7 +10,7 @@ interface Comment {
 
 const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    const formattedDate = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
+    const formattedDate = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
     const formattedTime = `${date.getHours()}:${date.getMinutes()}`;
 
     return `${formattedDate} ${formattedTime}`;

@@ -21,7 +21,6 @@ interface DateLog{
         feature_first:string;
         feature_second:string;
         feature_third:string;
-        count_of_dates:number;
     };
 }
 

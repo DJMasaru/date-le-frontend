@@ -18,14 +18,13 @@ interface DashboardJobCardProps{
     time_of_date: string;
     place_of_date: string
     comment_count: number;
-    favorite_count :number;
     friend_name?: string;
     friend?: string;
     friend_image_url?:string;
 }
 
 const DashboardJobCard = ({ index, name, age, occupation, image_url, feature_first, feature_second, feature_third,
-                              date_of_date,time_of_date, place_of_date,comment_count,favorite_count,friend_name,friend,friend_image_url }
+                              date_of_date,time_of_date, place_of_date,comment_count,friend_name,friend,friend_image_url }
                               :DashboardJobCardProps) => {
 
     const router = useRouter();
@@ -95,8 +94,7 @@ const DashboardJobCard = ({ index, name, age, occupation, image_url, feature_fir
                 })}
                 </div>
                 <Spacer/>
-                <FaHeart /> <p style={{marginRight:"1rem"}}>{favorite_count}</p>
-                <FaCommentDots /> <p style={{marginRight:"1rem"}}>{comment_count}</p>
+                <FaCommentDots /> <p style={{marginLeft:"0.5rem"}}>{comment_count}件</p>
             </Flex>
             {friend_name &&
             <Flex alignItems="center" justifyContent="end">
