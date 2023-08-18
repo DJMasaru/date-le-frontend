@@ -15,7 +15,6 @@ interface jobAndProfile {
     time_of_date: string;
     place_of_date: string
     comment_count: number;
-    favorite_count :number;
 }
 
 interface friendsJobAndProfile{
@@ -81,7 +80,6 @@ const Dashboard =()=> {
                                         time_of_date={item.time_of_date}
                                         place_of_date={item.place_of_date}
                                         comment_count={item.comment_count}
-                                        favorite_count={item.favorite_count}
                                     />
                                 );
                             })
@@ -101,7 +99,6 @@ const Dashboard =()=> {
                                         time_of_date={item2.date_jobs[0].time_of_date}
                                         place_of_date={item2.date_jobs[0].place_of_date}
                                         comment_count={item2.date_jobs[0].comment_count}
-                                        favorite_count={item2.date_jobs[0].favorite_count}
                                         friend_name={item2.name}
                                         friend_image_url={item2.image_url}
                                     />

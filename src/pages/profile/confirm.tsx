@@ -9,7 +9,7 @@ const CheckUserProfileConfirmPage =()=>{
     const {id,userID, name, age, occupation, address, hobby, girl_experiences,
         favorite_feature, favorite_date_time,birthday,
         favorite_date_place, favorite_clothes, favorite_character, favorite_age_range, notice,
-        // image_url,
+        image_url,
         } = router.query as {
         id?:number;
         userID?:number;
@@ -60,7 +60,7 @@ const CheckUserProfileConfirmPage =()=>{
                     <div　style={{ width: "95%",display:"flex",margin:"auto",justifyContent:"center",alignItems:"center" }}>
                         <Avatar
                             size={'lg'}
-                            // src={image_url}
+                            src={image_url}
                         />
                     </div>
                     <div style={contents}>
@@ -183,7 +183,7 @@ const CheckUserProfileConfirmPage =()=>{
                             userID={userID}
                             name={name}
                             age={age}
-                            // image_url={}
+                            image_url={image_url}
                             occupation={occupation}
                             address={address}
                             hobby={hobby}

@@ -202,14 +202,6 @@ const CheckGirlsInfoConfirmPage =()=>{
                     </div>
                     <div style={contents}>
                         <div style={contentsName}>
-                            <p style={{textAlign:"center"}}>これまでのデート回数</p>
-                        </div>
-                        <div style={contentsName}>
-                            <p>{count_of_dates}</p>
-                        </div>
-                    </div>
-                    <div style={contents}>
-                        <div style={contentsName}>
                             <p style={{textAlign:"center"}}>備考</p>
                         </div>
                         <div style={contentsName}>

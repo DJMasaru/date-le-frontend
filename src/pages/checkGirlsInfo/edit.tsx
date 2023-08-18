@@ -24,7 +24,6 @@ interface RouterQuery {
     favorite_type_of_man?: string;
     opportunity_to_meet?: string;
     has_boyfriend?: number;
-    count_of_dates?: number;
     notice?: string;
 }
 
@@ -34,7 +33,7 @@ const EditGirlsInfoPage =()=>{
     const {girlsID,index, name, age, image_url, occupation, address,
         birthday, character,feature_first,feature_second,feature_third,
         hobby, favorite_foods, dislike_foods, favorite_type_of_man,
-        opportunity_to_meet, has_boyfriend, count_of_dates, notice,
+        opportunity_to_meet, has_boyfriend, notice,
     }: RouterQuery = router.query;
 
     const [inputName, setInputName] = useState(name || "")
@@ -54,7 +53,6 @@ const EditGirlsInfoPage =()=>{
     const [inputDislikeFoods, setInputDislikeFoods] = useState(dislike_foods || "");
     const [inputFavoriteTypeOfMan, setInputFavoriteTypeOfMan] = useState(favorite_type_of_man || "");
     const [inputHasBoyfriend, setInputHasBoyfriend] = useState(has_boyfriend !== undefined ? has_boyfriend : 0);
-    const [inputCountOfDates, setInputCountOfDates] = useState(count_of_dates !== undefined ? count_of_dates : 0);
     const [inputNotice, setInputNotice] = useState(notice || "");
 
     const contents = {
@@ -300,19 +298,6 @@ const EditGirlsInfoPage =()=>{
             </div>
             <div style={contents}>
                 <div style={contentsName}>
-                    <p style={{textAlign:"center"}}>これまでのデート回数</p>
-                </div>
-                <div style={contentsName}>
-                    <Input
-                        type="number"
-                        value={inputCountOfDates}
-                        onChange={(e) => setInputCountOfDates(parseInt(e.target.value, 10))}
-                        style={inputStyle}
-                    />
-                </div>
-            </div>
-            <div style={contents}>
-                <div style={contentsName}>
                     <p style={{textAlign:"center"}}>備考</p>
                 </div>
                 <div style={contentsName}>
@@ -345,7 +330,6 @@ const EditGirlsInfoPage =()=>{
                     favorite_type_of_man={inputFavoriteTypeOfMan}
                     opportunity_to_meet={inputOpportunityToMeet}
                     has_boyfriend={inputHasBoyfriend}
-                    count_of_dates={inputCountOfDates}
                     notice={inputNotice}
                 />
             </div>

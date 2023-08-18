@@ -305,16 +305,6 @@ const GirlsInfoPage = () =>{
                             </div>
                         </div>
                     )}
-                    {girlsInfo?.count_of_dates &&(
-                        <div style={contents}>
-                            <div style={contentsName}>
-                                <p style={{textAlign:"center"}}>これまでのデート回数</p>
-                            </div>
-                            <div style={contentsName}>
-                                <p style={{textAlign:"center"}}>{girlsInfo?.count_of_dates}回</p>
-                            </div>
-                        </div>
-                    )}
                     {girlsInfo?.notice &&(
                         <div style={contents}>
                             <div style={contentsName}>
