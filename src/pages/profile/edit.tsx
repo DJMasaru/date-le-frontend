@@ -55,6 +55,7 @@ const EditGirlsInfoPage =()=>{
             setInputName(profile.name || "");
             setInputAge(profile?.age !== undefined ? profile?.age : 0);
             setInputOccupation(profile.occupation || "");
+            setInputImageUrl(profile.image_url || "");
             setInputFavoriteClothes(profile.favorite_clothes || "");
             setInputAddress(profile.address || "");
             setInputBirthday(profile.birthday || "");
@@ -70,8 +71,6 @@ const EditGirlsInfoPage =()=>{
     }, [profile]);
 
     const [inputImageUrl, setInputImageUrl] = useState(profile ? profile.image_url : "")
-    const [selectedImageFile, setSelectedImageFile] = useState<File | null>(null);
-
     const [inputName, setInputName] = useState(profile ? profile.name : "")
     const [inputAge, setInputAge] = useState(profile?.age !== undefined ? profile?.age : 0)
     const [inputOccupation, setInputOccupation] = useState(profile ? profile.occupation : "")
@@ -108,16 +107,30 @@ const EditGirlsInfoPage =()=>{
         textAlign: "center",
     }
 
-    const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files.length > 0) {
             const imageFile = e.target.files[0];
-            const imageUrl = URL.createObjectURL(imageFile); // ローカルURLを生成
-            setInputImageUrl(imageUrl); // プレビュー用のURLを状態にセット
-            setSelectedImageFile(imageFile);
+
+            //画像選択と同時にサーバーへ画像アップロード
+            const formData = new FormData();
+            formData.append('image', imageFile);
+            try {
+                const accessToken = localStorage.getItem("date-le-accessToken");
+                const response = await axios.post('/api/upload_user_image', formData, {
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`,
+                        'Content-Type': 'multipart/form-data', // フォームデータを送信するために必要
+                    },
+                });
+
+                console.log(response.data);
+                setInputImageUrl(response.data);
+            } catch (error) {
+                // ログイン失敗時の処理
+                console.error(error);
+            }
         }
     };
-
-
 
     return(
     <>
