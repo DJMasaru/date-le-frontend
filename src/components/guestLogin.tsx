@@ -8,7 +8,7 @@ const GuestLogin=()=>{
         try {
             const response = await axios.post('/api/login', {
                 email: 'example@example.example',
-                password: 'exampleexample',
+                password: 'Kisiemon@0803',
             });
             const accessToken = response.data.access_token;
             localStorage.setItem('date-le-accessToken', accessToken);
