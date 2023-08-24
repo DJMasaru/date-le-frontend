@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
-import {Button, Flex, useDisclosure, Input, Select, Spacer} from "@chakra-ui/react";
+import {Button, useDisclosure, Input, Select, Spacer, FormErrorMessage} from "@chakra-ui/react";
 import {Modal, ModalOverlay, ModalContent, ModalHeader,
-    ModalFooter, ModalBody, ModalCloseButton,
+    ModalFooter, ModalBody, ModalCloseButton,FormControl
 } from '@chakra-ui/react'
 import axios from "axios";
 import MakeDateJobConfirm from "../../components/makeDateJobComfirmButton";
@@ -36,7 +36,7 @@ const MakeDateJobPage=()=>{
             e.preventDefault()
         setError('');
         if (girlsNameInput.length > 0 && girlsNameSelect.length > 0) {
-            setError('エラーメッセージ：girlsNameInputとgirlsNameSelectの両方に値が入っています');
+            setError('いずれかに入力してください。');
         } else if (girlsNameInput.length > 0) {
 
             // girlsNameInputの値を使用してAPI通信を行う
@@ -58,12 +58,10 @@ const MakeDateJobPage=()=>{
                     },
                 });
                 setGirlsList(response.data);
-
             } catch (error) {
                 console.error(error);
             }
         }
-
         fetchGirlsList();
     }, [])
 
@@ -77,7 +75,7 @@ const MakeDateJobPage=()=>{
     const contents = {
         width: '90%',
         display: 'flex',
-        height: '50px',
+        height: '75px',
         borderBottom: '1px dashed black',
         margin: '0 auto 10px'
     }
@@ -89,6 +87,33 @@ const MakeDateJobPage=()=>{
         width: '50%'
     }
 
+    const validateMark = {
+        background:'red',
+        color:'white',
+        margin:'5px',
+        padding:'2px',
+        fontWeight:'bold',
+        fontSize:'12px'
+    }
+
+    const [dateOfDateError, setDateOfDateError] = useState<string>("");
+    const validateDateOfDate = () => {
+        if (!dateOfDate) {
+            setDateOfDateError("日付を入力してください。");
+        } else {
+            setDateOfDateError("");
+        }
+    };
+
+    const [timeOfDateError, setTimeOfDateError] = useState<string>("");
+    const validateTimeOfDate = () => {
+        if (!timeOfDate) {
+            setTimeOfDateError("時間を入力してください。");
+        } else {
+            setTimeOfDateError("");
+        }
+    };
+
     return(
         <>
             <div style={{position:"fixed",width:"100%",zIndex:2,top:"0"}}>
@@ -99,6 +124,7 @@ const MakeDateJobPage=()=>{
                     <h1>デート情報登録</h1>
                     <div style={contents}>
                         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',width: '50%' }}>
+                            <p style={validateMark}>必須</p>
                             <p style={{textAlign:"center"}}>名前</p>
                         </div>
                         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',width: '50%' }}>
@@ -127,8 +153,8 @@ const MakeDateJobPage=()=>{
                                         <Spacer margin='12px'/>
                                         <p>新規でデートする子の名前を入力する</p>
                                         <Input value={girlsNameInput} onChange={(e) => setGirlsNameInput(e.target.value)} />
+                                        {error && <p>{error}</p>}
                                     </ModalBody>
-
                                     <ModalFooter>
                                         <Button colorScheme='gray' mr={3} onClick={onClose}>
                                             閉じる
@@ -141,18 +167,26 @@ const MakeDateJobPage=()=>{
                     </div>
                     <div style={contents}>
                         <div style={contentsName}>
+                            <p style={validateMark}>必須</p>
                             <p style={{textAlign:"center"}}>日付</p>
                         </div>
                         <div style={contentsName}>
-                            <Input type="date"  value={dateOfDate} onChange={(e) => setDateOfDate(e.target.value)}/>
-                        </div>
+                            <FormControl isInvalid={!!dateOfDateError}>
+                            <Input type="date"  value={dateOfDate} onChange={(e) => setDateOfDate(e.target.value)} onBlur={validateDateOfDate}/>
+                                <FormErrorMessage>{dateOfDateError}</FormErrorMessage>
+                            </FormControl>
+                            </div>
                     </div>
                     <div style={contents}>
                         <div style={contentsName}>
+                            <p style={validateMark}>必須</p>
                             <p style={{textAlign:"center"}}>時間</p>
                         </div>
                         <div style={contentsName}>
-                            <Input type="time" value={timeOfDate} onChange={(e) => setTimeOfDate(e.target.value)}/>
+                            <FormControl isInvalid={!!timeOfDateError}>
+                            <Input type="time" value={timeOfDate} onChange={(e) => setTimeOfDate(e.target.value)} onBlur={validateTimeOfDate}/>
+                            <FormErrorMessage>{timeOfDateError}</FormErrorMessage>
+                            </FormControl>
                         </div>
                     </div>
                     <div style={contents}>

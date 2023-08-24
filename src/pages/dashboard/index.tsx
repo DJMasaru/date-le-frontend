@@ -4,6 +4,7 @@ import DashboardJobCard from "../../components/cards/dashboardJobCard";
 import DateSelector from "../../components/dateSelector";
 import {useMediaQuery} from "@chakra-ui/react";
 import Header from "../../components/header";
+import { useRouter } from "next/router";
 
 interface jobAndProfile {
     girls_profile: any;
@@ -31,7 +32,6 @@ interface user{
 const Dashboard =()=> {
     const [jobAndProfile, setJobAndProfile] = useState<jobAndProfile[]>([]);
     const [friendsJobAndProfile, setFriendsJobAndProfile] = useState<friendsJobAndProfile[]>([]);
-    const [isMobile] = useMediaQuery("(max-width: 768px)");
     const [selector,setSelector] = useState<string>('mine')
 
     useEffect(() => {
@@ -49,10 +49,8 @@ const Dashboard =()=> {
                 console.error(error);
             }
         };
-
         fetchUserData();
     }, []);
-
     const handleDateSelector = (newMessage:any) => {
         setSelector(newMessage);
     };

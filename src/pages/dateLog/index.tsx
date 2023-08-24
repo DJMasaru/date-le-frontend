@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import Header from "@/components/header";
-import {useMediaQuery} from "@chakra-ui/react";
 import LogDateCard from "@/components/cards/LogDateCard";
 
 interface DateLog{
@@ -26,7 +25,6 @@ interface DateLog{
 
 const DateLog=()=>{
     const [dateLog, setDateLog] =useState<DateLog[]>([]);
-    const [isMobile] = useMediaQuery("(max-width: 768px)");
 
     useEffect(() => {
         const fetchDateLog = async () => {
@@ -38,13 +36,10 @@ const DateLog=()=>{
                     },
                 });
                 setDateLog(response.data);
-
             } catch (error) {
                 console.error(error);
-
             }
         }
-
         fetchDateLog();
     }, [])
 
