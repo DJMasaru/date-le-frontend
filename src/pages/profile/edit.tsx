@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import React, {ChangeEvent, useEffect, useState} from "react";
-import {Avatar, Button, Input, Select, useMediaQuery} from "@chakra-ui/react";
+import {Avatar, FormErrorMessage, Input, FormControl} from "@chakra-ui/react";
 import Header from "@/components/header";
 import BackButton from "@/components/backButton";
 import EditUserProfileConfirmButton from "@/components/editUserProfileConfirmButton";
@@ -89,7 +89,7 @@ const EditGirlsInfoPage =()=>{
     const contents = {
         width: '90%',
         display: 'flex',
-        height: '50px',
+        height: '75px',
         borderBottom: '1px dashed black',
         margin: '10px auto 0px'
     }
@@ -106,6 +106,24 @@ const EditGirlsInfoPage =()=>{
         margin: "0",
         textAlign: "center",
     }
+
+    const validateMark = {
+        background:'red',
+        color:'white',
+        margin:'5px',
+        padding:'2px',
+        fontWeight:'bold',
+        fontSize:'12px'
+    }
+
+    const [profileNameError, setProfileNameError] = useState<string>("");
+    const validateProfileName = () => {
+        if (!inputName) {
+            setProfileNameError("名前を入力して下さい。");
+        } else {
+            setProfileNameError("");
+        }
+    };
 
     const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files.length > 0) {
@@ -138,7 +156,6 @@ const EditGirlsInfoPage =()=>{
             <div style={{position:"fixed",width:"100%",zIndex:2,top:"0"}}>
                 <Header />
             </div>
-
             <div　style={{ width: "95%",display:"flex",margin:"auto",paddingTop: "67px",justifyContent:"center",alignItems:"center" }}>
                 <Avatar
                     size={'lg'}
@@ -153,15 +170,20 @@ const EditGirlsInfoPage =()=>{
             </div>
             <div style={contents}>
                 <div style={contentsName}>
+                    <p style={validateMark}>必須</p>
                     <p style={{textAlign:"center"}}>名前</p>
                 </div>
                 <div style={contentsName}>
+                    <FormControl isInvalid={!!profileNameError}>
                     <Input
                         type="text"
                         value={inputName}
                         onChange={(e) => setInputName(e.target.value)}
                         style={inputStyle}
+                        onBlur={validateProfileName}
                     />
+                    <FormErrorMessage>{profileNameError}</FormErrorMessage>
+                </FormControl>
                 </div>
             </div>
             <div style={contents}>

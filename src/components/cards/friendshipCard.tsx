@@ -128,7 +128,7 @@ const FriendshipCard=({id,name,image_url,status,commonIds,onClick,age,notice,req
                 />
                 <Flex flexDirection="column" alignItems="start" marginLeft="1rem" display="flex">
                     <p style={{fontWeight:"bold"}}>{name}  {age && `(${age})`}   </p>
-                    {notice && <p>{notice}</p>}
+                    {notice && <p style={{fontSize:"12px"}}>{notice}</p>}
                 </Flex>
                 <div style={{position:"absolute",left:"80%"}}>
                     <Button

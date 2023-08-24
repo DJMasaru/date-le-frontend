@@ -1,6 +1,6 @@
 import React from "react";
 import { useRouter } from 'next/router';
-import {Flex, Avatar, Input} from "@chakra-ui/react";
+import {Flex, Avatar} from "@chakra-ui/react";
 import Header from "@/components/header";
 import BackButton from "@/components/backButton";
 import EditUserProfileCompleteButton from "@/components/editUserProfileCompleteButton";
@@ -33,7 +33,7 @@ const CheckUserProfileConfirmPage =()=>{
     const contents = {
         width: '90%',
         display: 'flex',
-        height: '50px',
+        height: '75px',
         borderBottom: '1px dashed black',
         margin: '0 auto 10px'
     }

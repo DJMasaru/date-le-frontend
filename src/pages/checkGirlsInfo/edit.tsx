@@ -1,9 +1,10 @@
 import { useRouter } from 'next/router';
 import React, {ChangeEvent, useState} from "react";
-import {Avatar, Button, Input, Select, useMediaQuery} from "@chakra-ui/react";
+import {Avatar, FormErrorMessage, Input, Select,FormControl,Text} from "@chakra-ui/react";
 import Header from "@/components/header";
 import BackButton from "@/components/backButton";
 import EditGirlsInfoConfirmButton from "@/components/editGirlsInfoConfirmButton";
+import axios from "axios";
 
 interface RouterQuery {
     girlsID?:number,
@@ -28,7 +29,6 @@ interface RouterQuery {
 }
 
 const EditGirlsInfoPage =()=>{
-    const [isMobile] = useMediaQuery("(max-width: 768px)");
     const router = useRouter();
     const {girlsID,index, name, age, image_url, occupation, address,
         birthday, character,feature_first,feature_second,feature_third,
@@ -36,10 +36,11 @@ const EditGirlsInfoPage =()=>{
         opportunity_to_meet, has_boyfriend, notice,
     }: RouterQuery = router.query;
 
-    const [inputName, setInputName] = useState(name || "")
-    const [inputAge, setInputAge] = useState(age !== undefined ? age : 0)
-    const [inputOccupation, setInputOccupation] = useState(occupation || "")
-    const [inputOpportunityToMeet, setInputOpportunityToMeet] = useState(opportunity_to_meet || "")
+    const [inputImageUrl, setInputImageUrl] = useState(image_url || "");
+    const [inputName, setInputName] = useState(name || "");
+    const [inputAge, setInputAge] = useState(age !== undefined ? age : 0);
+    const [inputOccupation, setInputOccupation] = useState(occupation || "");
+    const [inputOpportunityToMeet, setInputOpportunityToMeet] = useState(opportunity_to_meet || "");
     const [inputAddress, setInputAddress] = useState(address || "");
     const [inputBirthday, setInputBirthday] = useState(birthday || "");
     const [inputCharacter, setInputCharacter] = useState(character || "");
@@ -58,7 +59,7 @@ const EditGirlsInfoPage =()=>{
     const contents = {
         width: '90%',
         display: 'flex',
-        height: '50px',
+        height: '75px',
         borderBottom: '1px dashed black',
         margin: '10px auto 0px'
     }
@@ -76,8 +77,88 @@ const EditGirlsInfoPage =()=>{
         textAlign: "center",
     }
 
+    const validateMark = {
+        background:'red',
+        color:'white',
+        margin:'5px',
+        padding:'2px',
+        fontWeight:'bold',
+        fontSize:'12px'
+    }
+
+    const [girlsNameError, setGirlsNameError] = useState<string>("");
+    const validateGirlsName = () => {
+        if (!inputName) {
+            setGirlsNameError("名前を入力して下さい。");
+        } else {
+            setGirlsNameError("");
+        }
+    };
+
+
     const handleChangeHasBoyfriend = (e: ChangeEvent<HTMLSelectElement>) => {
         setInputHasBoyfriend(parseInt(e.target.value, 10));
+    };
+
+    const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files.length > 0) {
+            const imageFile = e.target.files[0];
+
+            //画像選択と同時にサーバーへ画像アップロード
+            const formData = new FormData();
+            formData.append('image', imageFile);
+            try {
+                const accessToken = localStorage.getItem("date-le-accessToken");
+                const response = await axios.post('/api/upload_user_image', formData, {
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`,
+                        'Content-Type': 'multipart/form-data', // フォームデータを送信するために必要
+                    },
+                });
+
+                console.log(response.data);
+                setInputImageUrl(response.data);
+            } catch (error) {
+                // ログイン失敗時の処理
+                console.error(error);
+            }
+        }
+    };
+
+    const [featureFirstError, setFeatureFirstError] = useState(false);
+    const featureFirstInput  = (e: ChangeEvent<HTMLInputElement>) => {
+        const inputValue = e.target.value;
+        setInputFeatureFirst(inputValue);
+
+        if (inputValue.length > 5) {
+            setFeatureFirstError(true);
+        } else {
+            setFeatureFirstError(false);
+        }
+    };
+
+    const [featureSecondError, setFeatureSecondError] = useState(false);
+    const featureSecondInput = (e: ChangeEvent<HTMLInputElement>) => {
+        const inputValue = e.target.value;
+        setInputFeatureSecond(inputValue);
+
+        if (inputValue.length > 5) {
+            setFeatureSecondError(true);
+        } else {
+            setFeatureSecondError(false);
+        }
+    };
+
+    const [featureThirdError, setFeatureThirdError] = useState(false);
+    const featureThirdInput = (e: ChangeEvent<HTMLInputElement>) => {
+        const inputValue = e.target.value;
+        setInputFeatureThird(inputValue);
+
+        if (inputValue.length > 5) {
+            setFeatureThirdError(true);
+        } else {
+            setFeatureThirdError(false);
+        }
     };
 
     return(
@@ -86,27 +167,34 @@ const EditGirlsInfoPage =()=>{
             <div style={{position:"fixed",width:"100%",zIndex:2,top:"0"}}>
                 <Header />
             </div>
-
-            <div　style={{ width: "95%",display:"flex",margin:"auto",paddingTop: "67px",justifyContent:"space-evenly",alignItems:"center" }}>
+            <div　style={{ width: "95%",display:"flex",margin:"auto",paddingTop: "67px",justifyContent:"center",alignItems:"center" }}>
                 <Avatar
                     size={'lg'}
-                    src={image_url}
+                    src={inputImageUrl}
                 />
-                <Button>
-                        <p>画像を変更する</p>
-                </Button>
+                <Input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageChange}
+                    style={{border: "unset", width: "unset",lineHeight: 2}}
+                />
             </div>
             <div style={contents}>
                 <div style={contentsName}>
-                    <p style={{textAlign:"center"}}>名前</p>
+                   　 <p style={validateMark}>必須</p>
+                     <p style={{textAlign:"center"}} onBlur={validateGirlsName}>名前</p>
                 </div>
                 <div style={contentsName}>
+                    <FormControl isInvalid={!!girlsNameError}>
                     <Input
                         type="text"
                         value={inputName}
                         onChange={(e) => setInputName(e.target.value)}
                         style={inputStyle}
+                        onBlur={validateGirlsName}
                     />
+                        <FormErrorMessage>{girlsNameError}</FormErrorMessage>
+                    </FormControl>
                 </div>
             </div>
             <div style={contents}>
@@ -187,7 +275,6 @@ const EditGirlsInfoPage =()=>{
                     />
                 </div>
             </div>
-
             <div style={contents}>
                 <div style={contentsName}>
                     <p style={{textAlign:"center"}}>特徴その①</p>
@@ -196,9 +283,11 @@ const EditGirlsInfoPage =()=>{
                     <Input
                         type="text"
                         value={inputFeatureFirst}
-                        onChange={(e) => setInputFeatureFirst(e.target.value)}
+                        onChange={featureFirstInput}
                         style={inputStyle}
+                        borderColor={featureFirstError ? 'red.500' : 'gray.300'}
                     />
+                    {featureFirstError && <Text color="red.500" align="center">5文字以内です。</Text>}
                 </div>
             </div>
             <div style={contents}>
@@ -209,9 +298,11 @@ const EditGirlsInfoPage =()=>{
                     <Input
                         type="text"
                         value={inputFeatureSecond}
-                        onChange={(e) => setInputFeatureSecond(e.target.value)}
+                        onChange={featureSecondInput}
                         style={inputStyle}
+                        borderColor={featureSecondError ? 'red.500' : 'gray.300'}
                     />
+                    {featureSecondError && <Text color="red.500">5文字以内です。</Text>}
                 </div>
             </div>
 
@@ -223,9 +314,11 @@ const EditGirlsInfoPage =()=>{
                     <Input
                         type="text"
                         value={inputFeatureThird}
-                        onChange={(e) => setInputFeatureThird(e.target.value)}
+                        onChange={featureThirdInput}
                         style={inputStyle}
+                        borderColor={featureThirdError ? 'red.500' : 'gray.300'}
                     />
+                    {featureThirdError && <Text color="red.500">5文字以内です。</Text>}
                 </div>
             </div>
 
@@ -316,7 +409,7 @@ const EditGirlsInfoPage =()=>{
                     index={index}
                     name={inputName}
                     age={inputAge}
-                    // image_url={girlsInfo?.image_url}
+                    image_url={inputImageUrl}
                     occupation={inputOccupation}
                     address={inputAddress}
                     birthday={inputBirthday}

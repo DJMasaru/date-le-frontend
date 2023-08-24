@@ -1,8 +1,7 @@
 import React from "react";
 import { useRouter } from 'next/router';
-import {Flex, Table, Tbody, Tr, Td, Stack, FormControl, Input, FormErrorMessage, Text} from "@chakra-ui/react";
+import {Flex, Text} from "@chakra-ui/react";
 import RegisterComplete from "../../components/registerCompleteButton";
-import ConfirmAgain from "../../components/registerConfirmAgain";
 import BackButton from "@/components/backButton";
 
 const ConfirmPage =()=>{
@@ -28,8 +27,6 @@ const ConfirmPage =()=>{
         width: '50%',
     }
 
-
-
     return(
         <>
             <Flex
@@ -53,7 +50,7 @@ const ConfirmPage =()=>{
                         <Text textAlign="center">パスワード</Text>
                     </div>
                     <div style={contentsName}>
-                        <Text textAlign="center">{password}</Text>
+                        <Text textAlign="center">{password.replace(/./g, '*')}</Text>
                     </div>
                 </div>
                 <div style={contents}>

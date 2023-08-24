@@ -1,8 +1,7 @@
 import {useRouter} from 'next/router';
 import React, {useEffect, useState} from "react";
 import axios from "axios";
-import theme from "@/theme";
-import {Avatar, Badge, Flex, useMediaQuery} from "@chakra-ui/react";
+import {Avatar, Badge, Flex} from "@chakra-ui/react";
 import Header from "@/components/header";
 import Comment from "@/components/comment";
 
@@ -37,6 +36,7 @@ const DateDetailPage = () => {
     const {index} = router.query;
     const [dateLog, setDateLog] = useState<dateJobProps | null>(null);
     const [dateLogComments, setDateLogComments] = useState<dateJobLogComments | null>(null);
+    const [dateLogCommentsCount, setDateLogCommentsCount] = useState<number | null>(null);
     const features: any[] = [dateLog?.girls_profile?.feature_first, dateLog?.girls_profile?.feature_second, dateLog?.girls_profile?.feature_third].filter(Boolean);
     //dateJobの初期値がカラのため、もしundefinedである場合に備える
     const timeParts: string[] | undefined = dateLog?.time_of_date.split(':') || [];
@@ -66,6 +66,7 @@ const DateDetailPage = () => {
                 });
                 setDateLog(response.data.dateLog);
                 setDateLogComments(response.data.comments);
+                setDateLogCommentsCount(response.data.comments_count);
 
             } catch (error) {
                 console.error(error);
@@ -75,7 +76,6 @@ const DateDetailPage = () => {
 
         fetchDateLog();
     }, [index])
-
 
     return (
         <>
@@ -141,10 +141,10 @@ const DateDetailPage = () => {
                     </div>
                     <br/>
                     <div style={{width: "95%", margin: "auto", borderBottom: "1px solid black"}}>
-                        <p>コメント：{dateLog?.girls_profile.count_of_dates}件</p>
+                        <p>コメント：{dateLogCommentsCount}件</p>
                     </div>
                     <div style={{width: "95%", margin: "auto"}}>
-                        {dateLog?.girls_profile.count_of_dates !== 0 ? (
+                        {dateLogCommentsCount !== 0 ? (
                             Array.isArray(dateLogComments) && dateLogComments.length > 0 ? (
                                 dateLogComments.map((comment, index) => (
                                     <Comment
@@ -160,7 +160,6 @@ const DateDetailPage = () => {
                             )
                         ) : null}
                     </div>
-
                 </div>
             </div>
         </>

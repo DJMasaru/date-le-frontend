@@ -38,7 +38,7 @@ const EditGirlsInfoCompleteButton=({girlsID, index, name, age, image_url, occupa
                 girlsID:girlsID,
                 name:name,
                 age:age,
-                // image_url,
+                image_url:image_url,
                 occupation:occupation,
                 address:address,
                 birthday:birthday,

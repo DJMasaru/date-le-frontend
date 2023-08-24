@@ -1,8 +1,6 @@
 import {Avatar, Box, Flex, useColorModeValue,} from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import theme from "@/theme";
 import React from "react";
-import {FaCommentDots, FaHeart} from "react-icons/fa6";
 
 interface LogDateCardProps {
     index: number;
@@ -22,6 +20,16 @@ const LogDateCard=({index, date_of_date, time_of_date,
         // ダイナミックルーティングによる詳細画面への遷移
         router.push(`/dateLog/${index}`);
     };
+    const timeParts = time_of_date.split(':');
+    const hour = timeParts[0];
+    const minute = timeParts[1];
+
+    const dataParts = date_of_date.split('-');
+    const year = dataParts[0];
+    const month = dataParts[1];
+    const monthWithoutZero = parseInt(month, 10).toString();
+    const day = dataParts[2];
+    const dayWithoutZero = parseInt(day, 10).toString();
 
     return(
         <Box
@@ -41,7 +49,7 @@ const LogDateCard=({index, date_of_date, time_of_date,
                     src={image_url}
                 />
                 <Flex flexDirection="column" alignItems="start" marginLeft="1rem" display="flex">
-                    <p>{date_of_date}　{time_of_date}</p>
+                    <p>{`${year}年${monthWithoutZero}月${dayWithoutZero}日`}  {`${hour}時${minute}分`}　</p>
                     <p style={{fontWeight:"bold"}}>{name} ({age}) <span style={{color:"#555555",marginLeft:"10px",fontWeight:"normal"}}>{occupation}</span></p>
                     <p>デート場所：{place_of_date}</p>
                 </Flex>

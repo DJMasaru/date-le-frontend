@@ -1,9 +1,11 @@
-import React, {useEffect, useState} from "react";
+import React, {ChangeEvent, useEffect, useState} from "react";
 import axios from "axios";
-import {useMediaQuery} from "@chakra-ui/react";
 import Header from "../../components/header";
 import FriendshipSelector from "@/components/friendshipSelector";
 import FriendshipCard from "@/components/cards/friendshipCard";
+import { Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
+import { SearchIcon } from '@chakra-ui/icons';
+import SuggestUser from "@/components/suggestUser";
 
 interface Friendship {
     id:number;
@@ -17,6 +19,12 @@ interface deleteProps{
     id:number;
     index:number;
     action?:string;
+}
+interface Suggestion{
+    id:number;
+    name:string;
+    image_url:string;
+    status:string;
 }
 
 const Dashboard =()=> {
@@ -40,31 +48,68 @@ const Dashboard =()=> {
     // フォロワーとフォローリクエストのユーザーIDの共通部分を抽出
     const requestCommonIds:number[] = followerUserIds?.filter(id => requestingUserIds?.includes(id));
 
+    // 検索フォーム
+    const [searchText, setSearchText] = useState('');
+    const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
+    const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setSearchText(e.target.value);
+    };
+
+    const performSearchFriend = async (searchText:string) => {
+        try {
+            const accessToken = localStorage.getItem("date-le-accessToken");
+            const response = await axios.get("/api/friendship", {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+                params: {
+                    searchText: searchText,
+                    suggestion: "suggestion"
+                },
+            });
+            setSuggestions(response.data.strangerUser);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    useEffect(() => {
+        if (searchText) {
+            performSearchFriend(searchText);
+        } else {
+            setSuggestions([]); // 検索テキストが空の場合、サジェストをクリア
+        }
+    }, [searchText]);
+
+    const fetchFriendshipData = async () => {
+        try {
+            const accessToken = localStorage.getItem("date-le-accessToken");
+            const response = await axios.get("/api/friendship", {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+            //こちら側が相手に対して
+            setFollowingUser(response.data.followingUser);
+            setRequestingUser(response.data.requestingUser);
+
+            //相手がこちら側に対して
+            setFollowedUser(response.data.followedUser)
+            setRequestedUser(response.data.requestedUser)
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     useEffect(() => {
         fetchFriendshipData();
     }, []);
 
-        const fetchFriendshipData = async () => {
-            try {
-                const accessToken = localStorage.getItem("date-le-accessToken");
-                const response = await axios.get("/api/friendship", {
-                    headers: {
-                        Authorization: `Bearer ${accessToken}`,
-                    },
-                });
-                //こちら側が相手に対して
-                setFollowingUser(response.data.followingUser);
-                setRequestingUser(response.data.requestingUser);
-
-                //相手がこちら側に対して
-                setFollowedUser(response.data.followedUser)
-                setRequestedUser(response.data.requestedUser)
-            } catch (error) {
-                console.error(error);
-            }
-        };
-
+    const sliceSuggestion=(index:number)=>{
+        const updatedsuggestions = [...suggestions];
+        updatedsuggestions.splice(index, 1);
+        setSuggestions(updatedsuggestions);
+    }
 
     const handleFriendshipSelector = (newMessage:any) => {
         setSelector(newMessage);
@@ -119,7 +164,6 @@ const Dashboard =()=> {
             console.error('削除に失敗しました。', error);
         }
     };
-
 
     const handleDeleteFollowedUserCard = async ({id, action}:deleteProps) => {
         try {
@@ -205,9 +249,37 @@ const Dashboard =()=> {
                     <FriendshipSelector onStateChange={handleFriendshipSelector}/>
                 </div>
                 <div style={{ margin: "120px auto 20px",maxWidth:"800px" }}>
-
-                    {/*ここに検索フォーム入れる。*/}
-
+                    <div style={{width:"80%",margin:"auto",position:"relative"}}>
+                        <InputGroup>
+                            <InputLeftElement pointerEvents="none">
+                                {/* ここに検索アイコンなどを設定 */}
+                                <SearchIcon color="gray.400" />
+                            </InputLeftElement>
+                            <Input type="text"
+                                   placeholder="接点の無いユーザー検索..."
+                                   value={searchText}
+                                   onChange={handleInputChange}
+                            />
+                        </InputGroup>
+                        <div style={{ position: "absolute", zIndex: 1,
+                            background: "white", top: "40px",
+                            left: 0, width: "100%", boxShadow: "5px 5px 15px 0 rgba(17, 17, 26, .18)" }}>
+                        { suggestions.length > 0 && (
+                            suggestions.map((suggestion, index) => (
+                                <SuggestUser
+                                    key={index} // key prop が必要です
+                                    index={index}
+                                    id={suggestion?.id}
+                                    name={suggestion?.name}
+                                    image_url={suggestion?.image_url}
+                                    status={suggestion?.status}
+                                    fetchFriendshipData={fetchFriendshipData}
+                                    sliceSuggestion={sliceSuggestion}
+                                />
+                            ))
+                        )}
+                        </div>
+                    </div>
                     <div style={{ width: '95%', margin: 'auto' }}>
                         {selector === 'following' ? (
                             <>

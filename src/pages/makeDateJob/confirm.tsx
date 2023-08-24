@@ -19,7 +19,7 @@ const ConfirmPage =()=>{
     const contents = {
         width: '90%',
         display: 'flex',
-        height: '50px',
+        height: '75px',
         borderBottom: '1px dashed black',
         margin: '0 auto 10px'
     }
