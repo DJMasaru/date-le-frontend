@@ -8,16 +8,16 @@ import EditGirlsInfoCompleteButton from "@/components/editGirlsInfoCompleteButto
 const CheckGirlsInfoConfirmPage =()=>{
     const router = useRouter();
     const {girlsID,index, name, age,
-        // image_url,
+        image_url,
         occupation, address, birthday, character,
         feature_first,feature_second,feature_third, hobby, favorite_foods, dislike_foods,
         favorite_type_of_man, opportunity_to_meet, has_boyfriend,
         count_of_dates, notice} = router.query as {
         girlsID?:number,
-        index?:number;
+        index?:number,
         name?:string,
         age?:number,
-        // image_url,
+        image_url?:string,
         occupation?:string,
         address?:string,
         birthday?:string,
@@ -41,7 +41,7 @@ const CheckGirlsInfoConfirmPage =()=>{
     const contents = {
         width: '90%',
         display: 'flex',
-        height: '50px',
+        height: '75px',
         borderBottom: '1px dashed black',
         margin: '0 auto 10px'
     }
@@ -68,7 +68,7 @@ const CheckGirlsInfoConfirmPage =()=>{
                     <div　style={{ width: "95%",display:"flex",margin:"auto",justifyContent:"center",alignItems:"center" }}>
                         <Avatar
                             size={'lg'}
-                            // src={image_url}
+                            src={image_url}
                         />
                     </div>
                     <div style={contents}>
@@ -127,8 +127,6 @@ const CheckGirlsInfoConfirmPage =()=>{
                             <p>{character}</p>
                         </div>
                     </div>
-
-
                     <div style={contents}>
                         <div style={contentsName}>
                             <p style={{textAlign:"center"}}>特徴その①</p>
@@ -215,7 +213,7 @@ const CheckGirlsInfoConfirmPage =()=>{
                             index={index}
                             name={name}
                             age={age}
-                            // image_url={girlsInfo?.image_url}
+                            image_url={image_url}
                             occupation={occupation}
                             address={address}
                             birthday={birthday}

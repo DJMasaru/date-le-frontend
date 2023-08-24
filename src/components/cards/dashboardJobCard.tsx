@@ -1,8 +1,6 @@
 import {Avatar, Badge, Box, ChakraProvider, Flex, Spacer, useColorModeValue,} from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import theme from "@/theme";
 import React from "react";
-import { FaHeart } from "react-icons/fa6";
 import { FaCommentDots } from "react-icons/fa6";
 
 interface DashboardJobCardProps{
@@ -60,7 +58,7 @@ const DashboardJobCard = ({ index, name, age, occupation, image_url, feature_fir
             mt={1}
             mb={1}
             onClick={handleClick}
-            style={{ cursor: 'pointer' }}
+            style={{ cursor: 'pointer',minHeight:'195px' }}
         >
             <Flex alignItems="center">
                 <Avatar
@@ -74,7 +72,9 @@ const DashboardJobCard = ({ index, name, age, occupation, image_url, feature_fir
             </Flex>
             <p style={{textAlign:"right",fontWeight:"bold",color:"red"}}>＞</p>
             <p>{`${year}年${monthWithoutZero}月${dayWithoutZero}日`}  {`${hour}時${minute}分`}　</p>
+            {place_of_date && (
             <p>集合場所：{place_of_date}</p>
+                )}
             <Flex alignItems="center" justifyContent="space-between">
                 <div>
                 { features.map((feature, index) =>{
@@ -99,9 +99,7 @@ const DashboardJobCard = ({ index, name, age, occupation, image_url, feature_fir
             {friend_name &&
             <Flex alignItems="center" justifyContent="end">
                 <div>
-
                     <p style={{textAlign:"right",fontWeight:"bold"}}>{friend_name}のデート</p>
-
                 </div>
                 <div>
                     <Avatar

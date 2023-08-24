@@ -30,13 +30,17 @@ const EditUserProfileConfirmButton = ({userID, name, age, occupation, address, h
 
     const router = useRouter();
     const handleEditUserProfileConfirm =()=>{
+        if(name) {
             router.push({
                 pathname: '/profile/confirm',
-                query: {userID, name, age, occupation, address, hobby, girl_experiences,
-                    favorite_feature, favorite_date_time,birthday,
+                query: {
+                    userID, name, age, occupation, address, hobby, girl_experiences,
+                    favorite_feature, favorite_date_time, birthday,
                     favorite_date_place, favorite_clothes, favorite_character, favorite_age_range, notice,
                     image_url,
-                }});
+                }
+            });
+        }
     }
 
         return(
