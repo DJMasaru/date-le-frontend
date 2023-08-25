@@ -34,7 +34,6 @@ interface Girl{
     notice:string;
 }
 const GirlsInfoPage = () =>{
-    const [isMobile] = useMediaQuery("(max-width: 768px)");
     const router = useRouter();
     const index: string | undefined = typeof router.query.index === 'string' ? router.query.index : undefined;
     const [girlsInfo, setGirlsInfo] =useState<Girl | null>(null);
@@ -93,7 +92,7 @@ const GirlsInfoPage = () =>{
     const contents = {
         width: '90%',
         display: 'flex',
-        height: '50px',
+        height: '75px',
         borderBottom: '1px dashed black',
         margin: '10px auto 0px'
     }
@@ -104,7 +103,7 @@ const GirlsInfoPage = () =>{
         alignItems: 'center',
         width: '50%'
     }
-
+console.log(girlsInfo?.has_boyfriend);
     return(
         <>
             <div>
@@ -173,9 +172,7 @@ const GirlsInfoPage = () =>{
                                 count_of_dates={girlsInfo?.count_of_dates}
                                 notice={girlsInfo?.notice}
                             />
-
                         </div>
-
                     </div>
                     <div style={{display:"flex", justifyContent:"center"}}>
                         <MakeDateJobButton
@@ -293,7 +290,7 @@ const GirlsInfoPage = () =>{
                             </div>
                         </div>
                     )}
-                    {girlsInfo?.has_boyfriend  && (
+                    {girlsInfo?.has_boyfriend !== undefined && (
                         <div style={contents}>
                             <div style={contentsName}>
                                 <p style={{ textAlign: "center" }}>彼氏の有無</p>
