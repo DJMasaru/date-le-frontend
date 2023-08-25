@@ -26,5 +26,8 @@
     "react-query": "^3.39.3",
     "react-router-dom": "^6.11.2",
     "typescript": "5.0.4"
+  },
+  "devDependencies": {
+    "eslint": "^8.47.0"
   }
 }
