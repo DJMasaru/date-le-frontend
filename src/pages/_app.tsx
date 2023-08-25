@@ -20,8 +20,8 @@ const MyApp = ({ Component, pageProps }: Pages) => {
         }
     }, [router, router.pathname]);
 
-    axios.defaults.baseURL = 'http://localhost:8000';
-    // axios.defaults.baseURL = 'https://date-le-backend-production.up.railway.app';
+    // axios.defaults.baseURL = 'http://localhost:8000';
+    axios.defaults.baseURL = 'https://date-le-backend-production.up.railway.app/';
 
     return (
         <ChakraProvider>

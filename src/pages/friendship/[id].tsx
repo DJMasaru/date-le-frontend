@@ -60,7 +60,7 @@ const FriendInfoPage = () =>{
     const contents = {
         width: '90%',
         display: 'flex',
-        height: '50px',
+        height: '75px',
         borderBottom: '1px dashed black',
         margin: '10px auto 0px'
     }
