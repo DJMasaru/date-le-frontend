@@ -141,7 +141,7 @@ const DateDetailPage = () => {
                 console.error(error);
             }
         };
-
+console.log(selectedProfile)
 
     return (
         <>
@@ -158,7 +158,7 @@ const DateDetailPage = () => {
                             />
 
                             <Flex flexDirection="column" alignItems="start" marginLeft="1rem" display="flex">
-                                <p style={{fontWeight:"bold"}}>{selectedProfile?.name} {selectedProfile?.age !== undefined && <span>({selectedProfile?.age})</span>}</p>
+                                <p style={{fontWeight:"bold"}}>{selectedProfile?.name} {selectedProfile?.age !== null && <span>({selectedProfile?.age})</span>}</p>
                                 <p style={{color:"#555555"}}>{selectedProfile?.occupation}</p>
                             </Flex>
                         </Flex>
