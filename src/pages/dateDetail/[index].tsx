@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
 import React, {ChangeEvent, useEffect, useState} from "react";
 import axios from "axios";
-import theme from "@/theme";
 import {
     Avatar,
     Badge,
@@ -11,7 +10,6 @@ import {
     ModalContent, ModalFooter, ModalHeader,
     ModalOverlay, Textarea,
     useDisclosure,
-    useMediaQuery
 } from "@chakra-ui/react";
 import Header from "@/components/header";
 import Comment from "@/components/comment";
@@ -35,24 +33,26 @@ interface dateJob{
 }
 
 interface friendDateJob {
-    name: string;
-    date_jobs: {
-        comment_count: number;
-        date_of_date: string;
-        place_of_date: string;
-        time_of_date: string;
-        passion: string;
-        target: string;
-        girls_profile: {
-            age: number;
-            image_url: string;
-            name: string;
-            occupation: string;
-            feature_first: string;
-            feature_second: string;
-            feature_third: string;
-        };
-    }[];
+    time_of_date?:string;
+    date_of_date?:string;
+    place_of_date?:string;
+    comment_count?:number;
+    passion?:string;
+    target?:string;
+    girls_profile?:{
+        address?:string;
+        age?:number;
+        name?: string;
+        image_url?:string;
+        occupation?:string;
+        feature_first?:string;
+        feature_second?:string;
+        feature_third?:string;
+    };
+    user?:{
+        image_url?:string;
+        name?:string;
+    }
 }
 
 interface Comment {
@@ -80,8 +80,8 @@ const DateDetailPage = () => {
         setCommentValue(newValue);
     };
     // typeによって選択されるオブジェクトを定数に代入
-    const selectedProfile:any = type === 'friend' ? friendDateJob?.date_jobs[0].girls_profile : dateJob?.girls_profile;
-    const selectedDateJob: any = type === 'friend' ? friendDateJob?.date_jobs[0] : dateJob;
+    const selectedProfile:any = type === 'friend' ? friendDateJob?.girls_profile : dateJob?.girls_profile;
+    const selectedDateJob: any = type === 'friend' ? friendDateJob : dateJob;
     const features:any[] = [selectedProfile?.feature_first, selectedProfile?.feature_second, selectedProfile?.feature_third].filter(Boolean);
     //dateJobの初期値がカラのため、もしundefinedである場合に備える
     const timeParts: string[] | undefined = selectedDateJob?.time_of_date.split(':') || [];
@@ -158,7 +158,7 @@ const DateDetailPage = () => {
                             />
 
                             <Flex flexDirection="column" alignItems="start" marginLeft="1rem" display="flex">
-                                <p style={{fontWeight:"bold"}}>{selectedProfile?.name} ({selectedProfile?.age})</p>
+                                <p style={{fontWeight:"bold"}}>{selectedProfile?.name} {selectedProfile?.age !== undefined && <span>({selectedProfile?.age})</span>}</p>
                                 <p style={{color:"#555555"}}>{selectedProfile?.occupation}</p>
                             </Flex>
                         </Flex>

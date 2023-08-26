@@ -10,28 +10,38 @@ interface jobAndProfile {
     girls_profile: any;
     name: string;
     age: number;
-    occupation:string;
-    image_url:string;
+    occupation: string;
+    image_url: string;
     date_of_date: string;
     time_of_date: string;
     place_of_date: string
     comment_count: number;
 }
 
-interface friendsJobAndProfile{
-    date_jobs:any;
-    girls_profile:any;
-    name:string;
-    image_url:string;
-}
-
-interface user{
-    name:string;
+interface friendJobAndProfile{
+    time_of_date?:string;
+    date_of_date?:string;
+    place_of_date?:string;
+    comment_count?:number;
+    girls_profile?:{
+        address?:string;
+        age?:number;
+        name?: string;
+        image_url?:string;
+        occupation?:string;
+        feature_first?:string;
+        feature_second?:string;
+        feature_third?:string;
+    };
+    user?:{
+        image_url?:string;
+        name?:string;
+    }
 }
 
 const Dashboard =()=> {
     const [jobAndProfile, setJobAndProfile] = useState<jobAndProfile[]>([]);
-    const [friendsJobAndProfile, setFriendsJobAndProfile] = useState<friendsJobAndProfile[]>([]);
+    const [friendsJobAndProfile, setFriendsJobAndProfile] = useState<friendJobAndProfile[]>([]);
     const [selector,setSelector] = useState<string>('mine')
 
     useEffect(() => {
@@ -92,13 +102,19 @@ const Dashboard =()=> {
                                         key={index}
                                         friend='friend'
                                         index={index}
-                                        {...item2.date_jobs[0].girls_profile}
-                                        date_of_date={item2.date_jobs[0].date_of_date}
-                                        time_of_date={item2.date_jobs[0].time_of_date}
-                                        place_of_date={item2.date_jobs[0].place_of_date}
-                                        comment_count={item2.date_jobs[0].comment_count}
-                                        friend_name={item2.name}
-                                        friend_image_url={item2.image_url}
+                                        name={item2?.girls_profile?.name}
+                                        age={item2?.girls_profile?.age}
+                                        occupation={item2?.girls_profile?.occupation}
+                                        image_url={item2?.girls_profile?.image_url}
+                                        date_of_date={item2?.date_of_date}
+                                        time_of_date={item2?.time_of_date}
+                                        place_of_date={item2?.place_of_date}
+                                        comment_count={item2?.comment_count}
+                                        feature_first={item2?.girls_profile?.feature_first}
+                                        feature_second={item2?.girls_profile?.feature_second}
+                                        feature_third={item2?.girls_profile?.feature_third}
+                                        friend_name={item2.user?.name}
+                                        friend_image_url={item2?.user?.image_url}
                                     />
                                 );
                             })

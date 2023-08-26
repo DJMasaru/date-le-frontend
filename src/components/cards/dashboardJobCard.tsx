@@ -4,21 +4,21 @@ import React from "react";
 import { FaCommentDots } from "react-icons/fa6";
 
 interface DashboardJobCardProps{
-    index:number;
-    name: string;
-    age: number;
-    occupation:string;
-    image_url:string;
-    feature_first:string;
-    feature_second:string;
-    feature_third:string;
-    date_of_date: string;
-    time_of_date: string;
-    place_of_date: string
-    comment_count: number;
-    friend_name?: string;
-    friend?: string;
-    friend_image_url?:string;
+    index?:number|undefined;
+    name?: string|undefined;
+    age?: number|undefined;
+    occupation?:string|undefined;
+    image_url?:string|undefined;
+    feature_first?:string|undefined;
+    feature_second?:string|undefined;
+    feature_third?:string|undefined;
+    date_of_date?: string|undefined;
+    time_of_date?: string|undefined;
+    place_of_date?: string|undefined;
+    comment_count?: number|undefined;
+    friend_name?: string|undefined;
+    friend?: string|undefined;
+    friend_image_url?:string|undefined;
 }
 
 const DashboardJobCard = ({ index, name, age, occupation, image_url, feature_first, feature_second, feature_third,
@@ -26,16 +26,17 @@ const DashboardJobCard = ({ index, name, age, occupation, image_url, feature_fir
                               :DashboardJobCardProps) => {
 
     const router = useRouter();
-    const timeParts = time_of_date.split(':');
+    const timeParts = (time_of_date || '').split(':');
     const hour = timeParts[0];
     const minute = timeParts[1];
 
-    const dataParts = date_of_date.split('-');
+    const dataParts = (date_of_date || '').split('-');
     const year = dataParts[0];
     const month = dataParts[1];
     const monthWithoutZero = parseInt(month, 10).toString();
     const day = dataParts[2];
     const dayWithoutZero = parseInt(day, 10).toString();
+
 
     //値の存在を判定して値を格納
     const features = [feature_first, feature_second, feature_third].filter(Boolean);
