@@ -42,7 +42,7 @@ const GirlsInfoCard=({ index,image_url,name,age,occupation,
                     src={image_url}
                 />
                 <Flex flexDirection="column" alignItems="start" marginLeft="1rem" display="flex">
-                    <p style={{fontWeight:"bold"}}>{name} ({age}) <span style={{color:"#555555",marginLeft:"10px",fontWeight:"normal"}}>{occupation}</span></p>
+                    <p style={{fontWeight:"bold"}}>{name} {age && `(${age})`} <span style={{color:"#555555",marginLeft:"10px",fontWeight:"normal"}}>{occupation}</span></p>
                     <Flex alignItems="center" justifyContent="start" >
                         <div>
                             { features.map((feature, index) =>{
