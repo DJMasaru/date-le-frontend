@@ -43,4 +43,4 @@ ID：example@shinya.example　PW：exampleexample
 
 ・Railway.app
 
-　⚪︎MySQL
+　⚪︎MySQL 8.1.0
