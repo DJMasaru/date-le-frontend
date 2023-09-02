@@ -47,7 +47,8 @@ ID：example@shinya.example　PW：exampleexample
 
 # 構成図
 
-<img width="673" alt="構成図" src="https://github.com/DJMasaru/date-le-frontend/assets/91363928/05c1e200-6975-474a-85f3-55ec5b54f3a1">
+<img width="650" alt="スクリーンショット 2023-09-02 16 43 30" src="https://github.com/DJMasaru/date-le-frontend/assets/91363928/f12e5e31-5f65-404e-9077-7c5d258242de">
+
 
 # 機能一覧
 
