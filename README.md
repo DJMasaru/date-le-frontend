@@ -75,3 +75,8 @@ ID：example@shinya.example　PW：exampleexample
 ・接点のない人の検索機能
 
 ・自身のプロフィール編集/削除機能
+
+
+# テスト
+
+・FeatureTest（Controller）
