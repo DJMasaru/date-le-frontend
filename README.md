@@ -52,6 +52,8 @@ ID：example@shinya.example　PW：exampleexample
 
 # 機能一覧
 
+・リフレッシュ機能
+
 ・ユーザー登録機能
 
 ・ログイン機能
@@ -75,6 +77,18 @@ ID：example@shinya.example　PW：exampleexample
 ・接点のない人の検索機能
 
 ・自身のプロフィール編集/削除機能
+
+# CI/CD
+
+CI
+
+・GitHub Actions
+
+CD
+
+・Amplify(フロントエンド)
+
+・Railway.app(バックエンド)
 
 
 # テスト(記述途中)
