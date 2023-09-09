@@ -3,12 +3,18 @@ import RegisterBtn from "../../components/registerButton";
 import React, {useState,ChangeEvent} from "react";
 import { Input, Stack, Flex, Box, FormControl, FormErrorMessage } from '@chakra-ui/react';
 import GuestLogin from "@/components/guestLogin";
+import RefreshData from "@/components/refreshDataButton";
 const LoginPage =()=> {
     const [email, setEmail] = useState<string>("");
     const [emailError, setEmailError] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [passwordError, setPasswordError] = useState<string>("");
     const [message, setMessage] = useState('');
+
+    const [refreshMessage, setRefreshMessage] = useState<string>('');
+    const handleRefreshMessage = (newRefreshMessage: string) => {
+        setRefreshMessage(newRefreshMessage);
+    };
 
     const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
         setEmail(e.target.value);
@@ -56,7 +62,7 @@ const LoginPage =()=> {
                         <FormErrorMessage>{emailError}</FormErrorMessage>
                     </FormControl>
                     <FormControl isInvalid={!!passwordError}>
-                        <Input placeholder='パスワード' size='md'　value={password} onChange={handlePasswordChange} onBlur={validatePassword}/>
+                        <Input placeholder='パスワード' type="password" size='md'　value={password} onChange={handlePasswordChange} onBlur={validatePassword}/>
                         <FormErrorMessage>{passwordError}</FormErrorMessage>
                     </FormControl>
                 </Stack>
@@ -69,8 +75,12 @@ const LoginPage =()=> {
                         {message ? <p>{message}</p> : <p>&nbsp;</p>}
                     </div>
                 </Box>
-                <Box>
-                    <GuestLogin />
+                <GuestLogin />
+                <RefreshData onMessage={handleRefreshMessage}/>
+                <Box color="red">
+                    <div>
+                        {refreshMessage ? <p>{refreshMessage}</p> : <p>&nbsp;</p>}
+                    </div>
                 </Box>
             </Flex>
         </>
