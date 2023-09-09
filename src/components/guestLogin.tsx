@@ -23,6 +23,7 @@ const GuestLogin=()=>{
             colorScheme='gray'
             m={2}
             onClick={handleGuestLogin}
+            style={{width:"225px"}}
         >
             ゲストログインはこちら
         </Button>

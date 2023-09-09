@@ -23,6 +23,7 @@ const RefreshData=({onMessage}:RefreshDataProps)=>{
             colorScheme='gray'
             m={2}
             onClick={handleRefreshData}
+            style={{width:"225px"}}
         >
             データをリフレッシュする
         </Button>
