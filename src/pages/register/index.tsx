@@ -167,7 +167,7 @@ const RegisterPage =()=>{
                     <div style={contentsName}>
                         <Stack spacing={0}>
                             <FormControl isInvalid={!!againPassError}>
-                                <Input placeholder='パスワード再入力' size='md'　value={againPass.replace(/./g, '*')} onChange={handleAgainPasswordChange} onBlur={validateAgainPass}/>
+                                <Input placeholder='パスワード再入力' size='md'　type="password"  onChange={handleAgainPasswordChange} onBlur={validateAgainPass}/>
                                 <FormErrorMessage>{againPassError}</FormErrorMessage>
                             </FormControl>
                         </Stack>

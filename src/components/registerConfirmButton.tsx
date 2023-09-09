@@ -38,7 +38,7 @@ const RegisterConfirm = (props : RegisterConfirmProps) => {
                     },
                 });
                 let message ="";
-                message = response.data;
+                message = response.data.message;
                 if(message ==='duplicated'){
                     errors.emailDuplicated = "登録済のアドレスです。";
                 }

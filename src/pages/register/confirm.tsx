@@ -51,10 +51,9 @@ const ConfirmPage =()=>{
                     </div>
                     <div style={contentsName}>
                         <Text textAlign="center">
-                            {password ? password.replace(/./g, '*') : ''}
+                            {password ? password.replace(/./g, '・') : ''}
                         </Text>
                     </div>
-
                 </div>
                 <div style={contents}>
                     <div style={contentsName}>

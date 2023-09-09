@@ -51,9 +51,11 @@ const Header =()=>{
                 color="white"
             >
                 <Flex height="100%" alignItems="center" marginLeft="2.5rem" justifyContent="space-between">
-                    <Box height="100%" display="flex" alignItems="center">
-                        {userData && <Avatar size="md" src={userData.image_url} />}
-                    </Box>
+                    <Link href="/profile">
+                        <Box height="100%" display="flex" alignItems="center">
+                            {userData && <Avatar size="md" src={userData.image_url} />}
+                        </Box>
+                    </Link>
                     {userData &&  <p style={{ marginLeft: "1rem" }}>こんにちは、{userData.name}さん！</p>}
                     <div　style={{marginRight:"2rem",cursor:"pointer",width:"60px",display:"flex",alignItems:"center"}}>
                         <Menu>
