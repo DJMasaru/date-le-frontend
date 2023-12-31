@@ -13,7 +13,9 @@
 <img width="375" alt="スクリーンショット" src="https://github.com/DJMasaru/date-le-frontend/assets/91363928/4bf2bb19-3039-47da-ae0e-1c1808c107cb">
 
 # URL
-https://main.d2fv1fmmujqt0y.amplifyapp.com/login
+~~https://main.d2fv1fmmujqt0y.amplifyapp.com/login~~
+
+※Railway.app現在サブスク停止中。
 
 「ゲストログインはこちら」からお入りください。
 
